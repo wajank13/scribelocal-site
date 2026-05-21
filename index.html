@@ -512,6 +512,7 @@
   }
 
   .queue-item:hover { border-color: var(--border2); }
+  .queue-item.done { border-color: var(--border); opacity: 0.6; }
   .queue-name { font-size: 0.83em; color: var(--text2); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .queue-size { font-size: 0.72em; color: var(--text3); white-space: nowrap; font-family: 'DM Mono', monospace; }
 
@@ -552,6 +553,24 @@
     white-space: nowrap;
     font-family: 'DM Mono', monospace;
   }
+
+  /* ── Output format picker ── */
+  .fmt-grid { display: flex; flex-direction: column; gap: 6px; }
+  .fmt-opt {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 12px; border: 1px solid var(--border);
+    border-radius: 8px; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    background: var(--bg3);
+  }
+  .fmt-opt input[type="radio"] { display: none; }
+  .fmt-opt:hover { border-color: var(--border2); }
+  .fmt-opt:has(input:checked) { border-color: var(--amber-dim); background: var(--amber-glow); }
+  .fmt-ext {
+    font-family: 'DM Mono', monospace; font-size: 0.85em; font-weight: 500;
+    color: var(--amber); white-space: nowrap; min-width: 38px; padding-top: 2px;
+  }
+  .fmt-desc { font-size: 0.82em; color: var(--text2); line-height: 1.45; }
 
   /* ── Buttons ── */
   .btn {
@@ -986,6 +1005,33 @@
     </div>
   </div>
 
+  <!-- Output Format -->
+  <div class="card">
+    <div class="card-title">Output Format</div>
+    <div class="fmt-grid">
+      <label class="fmt-opt">
+        <input type="radio" name="outFmt" value="md" checked onchange="updateFmtBtn(this.value)">
+        <span class="fmt-ext">.md</span>
+        <span class="fmt-desc"><strong>Markdown</strong> — Best for AI agents, note-taking apps like Obsidian, and developers. Structured with headings and 5-minute timestamp sections.</span>
+      </label>
+      <label class="fmt-opt">
+        <input type="radio" name="outFmt" value="txt" onchange="updateFmtBtn(this.value)">
+        <span class="fmt-ext">.txt</span>
+        <span class="fmt-desc"><strong>Plain Text</strong> — Universal compatibility. Clean, simple text that opens in any app on any device.</span>
+      </label>
+      <label class="fmt-opt">
+        <input type="radio" name="outFmt" value="srt" onchange="updateFmtBtn(this.value)">
+        <span class="fmt-ext">.srt</span>
+        <span class="fmt-desc"><strong>SubRip Subtitles</strong> — Standard subtitle format for video editors (Premiere, DaVinci Resolve, CapCut) and YouTube caption uploads.</span>
+      </label>
+      <label class="fmt-opt">
+        <input type="radio" name="outFmt" value="vtt" onchange="updateFmtBtn(this.value)">
+        <span class="fmt-ext">.vtt</span>
+        <span class="fmt-desc"><strong>WebVTT</strong> — Web standard for HTML5 video captions. Use with your own video player or streaming setup.</span>
+      </label>
+    </div>
+  </div>
+
   <!-- Start -->
   <div class="card">
     <div class="card-title">Transcribe</div>
@@ -1142,13 +1188,15 @@ function renderQueue() {
   }
   el.innerHTML = queue.map(v => {
     const sz = v.file ? (v.file.size/1024/1024).toFixed(1)+' MB' : '';
-    return `<div class="queue-item">
-      <span class="queue-name">📄 ${v.name}</span>
+    const done = v.status === 'done';
+    return `<div class="queue-item${done ? ' done' : ''}">
+      <span class="queue-name">${done ? '✅' : '📄'} ${v.name}</span>
       <span class="queue-size">${sz}</span>
       ${!running ? `<button class="remove-btn" onclick="removeVideo('${v.id}')">✕ Remove</button>` : ''}
     </div>`;
   }).join('');
-  document.getElementById('startBtn').disabled = running || !queue.length;
+  const hasPending = queue.some(v => v.status === 'pending');
+  document.getElementById('startBtn').disabled = running || !hasPending;
 }
 
 window.removeVideo = id => { queue = queue.filter(v => v.id !== id); log('Removed from queue.'); renderQueue(); };
@@ -1176,7 +1224,7 @@ window.clearFolder = () => {
   document.getElementById('folderDisp').textContent = 'No folder selected — transcripts auto-download when complete';
 };
 
-window.downloadAll = () => queue.filter(v=>v.markdown).forEach(v=>autoDownload(v));
+window.downloadAll = () => { const fmt = getSelectedFormat(); queue.filter(v=>v.result).forEach(v=>autoDownload(v,fmt)); };
 
 async function decodeAudio(file) {
   const buf = await file.arrayBuffer();
@@ -1327,56 +1375,121 @@ function buildMd(filename, durationSec, result) {
   return md.trimEnd() + '\n';
 }
 
-function autoDownload(v) {
-  const blob = new Blob([v.markdown], {type:'text/markdown'});
-  const a = Object.assign(document.createElement('a'), {href:URL.createObjectURL(blob), download:v.filename});
-  a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
-  log('Downloaded: '+v.filename,'ok');
+const fmtSrtTime = s => { const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=Math.floor(s%60),ms=Math.round((s%1)*1000); return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')+','+String(ms).padStart(3,'0'); };
+const fmtVttTime = s => fmtSrtTime(s).replace(',','.');
+
+function buildTxt(filename, durationSec, result) {
+  const today = new Date().toISOString().split('T')[0];
+  const base = filename.replace(/\.[^.]+$/, '');
+  let out = base + '\n' + '='.repeat(Math.min(base.length, 60)) + '\n\n';
+  out += 'Date Processed: ' + today + '\n';
+  out += 'Source File: ' + filename + '\n';
+  out += 'Duration: ' + fmtTime(durationSec) + '\n';
+  out += 'Transcribed by: ScribeItLocal (https://www.scribeitlocal.com)\n\n';
+  if (result.segments && result.segments.length > 0) {
+    out += result.segments.map(s => s.text.trim()).join(' ');
+  } else {
+    out += result.text || 'No speech detected.';
+  }
+  return out.trimEnd() + '\n';
 }
 
-function renderVideoCards() {
+function buildSrt(filename, durationSec, result) {
+  const segs = result.segments && result.segments.length ? result.segments : null;
+  if (!segs) return '1\n00:00:00,000 --> ' + fmtSrtTime(durationSec) + '\n' + (result.text || 'No speech detected.') + '\n';
+  return segs.map((seg, i) => {
+    const end = segs[i+1]?.startSec ?? durationSec;
+    return (i+1) + '\n' + fmtSrtTime(seg.startSec) + ' --> ' + fmtSrtTime(end) + '\n' + seg.text.trim();
+  }).join('\n\n') + '\n';
+}
+
+function buildVtt(filename, durationSec, result) {
+  const segs = result.segments && result.segments.length ? result.segments : null;
+  let out = 'WEBVTT\n\n';
+  if (!segs) return out + '00:00:00.000 --> ' + fmtVttTime(durationSec) + '\n' + (result.text || 'No speech detected.') + '\n';
+  out += segs.map((seg, i) => {
+    const end = segs[i+1]?.startSec ?? durationSec;
+    return fmtVttTime(seg.startSec) + ' --> ' + fmtVttTime(end) + '\n' + seg.text.trim();
+  }).join('\n\n');
+  return out + '\n';
+}
+
+function buildContent(fmt, filename, durationSec, result) {
+  if (fmt === 'txt') return buildTxt(filename, durationSec, result);
+  if (fmt === 'srt') return buildSrt(filename, durationSec, result);
+  if (fmt === 'vtt') return buildVtt(filename, durationSec, result);
+  return buildMd(filename, durationSec, result);
+}
+
+function getSelectedFormat() {
+  return document.querySelector('input[name="outFmt"]:checked')?.value || 'md';
+}
+
+function updateFmtBtn(fmt) {
+  const btn = document.getElementById('dlAllBtn');
+  if (btn && btn.style.display !== 'none') btn.textContent = '⬇ Download All .' + fmt + ' Files';
+}
+
+function autoDownload(v, fmt) {
+  fmt = fmt || getSelectedFormat();
+  const base = v.name.replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9_\-(). ]/g,'_');
+  const filename = base + '.' + fmt;
+  const content = buildContent(fmt, v.name, v.durationSec, v.result);
+  const mime = fmt === 'vtt' ? 'text/vtt' : 'text/plain';
+  const blob = new Blob([content], {type: mime});
+  const a = Object.assign(document.createElement('a'), {href: URL.createObjectURL(blob), download: filename});
+  a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  log('Downloaded: ' + filename, 'ok');
+}
+
+function renderVideoCards(batch) {
   document.getElementById('progressCard').style.display = 'block';
-  document.getElementById('videoList').innerHTML = queue.map(v =>
+  document.getElementById('videoList').innerHTML = batch.map(v =>
     `<div class="video-item" id="card-${v.id}"><div class="video-name">📄 ${v.name}</div><div class="seg-row"></div><div class="video-status">Waiting...</div></div>`
   ).join('');
 }
 
 window.startAll = async () => {
-  if (!queue.length) return;
+  const batch = queue.filter(v => v.status === 'pending');
+  if (!batch.length) return;
   running = true;
   document.getElementById('startBtn').disabled = true;
   document.getElementById('dlAllBtn').style.display = 'none';
-  renderVideoCards(); renderQueue();
+  renderVideoCards(batch); renderQueue();
 
   try { await loadModel(); }
-  catch(e) { log('Model load failed: '+e.message,'err'); running=false; document.getElementById('startBtn').disabled=false; renderQueue(); return; }
+  catch(e) { log('Model load failed: '+e.message,'err'); running=false; renderQueue(); return; }
 
-  for (let i=0; i<queue.length; i++) {
-    const video = queue[i];
-    const result = await transcribeVideo(video, i, queue.length);
+  for (let i=0; i<batch.length; i++) {
+    const video = batch[i];
+    const result = await transcribeVideo(video, i, batch.length);
     if (!result) continue;
 
     const card = document.getElementById('card-'+video.id);
     const dur = video.audio ? video.audio.length/16000 : 0;
-    const md = buildMd(video.name, dur, result);
-    const safe = video.name.replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9_\-(). ]/g,'_') + '.md';
-    video.markdown=md; video.filename=safe; video.status='done';
+    video.result = result; video.durationSec = dur; video.status = 'done';
     card.classList.add('complete');
     const wordCount = result.text.trim().split(/\s+/).filter(Boolean).length;
     card.querySelector('.video-status').textContent = '✅ Complete — '+wordCount.toLocaleString()+' words transcribed';
 
+    const fmt = getSelectedFormat();
+    const base = video.name.replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9_\-(). ]/g,'_');
+    const filename = base + '.' + fmt;
+    const content = buildContent(fmt, video.name, dur, result);
+
     if (dirHandle) {
       try {
-        const fh = await dirHandle.getFileHandle(safe, {create:true});
-        const wr = await fh.createWritable(); await wr.write(md); await wr.close();
-        log('Saved → '+dirHandle.name+'/'+safe,'ok');
-      } catch(e) { log('Save failed: '+e.message,'warn'); autoDownload(video); }
-    } else { autoDownload(video); }
+        const fh = await dirHandle.getFileHandle(filename, {create:true});
+        const wr = await fh.createWritable(); await wr.write(content); await wr.close();
+        log('Saved → '+dirHandle.name+'/'+filename,'ok');
+      } catch(e) { log('Save failed: '+e.message,'warn'); autoDownload(video, fmt); }
+    } else { autoDownload(video, fmt); }
   }
 
-  setGlobal('✅ All files transcribed!'); setProgress(100);
-  document.getElementById('dlAllBtn').style.display = 'inline-block';
-  document.getElementById('startBtn').disabled = false;
+  setGlobal('✅ Batch complete — drop more files to continue or use Download All to re-export.'); setProgress(100);
+  const dlBtn = document.getElementById('dlAllBtn');
+  dlBtn.textContent = '⬇ Download All .' + getSelectedFormat() + ' Files';
+  dlBtn.style.display = 'inline-block';
   running = false; renderQueue();
 };
 
