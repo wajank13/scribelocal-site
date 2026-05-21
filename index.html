@@ -5,38 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- ═══════════════════════════════════════════════════════════
-     SEO META TAGS — ScribeLocal
+     SEO META TAGS — ScribeItLocal
      Update: description, og:url, og:image when you go live
      ═══════════════════════════════════════════════════════════ -->
-<title>ScribeLocal — Free Local AI Video & Audio Transcription Tool</title>
-<meta name="description" content="ScribeLocal is a 100% free, browser-based transcription tool powered by OpenAI Whisper. Transcribe MP4, MOV, MKV, MP3, WAV and more — entirely on your device. No uploads. No account. No account required.">
+<title>ScribeItLocal — Free Local AI Video & Audio Transcription Tool</title>
+<meta name="description" content="ScribeItLocal is a 100% free, browser-based transcription tool powered by OpenAI Whisper. Transcribe MP4, MOV, MKV, MP3, WAV and more — entirely on your device. No uploads. No account. No account required.">
 <meta name="keywords" content="free video transcription, local transcription tool, transcribe video to text, offline transcription, OpenAI Whisper browser, no upload transcription, free audio transcription, MP4 to text, transcribe video free, local whisper transcription, browser transcription tool, private transcription">
-<meta name="author" content="ScribeLocal by Janko Tech Ventures">
+<meta name="author" content="ScribeItLocal by Janko Tech Ventures">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.scribelocal.app/">
+<link rel="canonical" href="https://www.scribeitlocal.com/">
 
 <!-- Open Graph (social sharing) -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="ScribeLocal — Free Local Video & Audio Transcription">
+<meta property="og:title" content="ScribeItLocal — Free Local Video & Audio Transcription">
 <meta property="og:description" content="Transcribe video or audio files with AI running locally in your browser. No uploads. No account. Powered by OpenAI Whisper.">
-<meta property="og:url" content="https://www.scribelocal.app/">
-<meta property="og:image" content="https://www.scribelocal.app/og-image.png">
-<meta property="og:site_name" content="ScribeLocal">
+<meta property="og:url" content="https://www.scribeitlocal.com/">
+<meta property="og:image" content="https://www.scribeitlocal.com/og-image.png">
+<meta property="og:site_name" content="ScribeItLocal">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ScribeLocal — Free Local Video & Audio Transcription">
+<meta name="twitter:title" content="ScribeItLocal — Free Local Video & Audio Transcription">
 <meta name="twitter:description" content="100% free transcription that runs entirely on your machine. No uploads. No account. No account required.">
-<meta name="twitter:image" content="https://www.scribelocal.app/og-image.png">
+<meta name="twitter:image" content="https://www.scribeitlocal.com/og-image.png">
 
 <!-- Schema.org structured data for Google -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "ScribeLocal",
+  "name": "ScribeItLocal",
   "description": "Free browser-based video and audio transcription powered by OpenAI Whisper. Runs entirely on your device — nothing uploaded to any server.",
-  "url": "https://www.scribelocal.app",
+  "url": "https://www.scribeitlocal.com",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Chrome, Edge (WebGPU), Any modern browser",
   "offers": {
@@ -95,8 +95,8 @@
     --amber-dim: #78450a;
     --amber-glow:#f59e0b22;
     --text:      #e8eaf0;
-    --text2:     #8b93a8;
-    --text3:     #4a5268;
+    --text2:     #9da5bc;
+    --text3:     #6b7590;
     --green:     #22c55e;
     --red:       #ef4444;
     --blue:      #3b82f6;
@@ -216,8 +216,15 @@
   }
 
   .tagline {
-    font-size: 0.95em;
-    color: var(--text2);
+    font-size: 1.05em;
+    color: var(--text);
+    font-weight: 400;
+    margin-bottom: 4px;
+    padding-left: 58px;
+  }
+  .tagline-sub {
+    font-size: 0.88em;
+    color: var(--green);
     font-weight: 300;
     margin-bottom: 20px;
     padding-left: 58px;
@@ -856,11 +863,12 @@
     <div class="header-top">
       <div class="logo-row">
         <div class="logo-icon">✍️</div>
-        <div class="logo-text">Scribe<span>Local</span></div>
+        <div class="logo-text"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span></div>
       </div>
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
     </div>
-    <p class="tagline">Free local AI transcription. Runs on your machine. Nothing ever leaves your device.</p>
+    <p class="tagline">Private AI Transcription — Runs Entirely in Your Browser</p>
+    <p class="tagline-sub">No uploads. No account. Your files never leave your device.</p>
 
     <div class="trust-strip">
       <div class="trust-badge green"><span class="dot"></span> Free Core Transcription</div>
@@ -1005,7 +1013,7 @@
   <!-- Log -->
   <div class="card">
     <div class="card-title">Activity Log</div>
-    <div class="log" id="logEl"><span class="info">ScribeLocal ready — open in Chrome or Edge for WebGPU acceleration (40–50× faster).</span>&#10;</div>
+    <div class="log" id="logEl"><span class="info">ScribeItLocal ready — open in Chrome or Edge for WebGPU acceleration (40–50× faster).</span>&#10;</div>
   </div>
 
 
@@ -1038,8 +1046,8 @@
     <div class="support-inner">
       <span class="support-icon">☕</span>
       <div class="support-text">
-        <div class="support-title">Love ScribeLocal? Help keep it free.</div>
-        <div class="support-desc">ScribeLocal’s core transcription tool is free to use. If it saved you time, a small tip helps fund new features and more privacy-first local AI tools from Janko Tech Ventures.</div>
+        <div class="support-title">Love ScribeItLocal? Help keep it free.</div>
+        <div class="support-desc">ScribeItLocal’s core transcription tool is free to use. If it saved you time, a small tip helps fund new features and more privacy-first local AI tools from Janko Tech Ventures.</div>
       </div>
       <a class="support-btn" href="https://ko-fi.com/janktechventures" target="_blank" rel="noopener">Support this tool →</a>
     </div>
@@ -1047,7 +1055,7 @@
 
   <!-- ══ FOOTER ══════════════════════════════════════════════ -->
   <footer class="site-footer">
-    <div class="footer-brand">Scribe<span>Local</span></div>
+    <div class="footer-brand"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span> <span class="footer-tagline">— a product of <a href="https://janktechventures.com" target="_blank" rel="noopener">Janko Tech Ventures LLC</a></span></div>
     <div class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms</a>
@@ -1056,7 +1064,7 @@
       <a href="https://janktechventures.com">Janko Tech Ventures</a>
     </div>
     <div class="footer-note">
-      ScribeLocal uses OpenAI's Whisper model via the <a href="https://huggingface.co/docs/transformers.js" style="color:var(--amber);text-decoration:none;">Transformers.js</a> library to transcribe audio and video entirely within your browser. No audio data is transmitted to any server. Model weights are downloaded from Hugging Face and cached locally in your browser. This tool is provided free of charge — supported by unobtrusive ads.
+      ScribeItLocal uses OpenAI's Whisper model via the <a href="https://huggingface.co/docs/transformers.js" style="color:var(--amber);text-decoration:none;">Transformers.js</a> library to transcribe audio and video entirely within your browser. No audio data is transmitted to any server. Model weights are downloaded from Hugging Face and cached locally in your browser. This tool is provided free of charge — supported by unobtrusive ads.
     </div>
   </footer>
 
@@ -1297,7 +1305,7 @@ function buildMd(filename, durationSec, result) {
   md += '**Date Processed:** '+today+'  \n';
   md += '**Source File:** '+filename+'  \n';
   md += '**Duration:** '+fmtTime(durationSec)+'  \n';
-  md += '**Transcribed by:** [ScribeLocal](https://www.scribelocal.app) — Free local transcription  \n\n';
+  md += '**Transcribed by:** [ScribeItLocal](https://www.scribeitlocal.com) — Free local transcription  \n\n';
   md += '---\n\n## Full Transcription\n\n';
 
   if (result.segments && result.segments.length > 0) {
@@ -1374,7 +1382,7 @@ window.startAll = async () => {
 
 checkWebGPU();
 renderQueue();
-log('ScribeLocal ready — add video or audio files and click Start Transcription.','info');
+log('ScribeItLocal ready — add video or audio files and click Start Transcription.','info');
 </script>
 
 <script>

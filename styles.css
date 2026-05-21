@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   ScribeLocal — Global Stylesheet
+   ScribeItLocal — Global Stylesheet
    Covers: theme variables, layout, typography, nav, badges,
            cards, CTA, legal pages, footer, light/dark mode
    ═══════════════════════════════════════════════════════════ */
@@ -16,8 +16,8 @@
   --amber-dim:   #78450a;
   --amber-glow:  #f59e0b22;
   --text:        #e8eaf0;
-  --text2:       #8b93a8;
-  --text3:       #4a5268;
+  --text2:       #9da5bc;
+  --text3:       #6b7590;
   --green:       #22c55e;
   --red:         #ef4444;
   --blue:        #3b82f6;
@@ -129,6 +129,10 @@ body::before {
 }
 
 .logo-text span { color: var(--amber); }
+.logo-text .logo-it { color: var(--green); }
+.logo-text .logo-scribe,
+.footer-brand .logo-scribe { color: var(--text); }
+.footer-brand .logo-it { color: var(--green); }
 
 /* ── Theme toggle button ── */
 .theme-toggle {
@@ -366,6 +370,7 @@ strong { color: var(--text); }
 
 .footer-brand { font-family: 'Syne', sans-serif; font-size: 0.85em; font-weight: 700; color: var(--text3); }
 .footer-brand span { color: var(--amber); }
+.footer-tagline { font-size: 0.75em; font-weight: 400; color: var(--text3); }
 .footer-links { display: flex; gap: 16px; font-size: 0.78em; flex-wrap: wrap; }
 .footer-links a { color: var(--text3); text-decoration: none; transition: color 0.15s; }
 .footer-links a:hover { color: var(--amber); }
