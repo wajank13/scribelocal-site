@@ -1,0 +1,382 @@
+/* ═══════════════════════════════════════════════════════════
+   ScribeLocal — Global Stylesheet
+   Covers: theme variables, layout, typography, nav, badges,
+           cards, CTA, legal pages, footer, light/dark mode
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Theme variables: dark (default) ── */
+:root {
+  --bg:          #0a0c10;
+  --bg2:         #111318;
+  --bg3:         #181c24;
+  --border:      #1f2533;
+  --border2:     #2a3040;
+  --amber:       #f59e0b;
+  --amber2:      #fbbf24;
+  --amber-dim:   #78450a;
+  --amber-glow:  #f59e0b22;
+  --text:        #e8eaf0;
+  --text2:       #8b93a8;
+  --text3:       #4a5268;
+  --green:       #22c55e;
+  --red:         #ef4444;
+  --blue:        #3b82f6;
+  --purple:      #a78bfa;
+  --cta-start:   #1a1200;
+  --noise-op:    0.4;
+}
+
+/* ── Theme variables: light ── */
+/* html[data-theme] beats :root (type+attr 0,1,1 > pseudo-class 0,1,0) */
+html[data-theme="light"] {
+  --bg:          #f5f7fa;
+  --bg2:         #eceef3;
+  --bg3:         #e2e5ec;
+  --border:      #d0d5e2;
+  --border2:     #b8c0d4;
+  --amber:       #c47a04;
+  --amber2:      #d97706;
+  --amber-dim:   #fde68a;
+  --amber-glow:  #c47a0422;
+  --text:        #111318;
+  --text2:       #4a5268;
+  --text3:       #8b93a8;
+  --green:       #15803d;
+  --red:         #b91c1c;
+  --blue:        #1d4ed8;
+  --purple:      #6d28d9;
+  --cta-start:   #fef9ec;
+  --noise-op:    0.12;
+}
+
+/* ── Reset ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Body ── */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.7;
+  transition: background 0.25s, color 0.25s;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: var(--noise-op);
+}
+
+/* ── Page wrapper ── */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+}
+
+/* ── Topbar ── */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 0;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ── Logo ── */
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: var(--amber-glow);
+  border: 1.5px solid var(--amber-dim);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+  box-shadow: 0 0 18px var(--amber-glow);
+}
+
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.logo-text span { color: var(--amber); }
+
+/* ── Theme toggle button ── */
+.theme-toggle {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 7px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 1.05em;
+  line-height: 1;
+  color: var(--text2);
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--amber-dim);
+  background: var(--bg3);
+}
+
+/* ── "Open the tool" / back-link — styled as amber CTA button ── */
+.back-link {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88em;
+  font-weight: 700;
+  color: #0a0800;
+  background: var(--amber);
+  text-decoration: none;
+  border-radius: 7px;
+  padding: 9px 18px;
+  transition: all 0.15s;
+  white-space: nowrap;
+  box-shadow: 0 0 14px var(--amber-glow);
+  display: inline-block;
+}
+
+.back-link:hover {
+  background: var(--amber2);
+  box-shadow: 0 0 22px var(--amber-glow);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* ── Hero section ── */
+.hero {
+  padding: 44px 0 22px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 26px;
+}
+
+/* ── Typography ── */
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.05em;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+h1 span { color: var(--amber); }
+
+h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.25em;
+  font-weight: 700;
+  color: var(--text);
+  margin: 28px 0 10px;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+p  { color: var(--text2); margin-bottom: 14px; font-size: 1em; }
+ul, ol { color: var(--text2); margin: 0 0 16px 22px; font-size: 1em; }
+li { margin-bottom: 8px; }
+a  { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+strong { color: var(--text); }
+.lede { font-size: 1.08em; color: var(--text2); font-weight: 300; max-width: 760px; }
+
+/* ── Badges ── */
+.badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 0.8em;
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+.badge .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  flex-shrink: 0;
+}
+
+/* stat-strip used on about.html */
+.stat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 0 30px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 6px;
+}
+
+.stat-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 0.8em;
+  font-weight: 500;
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+.stat-badge .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  flex-shrink: 0;
+}
+
+/* ── Cards ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ── CTA section ── */
+.cta {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, var(--cta-start), var(--bg2));
+  border: 1px solid var(--amber-dim);
+  border-radius: 12px;
+  padding: 22px;
+  margin: 34px 0 10px;
+}
+
+.cta-text  { flex: 1; min-width: 200px; }
+.cta-title { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); font-size: 1.05em; margin-bottom: 4px; }
+.cta-sub   { font-size: 0.88em; color: var(--text2); }
+
+.cta-btn {
+  background: var(--amber);
+  color: #0a0800;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.92em;
+  padding: 12px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 0 20px var(--amber-glow);
+  transition: all 0.15s;
+}
+
+.cta-btn:hover {
+  background: var(--amber2);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* ── Legal page styles (privacy, terms) ── */
+.doc-head {
+  padding: 36px 0 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+
+.effective {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.8em;
+  color: var(--text3);
+}
+
+.tldr {
+  background: linear-gradient(135deg, var(--cta-start), var(--bg2));
+  border: 1px solid var(--amber-dim);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 30px;
+  font-size: 0.92em;
+  color: var(--text2);
+}
+
+.tldr strong { color: var(--amber2); font-family: 'Syne', sans-serif; }
+
+/* ── Footer ── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 26px 0 0;
+  margin-top: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-brand { font-family: 'Syne', sans-serif; font-size: 0.85em; font-weight: 700; color: var(--text3); }
+.footer-brand span { color: var(--amber); }
+.footer-links { display: flex; gap: 16px; font-size: 0.78em; flex-wrap: wrap; }
+.footer-links a { color: var(--text3); text-decoration: none; transition: color 0.15s; }
+.footer-links a:hover { color: var(--amber); }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  h1 { font-size: 1.7em; }
+}

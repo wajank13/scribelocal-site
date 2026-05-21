@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ═══════════════════════════════════════════════════════════
+     SEO META TAGS — ScribeLocal
+     Update: description, og:url, og:image when you go live
+     ═══════════════════════════════════════════════════════════ -->
+<title>ScribeLocal — Free Local AI Video & Audio Transcription Tool</title>
+<meta name="description" content="ScribeLocal is a 100% free, browser-based transcription tool powered by OpenAI Whisper. Transcribe MP4, MOV, MKV, MP3, WAV and more — entirely on your device. No uploads. No account. No account required.">
+<meta name="keywords" content="free video transcription, local transcription tool, transcribe video to text, offline transcription, OpenAI Whisper browser, no upload transcription, free audio transcription, MP4 to text, transcribe video free, local whisper transcription, browser transcription tool, private transcription">
+<meta name="author" content="ScribeLocal by Janko Tech Ventures">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.scribelocal.app/">
+
+<!-- Open Graph (social sharing) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ScribeLocal — Free Local Video & Audio Transcription">
+<meta property="og:description" content="Transcribe video or audio files with AI running locally in your browser. No uploads. No account. Powered by OpenAI Whisper.">
+<meta property="og:url" content="https://www.scribelocal.app/">
+<meta property="og:image" content="https://www.scribelocal.app/og-image.png">
+<meta property="og:site_name" content="ScribeLocal">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ScribeLocal — Free Local Video & Audio Transcription">
+<meta name="twitter:description" content="100% free transcription that runs entirely on your machine. No uploads. No account. No account required.">
+<meta name="twitter:image" content="https://www.scribelocal.app/og-image.png">
+
+<!-- Schema.org structured data for Google -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ScribeLocal",
+  "description": "Free browser-based video and audio transcription powered by OpenAI Whisper. Runs entirely on your device — nothing uploaded to any server.",
+  "url": "https://www.scribelocal.app",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Chrome, Edge (WebGPU), Any modern browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "100% local processing — nothing uploaded",
+    "Supports MP4, MOV, MKV, AVI, WEBM, MP3, WAV, M4A",
+    "Batch transcription — multiple files at once",
+    "OpenAI Whisper AI model",
+    "WebGPU acceleration for 40-50x real-time speed",
+    "Exports to Markdown with timestamps",
+    "No account required",
+    "Free core transcription"
+  ]
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     GOOGLE ANALYTICS GA4
+     Replace G-XXXXXXXXXX with your Measurement ID
+     Get it at: analytics.google.com → Admin → Data Streams
+     ═══════════════════════════════════════════════════════════ -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     GOOGLE ADSENSE
+     Replace ca-pub-XXXXXXXXXXXXXXXX with your Publisher ID
+     Get it at: adsense.google.com after approval
+     ═══════════════════════════════════════════════════════════ -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>(function(){var t=localStorage.getItem('sl-theme');if(t==='light')document.documentElement.dataset.theme='light';})();</script>
+
+<style>
+  :root {
+    --bg:        #0a0c10;
+    --bg2:       #111318;
+    --bg3:       #181c24;
+    --border:    #1f2533;
+    --border2:   #2a3040;
+    --amber:     #f59e0b;
+    --amber2:    #fbbf24;
+    --amber-dim: #78450a;
+    --amber-glow:#f59e0b22;
+    --text:      #e8eaf0;
+    --text2:     #8b93a8;
+    --text3:     #4a5268;
+    --green:     #22c55e;
+    --red:       #ef4444;
+    --blue:      #3b82f6;
+    --purple:    #a78bfa;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Noise texture overlay ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  /* ══════════════════════════════════
+     AD SLOTS
+  ══════════════════════════════════ */
+  .ad-slot {
+    background: var(--bg2);
+    border: 1px dashed var(--border2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7em;
+    letter-spacing: 0.05em;
+  }
+
+  /* Keep visible placeholder ad boxes hidden until AdSense is approved.
+     When you replace these blocks with real AdSense units, remove the ad-placeholder class. */
+  .ad-placeholder { display: none; }
+
+  /* Top leaderboard — 728×90, collapses on mobile */
+  .ad-top {
+    width: 100%;
+    max-width: 728px;
+    height: 90px;
+    margin: 16px auto 0;
+  }
+
+  /* Inline rectangle — 300×250, centered */
+  .ad-inline {
+    width: 300px;
+    height: 250px;
+    margin: 0 auto;
+  }
+
+  /* Bottom leaderboard */
+  .ad-bottom {
+    width: 100%;
+    max-width: 728px;
+    height: 90px;
+    margin: 32px auto 0;
+  }
+
+  /* ══════════════════════════════════
+     HEADER
+  ══════════════════════════════════ */
+  .site-header {
+    padding: 32px 0 0;
+    position: relative;
+  }
+
+  .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--amber-glow);
+    border: 1.5px solid var(--amber-dim);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px var(--amber-glow);
+  }
+
+  .logo-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.9em;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .logo-text span {
+    color: var(--amber);
+  }
+
+  .tagline {
+    font-size: 0.95em;
+    color: var(--text2);
+    font-weight: 300;
+    margin-bottom: 20px;
+    padding-left: 58px;
+  }
+
+  /* ── Hero trust badges ── */
+  .trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 0 24px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 999px;
+    padding: 5px 13px;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--text2);
+    white-space: nowrap;
+  }
+
+  .trust-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--amber);
+    flex-shrink: 0;
+    box-shadow: 0 0 6px var(--amber);
+  }
+
+  .trust-badge.green .dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .trust-badge.blue .dot  { background: var(--blue);  box-shadow: 0 0 6px var(--blue); }
+
+  /* ── Feature callout ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .feature-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .feature-card:hover { border-color: var(--border2); }
+
+  .feature-icon {
+    font-size: 1.4em;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88em;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .feature-desc {
+    font-size: 0.78em;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  /* ── Supported formats bar ── */
+  .formats-bar {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .formats-label {
+    font-size: 0.75em;
+    font-weight: 600;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .format-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .fmt-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72em;
+    font-weight: 500;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    padding: 3px 8px;
+    color: var(--amber2);
+  }
+
+  /* ══════════════════════════════════
+     TOOL CARDS
+  ══════════════════════════════════ */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border2); }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72em;
+    font-weight: 700;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Model grid ── */
+  .model-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  @media (max-width: 520px) {
+    .model-grid { grid-template-columns: 1fr; }
+  }
+
+  .model-card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--bg3);
+  }
+
+  .model-card:hover { border-color: var(--border2); }
+
+  .model-card.selected {
+    border-color: var(--amber);
+    background: #1a1400;
+    box-shadow: 0 0 0 1px var(--amber-dim), inset 0 0 20px var(--amber-glow);
+  }
+
+  .mc-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88em;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .mc-id {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68em;
+    color: var(--text3);
+    margin-bottom: 7px;
+  }
+
+  .mc-speed {
+    font-size: 0.8em;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  .mc-note {
+    font-size: 0.72em;
+    color: var(--text3);
+    margin-top: 3px;
+  }
+
+  .badge {
+    display: inline-block;
+    border-radius: 999px;
+    font-size: 0.68em;
+    padding: 2px 8px;
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    background: #1a0e35;
+    color: var(--purple);
+    border: 1px solid #3d2770;
+  }
+
+  .badge.gpu { background: #1a0e35; color: var(--purple); border-color: #3d2770; }
+  .badge.new { background: #052e16; color: #6ee7b7; border-color: #14532d; }
+  .badge.local { background: #1c1000; color: var(--amber); border-color: var(--amber-dim); }
+
+  #gpuStatus {
+    font-size: 0.75em;
+    margin-top: 10px;
+    color: var(--text3);
+    padding: 8px 12px;
+    background: var(--bg);
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+  }
+
+  #modelNote {
+    font-size: 0.74em;
+    color: var(--text3);
+    margin-top: 7px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── Drop zone ── */
+  .drop-zone {
+    border: 2px dashed var(--border2);
+    border-radius: 10px;
+    padding: 36px 20px;
+    text-align: center;
+    color: var(--text3);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--bg3);
+  }
+
+  .drop-zone:hover, .drop-zone.drag-over {
+    border-color: var(--amber);
+    background: #130f00;
+    color: var(--text2);
+    box-shadow: 0 0 30px var(--amber-glow);
+  }
+
+  .drop-zone-icon { font-size: 2.2em; margin-bottom: 10px; display: block; }
+  .drop-zone-main { font-weight: 500; color: var(--text2); margin-bottom: 4px; }
+  .drop-zone-sub  { font-size: 0.8em; color: var(--text3); }
+
+  input[type=file] { display: none; }
+
+  /* ── Queue ── */
+  .queue-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    margin-top: 8px;
+    transition: border-color 0.15s;
+  }
+
+  .queue-item:hover { border-color: var(--border2); }
+  .queue-name { font-size: 0.83em; color: var(--text2); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .queue-size { font-size: 0.72em; color: var(--text3); white-space: nowrap; font-family: 'DM Mono', monospace; }
+
+  .remove-btn {
+    background: #2d0a0a;
+    color: #fca5a5;
+    border: 1px solid #7f1d1d;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 0.72em;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    transition: background 0.15s;
+  }
+
+  .remove-btn:hover { background: #7f1d1d; }
+  .empty-msg { font-size: 0.82em; color: var(--text3); padding: 12px 0; text-align: center; font-style: italic; }
+
+  /* ── Folder picker ── */
+  .folder-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .folder-disp {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 7px 13px;
+    font-size: 0.8em;
+    color: var(--text3);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    background: var(--amber);
+    color: #0a0800;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.88em;
+    font-weight: 700;
+    font-family: 'Syne', sans-serif;
+    margin-right: 8px;
+    margin-top: 6px;
+    transition: all 0.15s;
+    letter-spacing: 0.01em;
+  }
+
+  .btn:hover:not(:disabled) {
+    background: var(--amber2);
+    box-shadow: 0 0 20px var(--amber-glow);
+  }
+
+  .btn:disabled { background: var(--bg3); color: var(--text3); cursor: not-allowed; border: 1px solid var(--border); }
+  .btn.sec { background: var(--bg3); color: var(--text2); border: 1px solid var(--border2); }
+  .btn.sec:hover:not(:disabled) { background: var(--border2); color: var(--text); }
+  .btn.grn { background: #15803d; color: white; }
+  .btn.grn:hover:not(:disabled) { background: #16a34a; box-shadow: 0 0 20px #22c55e22; }
+
+  /* ── Progress ── */
+  .progress-bar {
+    background: var(--bg);
+    border-radius: 999px;
+    height: 6px;
+    overflow: hidden;
+    margin: 12px 0 5px;
+    border: 1px solid var(--border);
+  }
+
+  .progress-fill {
+    background: linear-gradient(90deg, var(--amber), var(--amber2));
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s;
+    width: 0%;
+    box-shadow: 0 0 10px var(--amber-glow);
+  }
+
+  .status-line {
+    color: var(--text3);
+    font-size: 0.8em;
+    min-height: 18px;
+    margin-top: 3px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── Video progress cards ── */
+  .video-item {
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 14px;
+    margin: 8px 0;
+    background: var(--bg3);
+    transition: all 0.2s;
+  }
+
+  .video-item.complete { border-color: #166534; background: #020f06; }
+  .video-item.errored  { border-color: #7f1d1d; background: #0d0202; }
+
+  .video-name   { font-size: 0.88em; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+  .video-status { font-size: 0.77em; color: var(--text3); margin-top: 6px; font-family: 'DM Mono', monospace; }
+
+  .seg-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 9px; }
+  .seg-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border2); transition: background 0.3s; flex-shrink: 0; }
+  .seg-dot.active { background: var(--amber); animation: pulse 0.8s infinite; }
+  .seg-dot.done   { background: var(--green); }
+  .seg-dot.err    { background: var(--red); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* ── Log ── */
+  .log {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 0.76em;
+    color: var(--text3);
+    font-family: 'DM Mono', monospace;
+    max-height: 240px;
+    overflow-y: auto;
+    line-height: 1.7;
+  }
+
+  .log .ok    { color: var(--green); }
+  .log .err   { color: var(--red); }
+  .log .info  { color: var(--blue); }
+  .log .warn  { color: var(--amber); }
+  .log .debug { color: var(--purple); }
+
+  /* ── Footer ── */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0 0;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text3);
+  }
+
+  .footer-brand span { color: var(--amber); }
+
+  .footer-links {
+    display: flex;
+    gap: 16px;
+    font-size: 0.78em;
+    color: var(--text3);
+  }
+
+  .footer-links a {
+    color: var(--text3);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .footer-links a:hover { color: var(--amber); }
+
+  .footer-note {
+    width: 100%;
+    font-size: 0.73em;
+    color: var(--text3);
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    line-height: 1.6;
+  }
+
+  /* ── Browser compat note ── */
+  .compat-note {
+    background: #1a1200;
+    border: 1px solid var(--amber-dim);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.78em;
+    color: var(--amber2);
+    margin-bottom: 16px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+
+  /* ── SEO / resource links ── */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 10px;
+  }
+  .resource-link {
+    display: block;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text2);
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .resource-link:hover {
+    border-color: var(--amber-dim);
+    color: var(--amber);
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+  .resource-link strong {
+    display: block;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9em;
+    margin-bottom: 3px;
+  }
+  .resource-link span {
+    font-size: 0.76em;
+    color: var(--text3);
+  }
+
+  /* ── Support / donations ── */
+  .support-card {
+    background: linear-gradient(135deg, #1a1200, var(--bg2));
+    border-color: var(--amber-dim);
+  }
+
+  .support-inner {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .support-icon {
+    font-size: 2.1em;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 12px var(--amber-glow));
+  }
+
+  .support-text { flex: 1; min-width: 220px; }
+
+  .support-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05em;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+
+  .support-desc {
+    font-size: 0.83em;
+    color: var(--text2);
+    line-height: 1.55;
+  }
+
+  .support-btn {
+    background: var(--amber);
+    color: #0a0800;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.9em;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.15s;
+    box-shadow: 0 0 20px var(--amber-glow);
+  }
+
+  .support-btn:hover {
+    background: var(--amber2);
+    box-shadow: 0 0 30px var(--amber-glow);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 600px) {
+    .support-inner { flex-direction: column; text-align: center; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+  /* ── Header top row (logo + theme toggle) ── */
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  /* ── Light mode overrides for hardcoded dark colours ── */
+  [data-theme="light"] body::before { opacity: 0.12; }
+  [data-theme="light"] body { transition: background 0.25s, color 0.25s; }
+  [data-theme="light"] .model-card.selected { background: #fefce8; box-shadow: 0 0 0 1px #fde68a, inset 0 0 20px #d9770622; }
+  [data-theme="light"] .drop-zone:hover,
+  [data-theme="light"] .drop-zone.drag-over { background: #fffbeb; box-shadow: 0 0 30px #d9770622; }
+  [data-theme="light"] .video-item.complete { border-color: #166534; background: #f0fdf4; }
+  [data-theme="light"] .video-item.errored  { border-color: #b91c1c; background: #fef2f2; }
+  [data-theme="light"] .remove-btn { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
+  [data-theme="light"] .remove-btn:hover { background: #fca5a5; }
+  [data-theme="light"] .compat-note { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+  [data-theme="light"] .support-card { background: linear-gradient(135deg, #fef9ec, var(--bg2)); }
+  [data-theme="light"] .badge.gpu { background: #ede9fe; color: #6d28d9; border-color: #c4b5fd; }
+  [data-theme="light"] .badge.new { background: #dcfce7; color: #15803d; border-color: #86efac; }
+  [data-theme="light"] .badge.local { background: #fef9ec; color: #92400e; border-color: #fde68a; }
+  [data-theme="light"] .resource-link { background: var(--bg2); }
+  [data-theme="light"] .btn.grn { background: #16a34a; }
+  [data-theme="light"] .btn.grn:hover:not(:disabled) { background: #15803d; }
+
+  @media (max-width: 600px) {
+    .logo-text { font-size: 1.5em; }
+    .tagline { padding-left: 0; }
+    .feature-grid { grid-template-columns: 1fr 1fr; }
+    .ad-top, .ad-bottom { height: 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ══ TOP AD SLOT ════════════════════════════════════════ -->
+  <!-- Replace this div's contents with your AdSense ad unit code -->
+  <div class="ad-slot ad-top ad-placeholder">
+    <!-- AdSense Leaderboard 728×90 — replace with your ad unit -->
+    <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
+    AD SLOT · 728×90 · Top Leaderboard
+  </div>
+
+  <!-- ══ HEADER ═════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-top">
+      <div class="logo-row">
+        <div class="logo-icon">✍️</div>
+        <div class="logo-text">Scribe<span>Local</span></div>
+      </div>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
+    </div>
+    <p class="tagline">Free local AI transcription. Runs on your machine. Nothing ever leaves your device.</p>
+
+    <div class="trust-strip">
+      <div class="trust-badge green"><span class="dot"></span> Free Core Transcription</div>
+      <div class="trust-badge green"><span class="dot"></span> Nothing Uploaded</div>
+      <div class="trust-badge green"><span class="dot"></span> No Account Required</div>
+      <div class="trust-badge"><span class="dot"></span> Batch Transcription</div>
+      <div class="trust-badge blue"><span class="dot"></span> Works in Chrome &amp; Edge</div>
+      <div class="trust-badge blue"><span class="dot"></span> WebGPU Accelerated</div>
+      <div class="trust-badge"><span class="dot"></span> Powered by OpenAI Whisper</div>
+    </div>
+  </header>
+
+  <!-- ══ FEATURE GRID ═══════════════════════════════════════ -->
+  <div class="feature-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🔒</span>
+      <div class="feature-title">100% Private</div>
+      <div class="feature-desc">Your files never leave your computer. The AI model runs entirely in your browser — no server, no cloud, no surveillance.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <div class="feature-title">Blazing Fast</div>
+      <div class="feature-desc">WebGPU acceleration delivers up to 50× real-time transcription speed. A 10-minute video in under 20 seconds.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📂</span>
+      <div class="feature-title">Batch Multiple Files</div>
+      <div class="feature-desc">Queue up as many files as you need and transcribe them all in one shot. Walk away and come back to finished transcripts.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💰</span>
+      <div class="feature-title">Actually Free</div>
+      <div class="feature-desc">No forced account, no upload fees, and no cloud transcription credits. Core transcription is free to use — supported by optional tips and unobtrusive ads.</div>
+    </div>
+  </div>
+
+  <!-- ══ SUPPORTED FORMATS ══════════════════════════════════ -->
+  <div class="formats-bar">
+    <span class="formats-label">Supported Formats</span>
+    <div class="format-tags">
+      <span class="fmt-tag">MP4</span>
+      <span class="fmt-tag">MOV</span>
+      <span class="fmt-tag">MKV</span>
+      <span class="fmt-tag">AVI</span>
+      <span class="fmt-tag">WEBM</span>
+      <span class="fmt-tag">MP3</span>
+      <span class="fmt-tag">WAV</span>
+      <span class="fmt-tag">M4A</span>
+    </div>
+  </div>
+
+  <!-- ══ BROWSER COMPAT NOTE ═══════════════════════════════ -->
+  <div class="compat-note">
+    ⚡ <span><strong>Best experience in Chrome or Edge</strong> — WebGPU gives you 40–50× real-time speed. Firefox users: select the CPU fallback model below. Safari is not supported.</span>
+  </div>
+
+  <!-- ══ TOOL ══════════════════════════════════════════════ -->
+
+  <!-- Model selector -->
+  <div class="card">
+    <div class="card-title">Model &amp; Speed</div>
+    <div class="model-grid">
+      <div class="model-card selected" id="mc-tiny-gpu" onclick="selectModel('tiny-gpu')">
+        <div class="mc-title">🚀 Tiny — WebGPU <span class="badge gpu">GPU</span></div>
+        <div class="mc-id">Xenova/whisper-tiny.en</div>
+        <div class="mc-speed">~40–50× real-time ⭐ Recommended</div>
+        <div class="mc-note">~40 MB · Fastest · English only</div>
+      </div>
+      <div class="model-card" id="mc-base-gpu" onclick="selectModel('base-gpu')">
+        <div class="mc-title">⭐ Base — WebGPU <span class="badge gpu">GPU</span></div>
+        <div class="mc-id">Xenova/whisper-base.en</div>
+        <div class="mc-speed">~20–30× real-time on GPU</div>
+        <div class="mc-note">~75 MB · Better accuracy · English only</div>
+      </div>
+      <div class="model-card" id="mc-turbo-gpu" onclick="selectModel('turbo-gpu')">
+        <div class="mc-title">🎯 Turbo — WebGPU <span class="badge gpu">GPU</span> <span class="badge new">NEW</span></div>
+        <div class="mc-id">onnx-community/whisper-large-v3-turbo</div>
+        <div class="mc-speed">~10–15× real-time on GPU</div>
+        <div class="mc-note">~200 MB · Best accuracy on GPU</div>
+      </div>
+      <div class="model-card" id="mc-base-cpu" onclick="selectModel('base-cpu')">
+        <div class="mc-title">🖥 Base — CPU Fallback</div>
+        <div class="mc-id">Xenova/whisper-base.en (q8)</div>
+        <div class="mc-speed">~4–6× real-time on CPU</div>
+        <div class="mc-note">~75 MB · Use if GPU fails or on Firefox</div>
+      </div>
+    </div>
+    <div id="gpuStatus">Checking WebGPU support...</div>
+    <div id="modelNote">Model downloads once and caches in your browser — no re-download needed.</div>
+  </div>
+
+  <!-- File drop -->
+  <div class="card">
+    <div class="card-title">Add Files</div>
+    <div class="drop-zone" id="dropZone"
+      onclick="document.getElementById('fileInput').click()"
+      ondragover="event.preventDefault();this.classList.add('drag-over')"
+      ondragleave="this.classList.remove('drag-over')"
+      ondrop="handleDrop(event)">
+      <span class="drop-zone-icon">📁</span>
+      <div class="drop-zone-main">Click to browse, or drag &amp; drop files here</div>
+      <div class="drop-zone-sub">Add multiple files at once · MP4 · MOV · MKV · AVI · WEBM · MP3 · WAV · M4A</div>
+    </div>
+    <input type="file" id="fileInput" accept="video/*,audio/*,.mkv,.avi,.mov,.webm,.mp4,.mp3,.wav,.m4a" multiple onchange="handleFiles(this.files)">
+    <div id="queueList"></div>
+  </div>
+
+  <!-- Save location -->
+  <div class="card">
+    <div class="card-title">Save Location <span style="font-size:0.85em;color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">(Chrome/Edge only)</span></div>
+    <div class="folder-row">
+      <div class="folder-disp" id="folderDisp">No folder selected — transcripts auto-download when complete</div>
+      <button class="btn sec" onclick="pickFolder()">📁 Choose Folder</button>
+      <button class="btn sec" onclick="clearFolder()">✕</button>
+    </div>
+  </div>
+
+  <!-- Start -->
+  <div class="card">
+    <div class="card-title">Transcribe</div>
+    <button class="btn" id="startBtn" onclick="startAll()" disabled>▶ Start Transcription</button>
+    <button class="btn grn" id="dlAllBtn" style="display:none" onclick="downloadAll()">⬇ Download All .md Files</button>
+    <div class="progress-bar"><div class="progress-fill" id="globalProg"></div></div>
+    <div class="status-line" id="globalStatus">Add video or audio files above to get started.</div>
+  </div>
+
+  <!-- Per-video progress -->
+  <div class="card" id="progressCard" style="display:none">
+    <div class="card-title">Progress</div>
+    <div id="videoList"></div>
+  </div>
+
+  <!-- ══ INLINE AD SLOT ═════════════════════════════════════ -->
+  <div style="margin: 8px 0 16px; text-align:center;">
+    <div class="ad-slot ad-inline ad-placeholder">
+      <!-- AdSense Rectangle 300×250 — replace with your ad unit -->
+      <!-- <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
+      AD SLOT · 300×250 · Rectangle
+    </div>
+  </div>
+
+  <!-- Log -->
+  <div class="card">
+    <div class="card-title">Activity Log</div>
+    <div class="log" id="logEl"><span class="info">ScribeLocal ready — open in Chrome or Edge for WebGPU acceleration (40–50× faster).</span>&#10;</div>
+  </div>
+
+
+  <!-- ══ POPULAR USE CASES / SEO LINKS ═════════════════════ -->
+  <div class="card">
+    <div class="card-title">Popular Local AI Transcription Uses</div>
+    <div class="resource-grid">
+      <a class="resource-link" href="transcribe-mp4-to-text.html">
+        <strong>Transcribe MP4 to Text</strong>
+        <span>Turn video files into private local transcripts.</span>
+      </a>
+      <a class="resource-link" href="transcribe-audio-to-text-free.html">
+        <strong>Transcribe Audio to Text</strong>
+        <span>Convert MP3, WAV, and M4A files locally.</span>
+      </a>
+      <a class="resource-link" href="offline-transcription-tool.html">
+        <strong>Offline-First Transcription</strong>
+        <span>No uploads, no account, no cloud transcription server.</span>
+      </a>
+      <a class="resource-link" href="ai-local-transcription.html">
+        <strong>Local AI Transcription</strong>
+        <span>AI that runs in your browser, on your device.</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ══ SUPPORT / DONATIONS ════════════════════════════════ -->
+  <!-- Replace the ko-fi.com/janktechventures URL (2 places: button + footer) with your real Ko-fi handle once the page is created -->
+  <div class="card support-card">
+    <div class="support-inner">
+      <span class="support-icon">☕</span>
+      <div class="support-text">
+        <div class="support-title">Love ScribeLocal? Help keep it free.</div>
+        <div class="support-desc">ScribeLocal’s core transcription tool is free to use. If it saved you time, a small tip helps fund new features and more privacy-first local AI tools from Janko Tech Ventures.</div>
+      </div>
+      <a class="support-btn" href="https://ko-fi.com/janktechventures" target="_blank" rel="noopener">Support this tool →</a>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-brand">Scribe<span>Local</span></div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="about.html">About</a>
+      <a href="https://ko-fi.com/janktechventures" target="_blank" rel="noopener">Support</a>
+      <a href="https://janktechventures.com">Janko Tech Ventures</a>
+    </div>
+    <div class="footer-note">
+      ScribeLocal uses OpenAI's Whisper model via the <a href="https://huggingface.co/docs/transformers.js" style="color:var(--amber);text-decoration:none;">Transformers.js</a> library to transcribe audio and video entirely within your browser. No audio data is transmitted to any server. Model weights are downloaded from Hugging Face and cached locally in your browser. This tool is provided free of charge — supported by unobtrusive ads.
+    </div>
+  </footer>
+
+  <!-- ══ BOTTOM AD SLOT ════════════════════════════════════ -->
+  <div class="ad-slot ad-bottom ad-placeholder" style="margin-top:24px;">
+    <!-- AdSense Leaderboard 728×90 — replace with your ad unit -->
+    <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
+    AD SLOT · 728×90 · Bottom Leaderboard
+  </div>
+
+</div><!-- /page-wrap -->
+
+<!-- ══ TOOL SCRIPT (unchanged logic) ════════════════════════ -->
+<script type="module">
+import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.4.0';
+env.allowLocalModels = false;
+
+const MODELS = {
+  'tiny-gpu':  { id: 'Xenova/whisper-tiny.en',                device: 'webgpu', dtype: 'fp32' },
+  'base-gpu':  { id: 'Xenova/whisper-base.en',                device: 'webgpu', dtype: 'fp32' },
+  'turbo-gpu': { id: 'onnx-community/whisper-large-v3-turbo', device: 'webgpu', dtype: { encoder_model: 'fp16', decoder_model_merged: 'fp16' } },
+  'base-cpu':  { id: 'Xenova/whisper-base.en',                device: 'wasm',   dtype: 'q8' },
+};
+
+let selectedKey = 'tiny-gpu';
+let pipe = null;
+let loadedCfg = null;
+let dirHandle = null;
+let queue = [];
+let running = false;
+
+const yieldFrame = () => new Promise(r => setTimeout(r, 0));
+const fmtTime = s => String(Math.floor(s/60)).padStart(2,'0') + ':' + String(Math.floor(s%60)).padStart(2,'0');
+
+async function checkWebGPU() {
+  const el = document.getElementById('gpuStatus');
+  if (!navigator.gpu) {
+    el.textContent = '⚠ WebGPU not available — select the CPU Fallback model above, or upgrade to Chrome 113+.';
+    el.style.color = '#f59e0b'; return;
+  }
+  try {
+    const adapter = await navigator.gpu.requestAdapter();
+    if (!adapter) throw new Error('no adapter');
+    const desc = adapter.info?.description || adapter.info?.device || 'GPU detected';
+    el.textContent = '✅ WebGPU ready — ' + desc + '. GPU models will be 30–50× faster than CPU.';
+    el.style.color = '#22c55e';
+  } catch(e) {
+    el.textContent = '⚠ WebGPU unavailable — select CPU Fallback above.';
+    el.style.color = '#f59e0b';
+  }
+}
+
+window.selectModel = key => {
+  selectedKey = key;
+  document.querySelectorAll('.model-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('mc-' + key).classList.add('selected');
+  pipe = null;
+};
+
+function log(msg, type='info') {
+  const el = document.getElementById('logEl');
+  const s = document.createElement('span');
+  s.className = type;
+  s.textContent = new Date().toLocaleTimeString() + '  ' + msg + '\n';
+  el.appendChild(s); el.scrollTop = el.scrollHeight;
+}
+const setGlobal = t => document.getElementById('globalStatus').textContent = t;
+const setProgress = p => document.getElementById('globalProg').style.width = Math.min(100,p) + '%';
+
+function renderQueue() {
+  const el = document.getElementById('queueList');
+  if (!queue.length) {
+    el.innerHTML = '<div class="empty-msg">No files added yet — drop any video or audio file above.</div>';
+    document.getElementById('startBtn').disabled = true; return;
+  }
+  el.innerHTML = queue.map(v => {
+    const sz = v.file ? (v.file.size/1024/1024).toFixed(1)+' MB' : '';
+    return `<div class="queue-item">
+      <span class="queue-name">📄 ${v.name}</span>
+      <span class="queue-size">${sz}</span>
+      ${!running ? `<button class="remove-btn" onclick="removeVideo('${v.id}')">✕ Remove</button>` : ''}
+    </div>`;
+  }).join('');
+  document.getElementById('startBtn').disabled = running || !queue.length;
+}
+
+window.removeVideo = id => { queue = queue.filter(v => v.id !== id); log('Removed from queue.'); renderQueue(); };
+window.handleDrop = e => { e.preventDefault(); document.getElementById('dropZone').classList.remove('drag-over'); handleFiles(e.dataTransfer.files); };
+window.handleFiles = files => {
+  for (const f of files) {
+    if (queue.find(v => v.name === f.name)) { log('Already queued: '+f.name,'warn'); continue; }
+    const id = 'v'+Date.now()+Math.random().toString(36).slice(2,5);
+    queue.push({id, name:f.name, file:f, status:'pending', markdown:'', filename:'', audio:null});
+    log('Added: '+f.name);
+  }
+  renderQueue();
+};
+
+window.pickFolder = async () => {
+  try {
+    dirHandle = await window.showDirectoryPicker({mode:'readwrite'});
+    document.getElementById('folderDisp').textContent = '📁 ' + dirHandle.name + '/';
+    log('Output folder: '+dirHandle.name,'ok');
+  } catch(e) { if(e.name!=='AbortError') log('Folder picker: '+e.message,'err'); }
+};
+
+window.clearFolder = () => {
+  dirHandle = null;
+  document.getElementById('folderDisp').textContent = 'No folder selected — transcripts auto-download when complete';
+};
+
+window.downloadAll = () => queue.filter(v=>v.markdown).forEach(v=>autoDownload(v));
+
+async function decodeAudio(file) {
+  const buf = await file.arrayBuffer();
+  const tmp = new AudioContext();
+  let decoded;
+  try { decoded = await tmp.decodeAudioData(buf); } finally { await tmp.close(); }
+  const SR=16000, len=Math.ceil(decoded.duration*SR);
+  const off = new OfflineAudioContext(1, len, SR);
+  const src = off.createBufferSource();
+  src.buffer=decoded; src.connect(off.destination); src.start(0);
+  return (await off.startRendering()).getChannelData(0);
+}
+
+async function loadModel() {
+  if (pipe) return;
+  const cfg = MODELS[selectedKey];
+  log('Loading '+cfg.id+' on '+cfg.device.toUpperCase()+'...','info');
+  try {
+    pipe = await pipeline('automatic-speech-recognition', cfg.id, {
+      device: cfg.device,
+      dtype: cfg.dtype,
+      progress_callback: p => {
+        if (p.status==='progress'||p.status==='downloading') {
+          const pct = p.total ? Math.round((p.loaded||0)/p.total*100) : 0;
+          document.getElementById('modelNote').textContent = 'Downloading '+(p.file||'')+'... '+pct+'%';
+          setProgress(pct*0.15);
+        }
+      }
+    });
+    loadedCfg = cfg;
+    document.getElementById('modelNote').textContent = cfg.device==='webgpu' ? '✓ Model running on GPU' : '✓ Model running on CPU (q8)';
+    log('Model ready ✓','ok');
+  } catch(e) {
+    if (cfg.device==='webgpu') {
+      log('GPU load failed ('+e.message+'), retrying on CPU...','warn');
+      pipe = await pipeline('automatic-speech-recognition', cfg.id, { device:'wasm', dtype:'q8',
+        progress_callback: p => { if(p.status==='progress'||p.status==='downloading') { const pct=p.total?Math.round((p.loaded||0)/p.total*100):0; document.getElementById('modelNote').textContent='Downloading '+(p.file||'')+'... '+pct+'%'; } }
+      });
+      loadedCfg = { ...cfg, device: 'wasm' };
+      document.getElementById('modelNote').textContent = '✓ Running on CPU (GPU unavailable)';
+      log('Loaded on CPU ✓','ok');
+    } else { throw e; }
+  }
+}
+
+async function transcribeVideo(video, vidIdx, total) {
+  const card = document.getElementById('card-'+video.id);
+  const setStatus = s => { if(card) card.querySelector('.video-status').textContent = s; };
+
+  setStatus('Decoding audio...'); log('Decoding: '+video.name); await yieldFrame();
+  let audio;
+  try {
+    audio = await decodeAudio(video.file); video.audio = audio;
+    log('Decoded '+fmtTime(audio.length/16000)+' @ 16 kHz','ok');
+  } catch(e) {
+    log('Decode failed: '+e.message,'err'); setStatus('✗ '+e.message);
+    if(card) card.classList.add('errored'); return null;
+  }
+
+  const CHUNK=60*16000, STRIDE=6*16000, STEP=CHUNK-STRIDE;
+  const numChunks = Math.ceil((audio.length-STRIDE)/STEP);
+  const dotRow = card?.querySelector('.seg-row');
+  if(dotRow) dotRow.innerHTML = Array.from({length:numChunks},(_,i)=>`<div class="seg-dot" id="dot-${video.id}-${i}"></div>`).join('');
+  log('Transcribing '+numChunks+' × 60s segments...','info');
+
+  const t0 = Date.now();
+  const collectedTexts = [];
+
+  for (let i=0; i<numChunks; i++) {
+    const startSample = i*STEP;
+    const endSample   = Math.min(startSample+CHUNK, audio.length);
+    const chunk       = audio.slice(startSample, endSample);
+    const startSec    = startSample/16000;
+
+    const dot = document.getElementById('dot-'+video.id+'-'+i);
+    if(dot) dot.className = 'seg-dot active';
+    setStatus('Segment '+(i+1)+'/'+numChunks+' — '+fmtTime(startSec)+'...');
+    setGlobal('File '+(vidIdx+1)+'/'+total+' · segment '+(i+1)+'/'+numChunks);
+    await yieldFrame();
+
+    try {
+      const t1 = Date.now();
+      const isMultilingual = loadedCfg ? !loadedCfg.id.endsWith('.en') : false;
+      const result = await pipe(chunk, {
+        return_timestamps: true,
+        ...(isMultilingual ? { language: 'english', task: 'transcribe' } : {}),
+      });
+
+      const elapsed = ((Date.now()-t1)/1000).toFixed(1);
+      const rtf = ((endSample-startSample)/16000/((Date.now()-t1)/1000)).toFixed(1);
+
+      let segText = '';
+      if (result.text && result.text.trim()) {
+        segText = result.text.trim();
+      } else if (result.chunks && result.chunks.length > 0) {
+        segText = result.chunks.map(c => (c.text||'').trim()).join(' ');
+      }
+
+      if (segText) {
+        collectedTexts.push({ startSec, text: segText });
+        log('Seg '+(i+1)+' done in '+elapsed+'s ('+rtf+'×) — '+segText.substring(0,50),'ok');
+      } else {
+        log('Seg '+(i+1)+' done in '+elapsed+'s ('+rtf+'×) — [silent]','warn');
+      }
+
+      if(dot) dot.className = 'seg-dot done';
+    } catch(e) {
+      log('Seg '+(i+1)+' error: '+e.message,'err');
+      if(dot) dot.className = 'seg-dot err';
+    }
+
+    setProgress(15 + ((vidIdx+(i+1)/numChunks)/total)*85);
+    await yieldFrame();
+  }
+
+  const totalSec = ((Date.now()-t0)/1000).toFixed(0);
+  log('✓ Done in '+totalSec+'s — '+collectedTexts.length+' segments with speech','ok');
+  const fullText = collectedTexts.map(c=>c.text).join(' ');
+  return { text: fullText, segments: collectedTexts };
+}
+
+function buildMd(filename, durationSec, result) {
+  const today = new Date().toISOString().split('T')[0];
+  const base  = filename.replace(/\.[^.]+$/, '');
+  let md = '# '+base+'\n\n';
+  md += '**Date Processed:** '+today+'  \n';
+  md += '**Source File:** '+filename+'  \n';
+  md += '**Duration:** '+fmtTime(durationSec)+'  \n';
+  md += '**Transcribed by:** [ScribeLocal](https://www.scribelocal.app) — Free local transcription  \n\n';
+  md += '---\n\n## Full Transcription\n\n';
+
+  if (result.segments && result.segments.length > 0) {
+    let curSection = -1;
+    for (const seg of result.segments) {
+      const section = Math.floor(seg.startSec / 300);
+      if (section !== curSection) {
+        if (curSection >= 0) md += '\n\n';
+        md += '### ['+fmtTime(section*300)+' – '+fmtTime(Math.min((section+1)*300, durationSec))+']\n\n';
+        curSection = section;
+      }
+      md += seg.text + ' ';
+    }
+  } else if (result.text) {
+    md += result.text;
+  } else {
+    md += '_No speech detected._';
+  }
+  return md.trimEnd() + '\n';
+}
+
+function autoDownload(v) {
+  const blob = new Blob([v.markdown], {type:'text/markdown'});
+  const a = Object.assign(document.createElement('a'), {href:URL.createObjectURL(blob), download:v.filename});
+  a.click(); setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+  log('Downloaded: '+v.filename,'ok');
+}
+
+function renderVideoCards() {
+  document.getElementById('progressCard').style.display = 'block';
+  document.getElementById('videoList').innerHTML = queue.map(v =>
+    `<div class="video-item" id="card-${v.id}"><div class="video-name">📄 ${v.name}</div><div class="seg-row"></div><div class="video-status">Waiting...</div></div>`
+  ).join('');
+}
+
+window.startAll = async () => {
+  if (!queue.length) return;
+  running = true;
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('dlAllBtn').style.display = 'none';
+  renderVideoCards(); renderQueue();
+
+  try { await loadModel(); }
+  catch(e) { log('Model load failed: '+e.message,'err'); running=false; document.getElementById('startBtn').disabled=false; renderQueue(); return; }
+
+  for (let i=0; i<queue.length; i++) {
+    const video = queue[i];
+    const result = await transcribeVideo(video, i, queue.length);
+    if (!result) continue;
+
+    const card = document.getElementById('card-'+video.id);
+    const dur = video.audio ? video.audio.length/16000 : 0;
+    const md = buildMd(video.name, dur, result);
+    const safe = video.name.replace(/\.[^.]+$/,'').replace(/[^a-zA-Z0-9_\-(). ]/g,'_') + '.md';
+    video.markdown=md; video.filename=safe; video.status='done';
+    card.classList.add('complete');
+    const wordCount = result.text.trim().split(/\s+/).filter(Boolean).length;
+    card.querySelector('.video-status').textContent = '✅ Complete — '+wordCount.toLocaleString()+' words transcribed';
+
+    if (dirHandle) {
+      try {
+        const fh = await dirHandle.getFileHandle(safe, {create:true});
+        const wr = await fh.createWritable(); await wr.write(md); await wr.close();
+        log('Saved → '+dirHandle.name+'/'+safe,'ok');
+      } catch(e) { log('Save failed: '+e.message,'warn'); autoDownload(video); }
+    } else { autoDownload(video); }
+  }
+
+  setGlobal('✅ All files transcribed!'); setProgress(100);
+  document.getElementById('dlAllBtn').style.display = 'inline-block';
+  document.getElementById('startBtn').disabled = false;
+  running = false; renderQueue();
+};
+
+checkWebGPU();
+renderQueue();
+log('ScribeLocal ready — add video or audio files and click Start Transcription.','info');
+</script>
+
+<script>
+function toggleTheme(){var h=document.documentElement,l=h.dataset.theme==='light';h.dataset.theme=l?'':'light';localStorage.setItem('sl-theme',l?'dark':'light');document.getElementById('themeToggle').textContent=l?'☀️':'🌙';}
+(function(){var b=document.getElementById('themeToggle');if(b)b.textContent=document.documentElement.dataset.theme==='light'?'🌙':'☀️';})();
+</script>
+
+</body>
+</html>
