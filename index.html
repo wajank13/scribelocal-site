@@ -579,6 +579,14 @@
   .how-desc { font-size: 0.78em; color: var(--text2); line-height: 1.4; }
   .how-arrow { font-size: 1.2em; color: var(--text3); flex-shrink: 0; }
 
+  /* ── First-run setup note ── */
+  .first-run-note {
+    font-size: 0.75em;
+    color: var(--amber);
+    margin: 8px 0 2px;
+    font-family: 'DM Mono', monospace;
+  }
+
   /* ── Demo divider ── */
   .demo-divider {
     font-size: 0.75em;
@@ -1013,6 +1021,7 @@
   <div class="card">
     <div class="card-title">Upload or Try Demo</div>
     <button class="btn" id="demoBtn" onclick="runDemo()">⚡ Try Demo (10 sec — no upload)</button>
+    <p class="first-run-note">⚡ First run sets things up (10–30 seconds). After that, transcription is instant and runs entirely on your device.</p>
     <div class="demo-divider">— or drop your own files —</div>
     <div class="drop-zone" id="dropZone"
       onclick="document.getElementById('fileInput').click()"
@@ -1069,7 +1078,7 @@
       </div>
     </div>
     <div id="gpuStatus">Checking WebGPU support...</div>
-    <div id="modelNote">⚡ First run downloads the model (~40–200 MB depending on model). After that, instant — cached in your browser.</div>
+    <div id="modelNote">⚡ First run sets up the AI model (one-time, ~10–30 sec). After that, instant — cached in your browser.</div>
   </div>
 
   <div class="step-label">Step 3 — Choose Where to Save Your Files</div>
@@ -1418,6 +1427,7 @@ async function loadModel() {
   if (pipe) return;
   const cfg = MODELS[selectedKey];
   log('Loading '+cfg.id+' on '+cfg.device.toUpperCase()+'...','info');
+  setGlobal('⚡ Setting up local AI (one-time) — instant after this...');
   try {
     pipe = await pipeline('automatic-speech-recognition', cfg.id, {
       device: cfg.device,
