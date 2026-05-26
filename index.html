@@ -18,7 +18,7 @@
      Update: description, og:url, og:image when you go live
      ═══════════════════════════════════════════════════════════ -->
 <title>ScribeItLocal — Free Local AI Video & Audio Transcription Tool</title>
-<meta name="description" content="ScribeItLocal is a 100% free, browser-based transcription tool powered by OpenAI Whisper. Transcribe MP4, MOV, MKV, MP3, WAV and more — entirely on your device. No uploads. No account. No account required.">
+<meta name="description" content="ScribeItLocal is a 100% free, browser-based transcription tool powered by OpenAI Whisper. Transcribe MP4, MOV, MKV, MP3, WAV and more — entirely on your device. No uploads. No account required.">
 <meta name="keywords" content="free video transcription, local transcription tool, transcribe video to text, offline transcription, OpenAI Whisper browser, no upload transcription, free audio transcription, MP4 to text, transcribe video free, local whisper transcription, browser transcription tool, private transcription">
 <meta name="author" content="ScribeItLocal by Janko Tech Ventures">
 <meta name="robots" content="index, follow">
@@ -64,19 +64,6 @@
     "Free core transcription"
   ]
 }
-</script>
-
-<!-- ═══════════════════════════════════════════════════════════
-     GOOGLE ANALYTICS GA4
-     Replace G-XXXXXXXXXX with your Measurement ID
-     Get it at: analytics.google.com → Admin → Data Streams
-     ═══════════════════════════════════════════════════════════ -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
 </script>
 
 <!-- ═══════════════════════════════════════════════════════════
@@ -235,6 +222,14 @@
     font-size: 0.88em;
     color: var(--green);
     font-weight: 300;
+    margin-bottom: 4px;
+    padding-left: 58px;
+  }
+
+  .tagline-speed {
+    font-size: 0.8em;
+    color: var(--amber);
+    font-weight: 400;
     margin-bottom: 20px;
     padding-left: 58px;
   }
@@ -563,6 +558,56 @@
     font-family: 'DM Mono', monospace;
   }
 
+  /* ── How It Works strip ── */
+  .how-steps {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 20px 0 28px; flex-wrap: wrap;
+  }
+  .how-step {
+    text-align: center; padding: 14px 18px;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; flex: 1; min-width: 130px; max-width: 200px;
+  }
+  .how-num {
+    font-family: 'Syne', sans-serif; font-size: 1.3em; font-weight: 800;
+    color: var(--amber); margin-bottom: 6px;
+  }
+  .how-title {
+    font-family: 'Syne', sans-serif; font-size: 0.88em; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+  }
+  .how-desc { font-size: 0.78em; color: var(--text2); line-height: 1.4; }
+  .how-arrow { font-size: 1.2em; color: var(--text3); flex-shrink: 0; }
+
+  /* ── Demo divider ── */
+  .demo-divider {
+    font-size: 0.75em;
+    color: var(--text3);
+    text-align: center;
+    margin: 10px 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── Step labels ── */
+  .step-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78em;
+    font-weight: 700;
+    color: var(--amber);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 4px 0 6px 2px;
+  }
+
+  /* ── Drop zone reassurance micro-copy ── */
+  .drop-reassure {
+    font-size: 0.73em;
+    color: var(--text3);
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+  }
+
   /* ── Output format picker ── */
   .fmt-grid { display: flex; flex-direction: column; gap: 6px; }
   .fmt-opt {
@@ -715,6 +760,15 @@
 
   .footer-links a:hover { color: var(--amber); }
 
+  .footer-support-line {
+    width: 100%;
+    font-size: 0.75em;
+    color: var(--text3);
+    margin-top: 4px;
+  }
+  .footer-support-line a { color: var(--text3); text-decoration: none; }
+  .footer-support-line a:hover { color: var(--amber); }
+
   .footer-note {
     width: 100%;
     font-size: 0.73em;
@@ -839,12 +893,39 @@
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
 
-  /* ── Header top row (logo + theme toggle) ── */
+  /* ── Header top row (logo + actions) ── */
   .header-top {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 6px;
+  }
+
+  .header-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+
+  .btn-support-sm {
+    font-size: 0.72em;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    color: var(--amber);
+    text-decoration: none;
+    border: 1px solid var(--amber-dim);
+    border-radius: 7px;
+    padding: 5px 12px;
+    background: var(--amber-glow);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .btn-support-sm:hover {
+    background: var(--amber-dim);
+    color: var(--text);
+    text-decoration: none;
   }
 
   /* ── Light mode overrides for hardcoded dark colours ── */
@@ -893,68 +974,71 @@
         <div class="logo-icon">✍️</div>
         <div class="logo-text"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span></div>
       </div>
-      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
+        <a class="btn-support-sm" href="https://ko-fi.com/scribeitlocal" target="_blank" rel="noopener">☕ Support this tool</a>
+      </div>
     </div>
-    <p class="tagline">Private AI Transcription — Runs Entirely in Your Browser</p>
-    <p class="tagline-sub">No uploads. No account. Your files never leave your device.</p>
+    <p class="tagline">Transcribe Audio &amp; Video to Text — Instantly in Your Browser</p>
+    <p class="tagline-sub">No uploads. No account. 100% free — your files never leave your device.</p>
+    <p class="tagline-speed">⚡ Up to 50× faster than real-time with WebGPU</p>
 
-    <div class="trust-strip">
-      <div class="trust-badge green"><span class="dot"></span> Free Core Transcription</div>
-      <div class="trust-badge green"><span class="dot"></span> Nothing Uploaded</div>
-      <div class="trust-badge green"><span class="dot"></span> No Account Required</div>
-      <div class="trust-badge"><span class="dot"></span> Batch Transcription</div>
-      <div class="trust-badge blue"><span class="dot"></span> Works in Chrome &amp; Edge</div>
-      <div class="trust-badge blue"><span class="dot"></span> WebGPU Accelerated</div>
-      <div class="trust-badge"><span class="dot"></span> Powered by OpenAI Whisper</div>
-    </div>
   </header>
-
-  <!-- ══ FEATURE GRID ═══════════════════════════════════════ -->
-  <div class="feature-grid">
-    <div class="feature-card">
-      <span class="feature-icon">🔒</span>
-      <div class="feature-title">100% Private</div>
-      <div class="feature-desc">Your files never leave your computer. The AI model runs entirely in your browser — no server, no cloud, no surveillance.</div>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">⚡</span>
-      <div class="feature-title">Blazing Fast</div>
-      <div class="feature-desc">WebGPU acceleration delivers up to 50× real-time transcription speed. A 10-minute video in under 20 seconds.</div>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">📂</span>
-      <div class="feature-title">Batch Multiple Files</div>
-      <div class="feature-desc">Queue up as many files as you need and transcribe them all in one shot. Walk away and come back to finished transcripts.</div>
-    </div>
-    <div class="feature-card">
-      <span class="feature-icon">💰</span>
-      <div class="feature-title">Actually Free</div>
-      <div class="feature-desc">No forced account, no upload fees, and no cloud transcription credits. Core transcription is free to use — supported by optional tips and unobtrusive ads.</div>
-    </div>
-  </div>
-
-  <!-- ══ SUPPORTED FORMATS ══════════════════════════════════ -->
-  <div class="formats-bar">
-    <span class="formats-label">Supported Formats</span>
-    <div class="format-tags">
-      <span class="fmt-tag">MP4</span>
-      <span class="fmt-tag">MOV</span>
-      <span class="fmt-tag">MKV</span>
-      <span class="fmt-tag">AVI</span>
-      <span class="fmt-tag">WEBM</span>
-      <span class="fmt-tag">MP3</span>
-      <span class="fmt-tag">WAV</span>
-      <span class="fmt-tag">M4A</span>
-    </div>
-  </div>
-
-  <!-- ══ BROWSER COMPAT NOTE ═══════════════════════════════ -->
-  <div class="compat-note">
-    ⚡ <span><strong>Best experience in Chrome or Edge</strong> — WebGPU gives you 40–50× real-time speed. Firefox users: select the CPU fallback model below. Safari is not supported.</span>
-  </div>
 
   <!-- ══ TOOL ══════════════════════════════════════════════ -->
 
+  <!-- How it works -->
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-num">1</div>
+      <div class="how-title">Drop Your File</div>
+      <div class="how-desc">MP3, MP4, WAV, MKV and more</div>
+    </div>
+    <div class="how-arrow">→</div>
+    <div class="how-step">
+      <div class="how-num">2</div>
+      <div class="how-title">Runs Locally</div>
+      <div class="how-desc">AI processes on your device — nothing uploaded</div>
+    </div>
+    <div class="how-arrow">→</div>
+    <div class="how-step">
+      <div class="how-num">3</div>
+      <div class="how-title">Get Your Text</div>
+      <div class="how-desc">Copy or download in your chosen format</div>
+    </div>
+  </div>
+
+  <div class="step-label">Step 1 — Add Files</div>
+  <!-- File drop -->
+  <div class="card">
+    <div class="card-title">Upload or Try Demo</div>
+    <button class="btn" id="demoBtn" onclick="runDemo()">⚡ Try Demo (10 sec — no upload)</button>
+    <div class="demo-divider">— or drop your own files —</div>
+    <div class="drop-zone" id="dropZone"
+      onclick="document.getElementById('fileInput').click()"
+      ondragover="event.preventDefault();this.classList.add('drag-over')"
+      ondragleave="this.classList.remove('drag-over')"
+      ondrop="handleDrop(event)">
+      <span class="drop-zone-icon">📁</span>
+      <div class="drop-zone-main">Click to browse, or drag &amp; drop files here</div>
+      <div class="drop-zone-sub">Add multiple files at once · MP4 · MOV · MKV · AVI · WEBM · MP3 · WAV · M4A</div>
+    </div>
+    <input type="file" id="fileInput" accept="video/*,audio/*,.mkv,.avi,.mov,.webm,.mp4,.mp3,.wav,.m4a" multiple onchange="handleFiles(this.files)">
+    <div id="queueList"></div>
+    <p class="drop-reassure">⚡ Runs entirely in your browser — no upload, no account, no server.</p>
+  </div>
+
+  <div class="trust-strip">
+    <div class="trust-badge green"><span class="dot"></span> Free Core Transcription</div>
+    <div class="trust-badge green"><span class="dot"></span> Nothing Uploaded</div>
+    <div class="trust-badge green"><span class="dot"></span> No Account Required</div>
+    <div class="trust-badge"><span class="dot"></span> Batch Transcription</div>
+    <div class="trust-badge blue"><span class="dot"></span> Works in Chrome &amp; Edge</div>
+    <div class="trust-badge blue"><span class="dot"></span> WebGPU Accelerated</div>
+    <div class="trust-badge"><span class="dot"></span> Powered by OpenAI Whisper</div>
+  </div>
+
+  <div class="step-label">Step 2 — Choose Model / Speed</div>
   <!-- Model selector -->
   <div class="card">
     <div class="card-title">Model &amp; Speed</div>
@@ -985,25 +1069,10 @@
       </div>
     </div>
     <div id="gpuStatus">Checking WebGPU support...</div>
-    <div id="modelNote">Model downloads once and caches in your browser — no re-download needed.</div>
+    <div id="modelNote">⚡ First run downloads the model (~40–200 MB depending on model). After that, instant — cached in your browser.</div>
   </div>
 
-  <!-- File drop -->
-  <div class="card">
-    <div class="card-title">Add Files</div>
-    <div class="drop-zone" id="dropZone"
-      onclick="document.getElementById('fileInput').click()"
-      ondragover="event.preventDefault();this.classList.add('drag-over')"
-      ondragleave="this.classList.remove('drag-over')"
-      ondrop="handleDrop(event)">
-      <span class="drop-zone-icon">📁</span>
-      <div class="drop-zone-main">Click to browse, or drag &amp; drop files here</div>
-      <div class="drop-zone-sub">Add multiple files at once · MP4 · MOV · MKV · AVI · WEBM · MP3 · WAV · M4A</div>
-    </div>
-    <input type="file" id="fileInput" accept="video/*,audio/*,.mkv,.avi,.mov,.webm,.mp4,.mp3,.wav,.m4a" multiple onchange="handleFiles(this.files)">
-    <div id="queueList"></div>
-  </div>
-
+  <div class="step-label">Step 3 — Choose Where to Save Your Files</div>
   <!-- Save location -->
   <div class="card">
     <div class="card-title">Save Location <span style="font-size:0.85em;color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">(Chrome/Edge only)</span></div>
@@ -1014,6 +1083,7 @@
     </div>
   </div>
 
+  <div class="step-label">Step 4 — Choose Your Output Format</div>
   <!-- Output Format -->
   <div class="card">
     <div class="card-title">Output Format</div>
@@ -1041,6 +1111,7 @@
     </div>
   </div>
 
+  <div class="step-label">Step 5 — Run Your Transcription Locally</div>
   <!-- Start -->
   <div class="card">
     <div class="card-title">Transcribe</div>
@@ -1071,6 +1142,50 @@
     <div class="log" id="logEl"><span class="info">ScribeItLocal ready — open in Chrome or Edge for WebGPU acceleration (40–50× faster).</span>&#10;</div>
   </div>
 
+
+  <!-- ══ SUPPORTED FORMATS ══════════════════════════════════ -->
+  <div class="formats-bar">
+    <span class="formats-label">Supported Formats</span>
+    <div class="format-tags">
+      <span class="fmt-tag">MP4</span>
+      <span class="fmt-tag">MOV</span>
+      <span class="fmt-tag">MKV</span>
+      <span class="fmt-tag">AVI</span>
+      <span class="fmt-tag">WEBM</span>
+      <span class="fmt-tag">MP3</span>
+      <span class="fmt-tag">WAV</span>
+      <span class="fmt-tag">M4A</span>
+    </div>
+  </div>
+
+  <!-- ══ BROWSER COMPAT NOTE ═══════════════════════════════ -->
+  <div class="compat-note">
+    ⚡ <span><strong>Best experience in Chrome or Edge</strong> — WebGPU gives you 40–50× real-time speed. Firefox users: select the CPU fallback model below. Safari is not supported.</span>
+  </div>
+
+  <!-- ══ FEATURE GRID ═══════════════════════════════════════ -->
+  <div class="feature-grid">
+    <div class="feature-card">
+      <span class="feature-icon">🔒</span>
+      <div class="feature-title">100% Private</div>
+      <div class="feature-desc">Your files never leave your computer. The AI model runs entirely in your browser — no server, no cloud, no surveillance.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⚡</span>
+      <div class="feature-title">Blazing Fast</div>
+      <div class="feature-desc">WebGPU acceleration delivers up to 50× real-time transcription speed. A 10-minute video in under 20 seconds.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📂</span>
+      <div class="feature-title">Batch Multiple Files</div>
+      <div class="feature-desc">Queue up as many files as you need and transcribe them all in one shot. Walk away and come back to finished transcripts.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">💰</span>
+      <div class="feature-title">Actually Free</div>
+      <div class="feature-desc">No forced account, no upload fees, and no cloud transcription credits. Core transcription is free to use — supported by optional tips and unobtrusive ads.</div>
+    </div>
+  </div>
 
 <!-- ══ POPULAR USE CASES / SEO LINKS ═════════════════════ -->
 <div class="card">
@@ -1140,9 +1255,11 @@
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms</a>
       <a href="about.html">About</a>
-      <p>Questions or support? <a href="mailto:support@scribeitlocal.com">support@scribeitlocal.com</a></p> 
-    <a href="https://ko-fi.com/scribeitlocal" target="_blank" rel="noopener">Support this project</a>
+      <a href="https://ko-fi.com/scribeitlocal" target="_blank" rel="noopener">Support this project</a>
       <a href="https://janktechventures.com">Janko Tech Ventures</a>
+    </div>
+    <div class="footer-support-line">
+      Questions or support? <a href="mailto:support@scribeitlocal.com">support@scribeitlocal.com</a>
     </div>
     <div class="footer-note">
       ScribeItLocal uses OpenAI's Whisper model via the <a href="https://huggingface.co/docs/transformers.js" style="color:var(--amber);text-decoration:none;">Transformers.js</a> library to transcribe audio and video entirely within your browser. No audio data is transmitted to any server. Model weights are downloaded from Hugging Face and cached locally in your browser. This tool is provided free of charge — supported by unobtrusive ads.
@@ -1179,6 +1296,7 @@ let running = false;
 
 const yieldFrame = () => new Promise(r => setTimeout(r, 0));
 const fmtTime = s => String(Math.floor(s/60)).padStart(2,'0') + ':' + String(Math.floor(s%60)).padStart(2,'0');
+const trackEvent = (name, params = {}) => { if (window.gtag) gtag('event', name, params); };
 
 async function checkWebGPU() {
   const el = document.getElementById('gpuStatus');
@@ -1241,7 +1359,7 @@ window.handleFiles = files => {
     if (queue.find(v => v.name === f.name)) { log('Already queued: '+f.name,'warn'); continue; }
     const id = 'v'+Date.now()+Math.random().toString(36).slice(2,5);
     queue.push({id, name:f.name, file:f, status:'pending', markdown:'', filename:'', audio:null});
-    log('Added: '+f.name);
+    trackEvent('file_uploaded'); log('Added: '+f.name);
   }
   renderQueue();
 };
@@ -1260,6 +1378,29 @@ window.clearFolder = () => {
 };
 
 window.downloadAll = () => { const fmt = getSelectedFormat(); queue.filter(v=>v.result).forEach(v=>autoDownload(v,fmt)); };
+
+window.runDemo = async () => {
+  const btn = document.getElementById('demoBtn');
+  btn.disabled = true; btn.textContent = '⏳ Loading demo audio...';
+  trackEvent('demo_clicked');
+  try {
+    const res = await fetch('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav');
+    if (!res.ok) throw new Error('Could not load demo audio');
+    const blob = await res.blob();
+    const file = new File([blob], 'demo-jfk.wav', { type: 'audio/wav' });
+    handleFiles([file]);
+    btn.textContent = '⚡ Try Demo (10 sec — no upload)';
+    btn.disabled = false;
+    await startAll();
+    trackEvent('demo_completed');
+    setGlobal('✅ Demo complete — your transcript is below. Nothing left your browser.');
+    document.getElementById('progressCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch(e) {
+    log('Demo failed: ' + e.message, 'err');
+    btn.textContent = '⚡ Try Demo (10 sec — no upload)';
+    btn.disabled = false;
+  }
+};
 
 async function decodeAudio(file) {
   const buf = await file.arrayBuffer();
@@ -1487,10 +1628,12 @@ function renderVideoCards(batch) {
 window.startAll = async () => {
   const batch = queue.filter(v => v.status === 'pending');
   if (!batch.length) return;
+  trackEvent('transcription_started', { count: batch.length });
   running = true;
   document.getElementById('startBtn').disabled = true;
   document.getElementById('dlAllBtn').style.display = 'none';
   renderVideoCards(batch); renderQueue();
+  document.getElementById('logEl').scrollIntoView({ behavior: 'smooth', block: 'center' });
 
   try { await loadModel(); }
   catch(e) { log('Model load failed: '+e.message,'err'); running=false; renderQueue(); return; }
@@ -1503,6 +1646,7 @@ window.startAll = async () => {
     const card = document.getElementById('card-'+video.id);
     const dur = video.audio ? video.audio.length/16000 : 0;
     video.result = result; video.durationSec = dur; video.status = 'done';
+    trackEvent('transcription_completed');
     card.classList.add('complete');
     const wordCount = result.text.trim().split(/\s+/).filter(Boolean).length;
     card.querySelector('.video-status').textContent = '✅ Complete — '+wordCount.toLocaleString()+' words transcribed';
