@@ -60,13 +60,17 @@
     </a>
     <div class="topbar-right">
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
-      <a class="back-link" href="index.html">← Open the tool</a>
+      <a class="back-link" href="index.html#tool" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'header'})">Start Transcribing →</a>
     </div>
   </div>
 
   <section class="hero">
     <h1>Free video transcription with <span>no uploads</span></h1>
     <p class="lede">ScribeItLocal helps you turn video files into text quickly while keeping the file on your own machine.</p>
+    <div class="page-cta">
+      <a class="page-cta-btn" href="index.html#tool" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'hero'})">Try Free Transcription →</a>
+      <p class="page-cta-reassure">No uploads • No account required • Files stay on your device</p>
+    </div>
     <div class="badge-row">
       <div class="badge"><span class="dot"></span> Local AI Processing</div>
       <div class="badge"><span class="dot"></span> No Uploads</div>
@@ -108,11 +112,13 @@
     </div>
 
     <h2>Related local AI transcription pages</h2>
-    <ul><li><a href="transcribe-mp4-to-text.html">MP4 to text with local AI</a></li><li><a href="transcribe-audio-to-text-free.html">audio to text for free</a></li><li><a href="offline-transcription-tool.html">An offline-first transcription tool for private files</a></li><li><a href="ai-local-transcription.html">Local AI transcription that runs in your browser</a></li></ul>
+    <ul><li><a href="transcribe-mp4-to-text.html">MP4 to text with local AI</a></li><li><a href="transcribe-audio-to-text-free.html">audio to text for free</a></li><li><a href="transcribe-meeting-recordings.html">transcribe meeting recordings locally</a></li><li><a href="meeting-transcripts-for-ai-agents.html">meeting transcripts for AI agents and knowledge bases</a></li><li><a href="offline-transcription-tool.html">An offline-first transcription tool for private files</a></li><li><a href="ai-local-transcription.html">Local AI transcription that runs in your browser</a></li></ul>
     <h3>Related Tools</h3>
     <ul>
       <li><a href="transcribe-mp4-to-text.html">MP4 to Text</a></li>
       <li><a href="transcribe-audio-to-text-free.html">Audio to Text</a></li>
+      <li><a href="transcribe-meeting-recordings.html">Meeting Recordings</a></li>
+      <li><a href="meeting-transcripts-for-ai-agents.html">Transcripts for AI Agents</a></li>
       <li><a href="offline-transcription-tool.html">Offline Transcription</a></li>
     </ul>
   </section>

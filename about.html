@@ -37,13 +37,17 @@
     </a>
     <div class="topbar-right">
       <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
-      <a class="back-link" href="index.html">← Back to the tool</a>
+      <a class="back-link" href="index.html#tool" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'header'})">Start Transcribing →</a>
     </div>
   </div>
 
   <div class="hero">
     <h1>Transcription that <span>never leaves your device.</span></h1>
     <p class="lede">ScribeItLocal is a free video and audio transcription tool that runs entirely inside your browser. No uploads. No account required. Just your files, transcribed on your own machine.</p>
+    <div class="page-cta">
+      <a class="page-cta-btn" href="index.html#tool" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'hero'})">Try Free Transcription →</a>
+      <p class="page-cta-reassure">No uploads • No account required • Files stay on your device</p>
+    </div>
   </div>
 
   <div class="stat-strip">
