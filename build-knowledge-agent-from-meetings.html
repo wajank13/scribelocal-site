@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+       <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B952K9FMNZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B952K9FMNZ');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<title>Build a Knowledge Agent From Meeting Recordings | ScribeItLocal</title>
+<meta name="description" content="Turn meeting recordings, training videos, and business conversations into clean AI-ready Markdown for Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.">
+<link rel="canonical" href="https://www.scribeitlocal.com/build-knowledge-agent-from-meetings.html">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Build a Knowledge Agent From Meeting Recordings | ScribeItLocal">
+<meta property="og:description" content="Turn meeting recordings, training videos, and business conversations into clean AI-ready Markdown for Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.">
+<meta property="og:url" content="https://www.scribeitlocal.com/build-knowledge-agent-from-meetings.html">
+<meta property="og:image" content="https://www.scribeitlocal.com/og-image.png">
+<meta property="og:site_name" content="ScribeItLocal">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Build a Knowledge Agent From Meeting Recordings | ScribeItLocal">
+<meta name="twitter:description" content="Turn meeting recordings, training videos, and business conversations into clean AI-ready Markdown for Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.">
+<meta name="twitter:image" content="https://www.scribeitlocal.com/og-image.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Build a Knowledge Agent From Meeting Recordings",
+  "description": "Turn meeting recordings, training videos, and business conversations into clean AI-ready Markdown for Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.",
+  "url": "https://www.scribeitlocal.com/build-knowledge-agent-from-meetings.html",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ScribeItLocal",
+    "url": "https://www.scribeitlocal.com/"
+  },
+  "about": {
+    "@type": "SoftwareApplication",
+    "name": "ScribeItLocal",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Chrome, Edge, modern browsers"
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>(function(){var t=localStorage.getItem('sl-theme');if(t==='light')document.documentElement.dataset.theme='light';})();</script>
+<style>
+  /* ── Wider, more spacious layout (this page only) ── */
+  .page-wrap { max-width: 1120px; }
+
+  /* ── Section rhythm + centered marketing headers ── */
+  .ksection { margin: 56px 0; }
+  .khead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.6em;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-align: center;
+    color: var(--text);
+    margin: 0 0 12px;
+    line-height: 1.2;
+  }
+  .khead span { color: var(--amber); }
+  .kintro {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 30px;
+    color: var(--text2);
+    font-size: 0.96em;
+    line-height: 1.65;
+  }
+
+  /* ── Hero secondary CTA + compact pipeline ── */
+  .cta-secondary {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.92em;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.15s;
+    margin-left: 8px;
+  }
+  .cta-secondary:hover { border-color: var(--amber-dim); color: var(--amber); text-decoration: none; }
+
+  .hero-pipeline {
+    display: flex;
+    align-items: stretch;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 0 2px;
+    margin-top: 24px;
+  }
+  .pipeline-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 12px;
+    flex: 1;
+    min-width: 104px;
+  }
+  .ps-icon {
+    width: 40px; height: 40px;
+    border-radius: 11px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.15em;
+  }
+  .ps-label { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.78em; color: var(--text); line-height: 1.2; }
+  .pipeline-arrow { display: flex; align-items: center; align-self: center; color: var(--amber); font-size: 1.2em; padding: 0 6px; flex-shrink: 0; }
+  @media (max-width: 640px) {
+    .hero-pipeline { flex-direction: column; overflow-x: visible; }
+    .pipeline-stage { min-width: unset; flex-direction: row; justify-content: center; }
+    .pipeline-arrow { transform: rotate(90deg); padding: 4px 0; }
+  }
+
+  /* ── Stat band ── */
+  .knowledge-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 8px; }
+  .kstat {
+    background: linear-gradient(165deg, var(--bg2), var(--bg));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px 18px;
+    text-align: center;
+  }
+  .kstat-num { font-family: 'Inter', sans-serif; font-size: 2.1em; font-weight: 800; color: var(--amber); letter-spacing: -0.03em; line-height: 1; margin-bottom: 8px; }
+  .kstat-label { font-size: 0.82em; color: var(--text2); line-height: 1.45; }
+  .kstat-note { text-align: center; font-size: 0.76em; color: var(--text3); margin-top: 16px; font-style: italic; }
+  @media (max-width: 720px) { .knowledge-stats { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ── From Recording to Knowledge Agent workflow ── */
+  .wf-label { font-family: 'DM Mono', monospace; font-size: 0.68em; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.14em; text-align: center; margin-bottom: 8px; }
+  .wf-heading { font-family: 'Inter', sans-serif; font-size: 1.6em; font-weight: 800; letter-spacing: -0.03em; color: var(--text); text-align: center; margin-bottom: 8px; line-height: 1.2; }
+  .wf-heading span { color: var(--amber); }
+  .wf-intro { text-align: center; max-width: 600px; margin: 0 auto 30px; color: var(--text2); font-size: 0.92em; line-height: 1.6; }
+  .wf-steps { display: flex; align-items: stretch; overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 0; padding-top: 16px; margin-bottom: 20px; }
+  .wf-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 24px 12px 16px; flex: 1; min-width: 138px; transition: border-color 0.2s, transform 0.15s; }
+  .wf-step:hover { transform: translateY(-3px); }
+  .wf-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; font-size: 0.75em; font-weight: 800; color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .wf-icon { width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.45em; margin: 8px 0 12px; }
+  .wf-step h3 { font-family: 'Inter', sans-serif; font-size: 0.9em; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .wf-bar { width: 30px; height: 2.5px; border-radius: 2px; margin: 0 auto 10px; }
+  .wf-step p { font-size: 0.73em; color: var(--text2); line-height: 1.55; flex: 1; margin-bottom: 12px; }
+  .wf-chip { font-family: 'DM Mono', monospace; font-size: 0.65em; border-radius: 999px; padding: 3px 10px; border: 1px solid; white-space: nowrap; }
+  .wf-arrow { display: flex; align-items: center; align-self: center; padding: 0 4px; color: var(--border2); font-size: 1.4em; flex-shrink: 0; margin-bottom: 24px; }
+  .ws-1 .wf-badge { background: var(--purple); }
+  .ws-1 .wf-icon  { background: #2d1f4a; }
+  .ws-1 .wf-bar   { background: var(--purple); }
+  .ws-1 .wf-chip  { color: var(--purple); border-color: #6d28d966; background: #2d1f4a; }
+  .ws-1:hover { border-color: var(--purple); }
+  .ws-2 .wf-badge { background: var(--blue); }
+  .ws-2 .wf-icon  { background: #1e2d4a; }
+  .ws-2 .wf-bar   { background: var(--blue); }
+  .ws-2 .wf-chip  { color: var(--blue); border-color: #3b82f666; background: #1e2d4a; }
+  .ws-2:hover { border-color: var(--blue); }
+  .ws-3 .wf-badge { background: var(--green); }
+  .ws-3 .wf-icon  { background: #1a3328; }
+  .ws-3 .wf-bar   { background: var(--green); }
+  .ws-3 .wf-chip  { color: var(--green); border-color: #22c55e66; background: #1a3328; }
+  .ws-3:hover { border-color: var(--green); }
+  .ws-4 .wf-badge { background: var(--amber); color: #0a0800; }
+  .ws-4 .wf-icon  { background: var(--amber-glow); }
+  .ws-4 .wf-bar   { background: var(--amber); }
+  .ws-4 .wf-chip  { color: var(--amber); border-color: var(--amber-dim); background: var(--amber-glow); }
+  .ws-4:hover { border-color: var(--amber-dim); }
+  .ws-5 .wf-badge { background: var(--purple); }
+  .ws-5 .wf-icon  { background: #2d1f4a; }
+  .ws-5 .wf-bar   { background: var(--purple); }
+  .ws-5 .wf-chip  { color: var(--purple); border-color: #6d28d966; background: #2d1f4a; }
+  .ws-5:hover { border-color: var(--purple); }
+  [data-theme="light"] .ws-1 .wf-icon,
+  [data-theme="light"] .ws-5 .wf-icon { background: #ede9fe; }
+  [data-theme="light"] .ws-1 .wf-chip,
+  [data-theme="light"] .ws-5 .wf-chip { background: #ede9fe; border-color: #c4b5fd; }
+  [data-theme="light"] .ws-2 .wf-icon { background: #dbeafe; }
+  [data-theme="light"] .ws-2 .wf-chip { background: #dbeafe; border-color: #93c5fd; }
+  [data-theme="light"] .ws-3 .wf-icon { background: #dcfce7; }
+  [data-theme="light"] .ws-3 .wf-chip { background: #dcfce7; border-color: #86efac; }
+  .wf-features { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 14px; }
+  .wf-feat { display: flex; align-items: flex-start; gap: 10px; flex: 1; min-width: 120px; }
+  .wf-feat-icon { width: 34px; height: 34px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 0.95em; flex-shrink: 0; }
+  .wf-feat-label { font-family: 'Inter', sans-serif; font-size: 0.8em; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .wf-feat-desc  { font-size: 0.72em; color: var(--text3); line-height: 1.4; }
+  .wf-banner { background: linear-gradient(135deg, var(--cta-start), var(--bg2)); border: 1px solid var(--amber-dim); border-radius: 12px; padding: 16px 20px; font-size: 0.88em; color: var(--text2); line-height: 1.6; }
+  .wf-banner strong { color: var(--amber); font-family: 'Inter', sans-serif; }
+  @media (max-width: 640px) {
+    .wf-steps { flex-direction: column; padding-top: 20px; }
+    .wf-step  { min-width: unset; }
+    .wf-arrow { align-self: center; padding: 4px 0; transform: rotate(90deg); margin-bottom: 0; }
+    .wf-feat  { min-width: 40%; }
+  }
+
+  /* ── Comparison panel ── */
+  .comparison-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; }
+  .compare-col { border-radius: 20px; padding: 26px 24px; border: 1px solid var(--border); background: var(--bg2); }
+  .compare-col.have { border-color: rgba(239,68,68,0.3); background: linear-gradient(165deg, #170d0d, var(--bg2)); }
+  .compare-col.need { border-color: rgba(34,197,94,0.3); background: linear-gradient(165deg, #0b1d13, var(--bg2)); }
+  .compare-head { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .compare-col.have .compare-head { color: #fca5a5; }
+  .compare-col.need .compare-head { color: #6ee7b7; }
+  .compare-list { list-style: none; margin: 0; padding: 0; }
+  .compare-list li { padding: 9px 0 9px 26px; position: relative; font-size: 0.9em; color: var(--text2); border-bottom: 1px solid var(--border); }
+  .compare-list li:last-child { border-bottom: none; }
+  .compare-col.have .compare-list li::before { content: '✕'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+  .compare-col.need .compare-list li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  [data-theme="light"] .compare-col.have { background: linear-gradient(165deg, #fef2f2, var(--bg2)); }
+  [data-theme="light"] .compare-col.need { background: linear-gradient(165deg, #f0fdf4, var(--bg2)); }
+  [data-theme="light"] .compare-col.have .compare-head { color: #b91c1c; }
+  [data-theme="light"] .compare-col.need .compare-head { color: #15803d; }
+  @media (max-width: 640px) { .comparison-panel { grid-template-columns: 1fr; } }
+
+  /* ── Premium feature panels ── */
+  .feature-panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 8px; }
+  .fpanel { background: var(--bg2); border: 1px solid var(--border); border-radius: 20px; padding: 28px 24px; transition: transform 0.15s, border-color 0.2s, box-shadow 0.2s; }
+  .fpanel:hover { transform: translateY(-4px); border-color: var(--amber-dim); box-shadow: 0 12px 30px rgba(0,0,0,0.18); }
+  .fpanel-icon { width: 54px; height: 54px; border-radius: 15px; background: var(--amber-glow); border: 1px solid var(--amber-dim); display: flex; align-items: center; justify-content: center; font-size: 1.5em; margin-bottom: 18px; }
+  .fpanel h3 { font-size: 1.08em; margin-bottom: 10px; }
+  .fpanel p { font-size: 0.88em; color: var(--text2); margin: 0; line-height: 1.6; }
+  @media (max-width: 760px) { .feature-panels { grid-template-columns: 1fr; } }
+
+  /* ── Knowledge source mosaic ── */
+  .source-mosaic { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; margin-top: 8px; }
+  .smtile { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: flex; gap: 12px; align-items: flex-start; transition: border-color 0.2s, transform 0.15s; }
+  .smtile:hover { border-color: var(--amber-dim); transform: translateY(-2px); }
+  .smtile-icon { font-size: 1.3em; flex-shrink: 0; line-height: 1.2; }
+  .smtile-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.86em; color: var(--text); margin-bottom: 3px; }
+  .smtile-desc { font-size: 0.74em; color: var(--text3); line-height: 1.4; }
+
+  /* ── Markdown bridge ── */
+  .markdown-bridge { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 8px; align-items: stretch; }
+  .mb-col { border-radius: 20px; padding: 26px 24px; border: 1px solid var(--border); }
+  .mb-col.raw { background: var(--bg2); }
+  .mb-col.md  { background: linear-gradient(165deg, var(--cta-start), var(--bg2)); border-color: var(--amber-dim); }
+  .mb-head { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1em; color: var(--text); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .mb-sub { font-size: 0.78em; color: var(--text3); margin-bottom: 16px; }
+  .mb-list { list-style: none; margin: 0; padding: 0; }
+  .mb-list li { font-size: 0.86em; color: var(--text2); padding: 6px 0 6px 24px; position: relative; }
+  .mb-col.raw .mb-list li::before { content: '—'; position: absolute; left: 0; color: var(--text3); }
+  .mb-col.md .mb-list li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+  @media (max-width: 640px) { .markdown-bridge { grid-template-columns: 1fr; } }
+
+  /* ── Destination grid ── */
+  .destination-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+  .dest-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 22px; transition: border-color 0.2s, transform 0.15s; }
+  .dest-card:hover { border-color: var(--amber-dim); transform: translateY(-3px); }
+  .dest-card h3 { font-size: 1em; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .dest-card p { font-size: 0.83em; color: var(--text2); margin: 0; line-height: 1.55; }
+  @media (max-width: 760px) { .destination-grid { grid-template-columns: 1fr; } }
+
+  /* ── More links (compact internal linking) ── */
+  .more-links { text-align: center; font-size: 0.85em; color: var(--text3); margin-top: 20px; line-height: 1.9; }
+  .more-links a { margin: 0 4px; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="topbar">
+    <a class="logo-row" href="index.html">
+      <div class="logo-icon">✍️</div>
+      <div class="logo-text"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span></div>
+    </a>
+    <div class="topbar-right">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
+      <a class="back-link" href="index.html#tool" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'header'})">Start Transcribing →</a>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ══ HERO ══ -->
+    <section class="hero">
+      <h1>Build a Knowledge Agent From <span>Meeting Recordings</span></h1>
+      <p class="lede">Your organization already has years of valuable knowledge trapped inside Zoom calls, Teams meetings, Webex recordings, training videos, customer conversations, and project reviews. ScribeItLocal helps turn those recordings into clean, AI-ready Markdown files that can power Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.</p>
+      <div class="page-cta">
+        <a class="page-cta-btn" href="index.html#tool" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'hero'})">Start Creating AI-Ready Markdown</a>
+        <a class="cta-secondary" href="#workflow">See the Workflow →</a>
+        <p class="page-cta-reassure">Runs locally in your browser. No uploads. No account. No cloud transcription server.</p>
+      </div>
+
+      <div class="hero-pipeline">
+        <div class="pipeline-stage"><div class="ps-icon" aria-hidden="true">🎬</div><div class="ps-label">Recordings</div></div>
+        <div class="pipeline-arrow" aria-hidden="true">→</div>
+        <div class="pipeline-stage"><div class="ps-icon" aria-hidden="true">🎙️</div><div class="ps-label">Transcripts</div></div>
+        <div class="pipeline-arrow" aria-hidden="true">→</div>
+        <div class="pipeline-stage"><div class="ps-icon" aria-hidden="true">📄</div><div class="ps-label">Markdown</div></div>
+        <div class="pipeline-arrow" aria-hidden="true">→</div>
+        <div class="pipeline-stage"><div class="ps-icon" aria-hidden="true">🗂️</div><div class="ps-label">Knowledge Vault</div></div>
+        <div class="pipeline-arrow" aria-hidden="true">→</div>
+        <div class="pipeline-stage"><div class="ps-icon" aria-hidden="true">🤖</div><div class="ps-label">AI Agent</div></div>
+      </div>
+    </section>
+
+    <!-- ══ YOUR KNOWLEDGE IS ALREADY THERE ══ -->
+    <section class="ksection">
+      <h2 class="khead">Your Knowledge Is Already There</h2>
+      <p class="kintro">Most companies do not need to start from scratch. Years of meetings, training sessions, customer calls, and project reviews already contain the decisions, context, and tribal knowledge their AI agents need.</p>
+      <div class="knowledge-stats">
+        <div class="kstat"><div class="kstat-num">5+ yrs</div><div class="kstat-label">of recorded meetings</div></div>
+        <div class="kstat"><div class="kstat-num">100s</div><div class="kstat-label">of customer &amp; team calls</div></div>
+        <div class="kstat"><div class="kstat-num">1,000s</div><div class="kstat-label">of decisions &amp; action items</div></div>
+        <div class="kstat"><div class="kstat-num">1</div><div class="kstat-label">searchable knowledge vault</div></div>
+      </div>
+      <p class="kstat-note">Illustrative figures — your archive will vary. The point is simple: the raw material already exists.</p>
+    </section>
+
+    <!-- ══ WORKFLOW ══ -->
+    <section class="ksection" id="workflow">
+      <p class="wf-label">The complete workflow</p>
+      <h2 class="wf-heading">From Recording to <span>Knowledge Agent</span></h2>
+      <p class="wf-intro">Each step builds on the previous one. ScribeItLocal handles the local transcription step so sensitive recordings never leave your device.</p>
+
+      <div class="wf-steps">
+        <div class="wf-step ws-1">
+          <div class="wf-badge">1</div>
+          <div class="wf-icon" aria-hidden="true">🎬</div>
+          <h3>Recordings</h3>
+          <div class="wf-bar"></div>
+          <p>Start with MP4, MOV, MKV, MP3, WAV, M4A, or other meeting and media files from Zoom, Teams, Webex, or any recording source.</p>
+          <span class="wf-chip">Any format</span>
+        </div>
+        <div class="wf-arrow" aria-hidden="true">›</div>
+        <div class="wf-step ws-2">
+          <div class="wf-badge">2</div>
+          <div class="wf-icon" aria-hidden="true">🎙️</div>
+          <h3>Local Transcript</h3>
+          <div class="wf-bar"></div>
+          <p>Convert speech into text directly in the browser. The AI model runs on your device — audio is never uploaded to a server.</p>
+          <span class="wf-chip">100% local</span>
+        </div>
+        <div class="wf-arrow" aria-hidden="true">›</div>
+        <div class="wf-step ws-3">
+          <div class="wf-badge">3</div>
+          <div class="wf-icon" aria-hidden="true">📄</div>
+          <h3>Markdown</h3>
+          <div class="wf-bar"></div>
+          <p>Save clean, structured Markdown with headings, timestamps, summaries, decisions, and action items that AI tools can parse and chunk.</p>
+          <span class="wf-chip">AI-ready</span>
+        </div>
+        <div class="wf-arrow" aria-hidden="true">›</div>
+        <div class="wf-step ws-4">
+          <div class="wf-badge">4</div>
+          <div class="wf-icon" aria-hidden="true">🗂️</div>
+          <h3>Knowledge Vault</h3>
+          <div class="wf-bar"></div>
+          <p>Organize Markdown by team, project, client, product, date, or business function so AI can retrieve the right context.</p>
+          <span class="wf-chip">Organized</span>
+        </div>
+        <div class="wf-arrow" aria-hidden="true">›</div>
+        <div class="wf-step ws-5">
+          <div class="wf-badge">5</div>
+          <div class="wf-icon" aria-hidden="true">🤖</div>
+          <h3>AI Agent</h3>
+          <div class="wf-bar"></div>
+          <p>Use the prepared knowledge with Claude Projects, custom GPTs, local search, RAG pipelines, or internal agent frameworks.</p>
+          <span class="wf-chip">Private knowledge</span>
+        </div>
+      </div>
+
+      <div class="wf-features">
+        <div class="wf-feat"><div class="wf-feat-icon" aria-hidden="true">🔒</div><div><div class="wf-feat-label">100% Private</div><div class="wf-feat-desc">Nothing leaves your device.</div></div></div>
+        <div class="wf-feat"><div class="wf-feat-icon" aria-hidden="true">⚡</div><div><div class="wf-feat-label">No Uploads</div><div class="wf-feat-desc">Your data stays where it is.</div></div></div>
+        <div class="wf-feat"><div class="wf-feat-icon" aria-hidden="true">🔑</div><div><div class="wf-feat-label">No Accounts</div><div class="wf-feat-desc">Zero sign-ups. Zero tracking.</div></div></div>
+        <div class="wf-feat"><div class="wf-feat-icon" aria-hidden="true">🌐</div><div><div class="wf-feat-label">Runs in Browser</div><div class="wf-feat-desc">No installation. Works instantly.</div></div></div>
+        <div class="wf-feat"><div class="wf-feat-icon" aria-hidden="true">📤</div><div><div class="wf-feat-label">Future Proof</div><div class="wf-feat-desc">Use your files anywhere.</div></div></div>
+      </div>
+
+      <div class="wf-banner">
+        ✦ <strong>Build Once. Use Everywhere.</strong> Create AI-ready knowledge today and power Claude Projects, custom GPTs, local search, RAG pipelines, and the next generation of internal AI tools.
+      </div>
+    </section>
+
+    <!-- ══ WHY AI PROJECTS STRUGGLE ══ -->
+    <section class="ksection">
+      <h2 class="khead">Most AI Agents Fail Before the Model Ever Runs</h2>
+      <p class="kintro">The hard part is not only choosing the model. The hard part is giving the model clean, organized, trusted knowledge to work from.</p>
+      <div class="comparison-panel">
+        <div class="compare-col have">
+          <div class="compare-head"><span aria-hidden="true">📼</span> What companies have today</div>
+          <ul class="compare-list">
+            <li>Raw recordings</li>
+            <li>Scattered files</li>
+            <li>Unstructured conversations</li>
+            <li>Decisions buried in calls</li>
+            <li>Knowledge trapped with individuals</li>
+          </ul>
+        </div>
+        <div class="compare-col need">
+          <div class="compare-head"><span aria-hidden="true">🤖</span> What AI agents need</div>
+          <ul class="compare-list">
+            <li>Clean text</li>
+            <li>Structured Markdown</li>
+            <li>Searchable context</li>
+            <li>Decision history</li>
+            <li>Reusable knowledge assets</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tldr"><strong>Before you build the agent, prepare the knowledge layer.</strong></div>
+    </section>
+
+    <!-- ══ WHAT SCRIBEITLOCAL HELPS YOU DO ══ -->
+    <section class="ksection">
+      <h2 class="khead">What ScribeItLocal Helps You Do</h2>
+      <p class="kintro">A local AI ingestion layer for turning private recordings into AI-ready knowledge — without sending anything to a transcription server.</p>
+      <div class="feature-panels">
+        <article class="fpanel">
+          <div class="fpanel-icon" aria-hidden="true">🔓</div>
+          <h3>Unlock Tribal Knowledge</h3>
+          <p>Convert recorded meetings into searchable text that captures decisions, context, requirements, and operational experience.</p>
+        </article>
+        <article class="fpanel">
+          <div class="fpanel-icon" aria-hidden="true">📝</div>
+          <h3>Create AI-Ready Markdown</h3>
+          <p>Turn raw conversations into structured files that can support Claude Projects, custom GPTs, RAG pipelines, and local search.</p>
+        </article>
+        <article class="fpanel">
+          <div class="fpanel-icon" aria-hidden="true">🔒</div>
+          <h3>Keep Sensitive Recordings Local</h3>
+          <p>Process recordings in the browser without uploading private business conversations to a transcription server.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ══ WHAT CAN BECOME AI KNOWLEDGE ══ -->
+    <section class="ksection">
+      <h2 class="khead">What Can Become AI Knowledge?</h2>
+      <p class="kintro">Almost any recorded conversation holds reusable context. These are the richest sources to start with.</p>
+      <div class="source-mosaic">
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">👥</span><div><div class="smtile-title">Team Meetings</div><div class="smtile-desc">Decisions, priorities, context</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">🎓</span><div><div class="smtile-title">Training Sessions</div><div class="smtile-desc">Onboarding and process know-how</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">📞</span><div><div class="smtile-title">Customer Calls</div><div class="smtile-desc">Feedback, needs, objections</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">🤝</span><div><div class="smtile-title">Project Handoffs</div><div class="smtile-desc">Transferred context and history</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">📊</span><div><div class="smtile-title">Operational Reviews</div><div class="smtile-desc">Retros, post-mortems, results</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">🧭</span><div><div class="smtile-title">Executive Discussions</div><div class="smtile-desc">Strategy and direction</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">🧩</span><div><div class="smtile-title">Product Reviews</div><div class="smtile-desc">Roadmap and design decisions</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">🛟</span><div><div class="smtile-title">Support Escalations</div><div class="smtile-desc">Recurring issues and fixes</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">🏗️</span><div><div class="smtile-title">Architecture Reviews</div><div class="smtile-desc">Technical decisions and trade-offs</div></div></div>
+        <div class="smtile"><span class="smtile-icon" aria-hidden="true">🔎</span><div><div class="smtile-title">Sales Discovery Calls</div><div class="smtile-desc">Requirements and deal context</div></div></div>
+      </div>
+    </section>
+
+    <!-- ══ MARKDOWN IS THE BRIDGE ══ -->
+    <section class="ksection">
+      <h2 class="khead">Markdown Is the Bridge Between Recordings and AI</h2>
+      <p class="kintro">Raw recordings are difficult for AI systems to search, chunk, cite, and reuse. Markdown turns conversations into structured, portable text that can move across tools and workflows.</p>
+      <div class="markdown-bridge">
+        <div class="mb-col raw">
+          <div class="mb-head"><span aria-hidden="true">📼</span> Raw Recording</div>
+          <div class="mb-sub">Large video / audio file</div>
+          <ul class="mb-list">
+            <li>Hard to search</li>
+            <li>Hard to cite</li>
+            <li>Hard to chunk</li>
+            <li>Not agent-ready</li>
+          </ul>
+        </div>
+        <div class="mb-col md">
+          <div class="mb-head"><span aria-hidden="true">📄</span> Markdown Knowledge File</div>
+          <div class="mb-sub">Readable, structured text</div>
+          <ul class="mb-list">
+            <li>Headings and timestamps</li>
+            <li>Decisions and action items</li>
+            <li>Easy to chunk and cite</li>
+            <li>AI-ready structure</li>
+          </ul>
+        </div>
+      </div>
+      <pre class="code-block"># Product Review Meeting
+
+Date:
+Source:
+Participants:
+
+## Summary
+
+## Key Decisions
+
+## Action Items
+
+## Risks
+
+## Open Questions</pre>
+      <p style="text-align:center;"><a href="markdown-for-ai-agents.html">Learn more: Why Markdown Is the Best Format for AI Agents →</a></p>
+    </section>
+
+    <!-- ══ WHERE THE FILES CAN GO NEXT ══ -->
+    <section class="ksection">
+      <h2 class="khead">Use the Knowledge Wherever Your AI Strategy Goes</h2>
+      <p class="kintro">Your Markdown files are portable. Prepare them once, then use or export them into the tools and pipelines you choose.</p>
+      <div class="destination-grid">
+        <div class="dest-card"><h3><span aria-hidden="true">🗂️</span> Claude Projects</h3><p>Upload Markdown files as project knowledge with custom instructions.</p></div>
+        <div class="dest-card"><h3><span aria-hidden="true">🤖</span> Custom GPTs</h3><p>Use structured transcripts as source material for specialized assistants.</p></div>
+        <div class="dest-card"><h3><span aria-hidden="true">🔎</span> Local Search</h3><p>Index Markdown files locally for private search and retrieval.</p></div>
+        <div class="dest-card"><h3><span aria-hidden="true">🧬</span> RAG Pipelines</h3><p>Chunk and embed Markdown for semantic retrieval.</p></div>
+        <div class="dest-card"><h3><span aria-hidden="true">📚</span> Internal Knowledge Bases</h3><p>Store transcripts in documentation systems, wikis, or repositories.</p></div>
+        <div class="dest-card"><h3><span aria-hidden="true">🧱</span> Future Agent Frameworks</h3><p>Keep files portable so your knowledge is not locked into one platform.</p></div>
+      </div>
+      <div class="card" style="margin-top:18px;">
+        <div class="card-title">Example Claude Projects instruction</div>
+        <p style="font-family:'DM Mono',monospace;font-size:0.78em;line-height:1.8;color:var(--text2);margin-bottom:12px;">You are an internal knowledge assistant. Use the uploaded Markdown files as the primary source of truth. When answering, cite the relevant meeting, date, project, or source file when possible. Prioritize decisions, requirements, risks, action items, and implementation details found in the knowledge base. If the information is not available in the uploaded files, say that clearly.</p>
+        <p style="font-size:0.82em;margin:0;"><strong>Note:</strong> ScribeItLocal creates local Markdown files on your device. You can choose to upload those files to Claude or other AI tools. Claude is a cloud service operated by Anthropic and does not run locally — ScribeItLocal handles the private, local preparation step.</p>
+      </div>
+    </section>
+
+    <!-- ══ FOLDER STRUCTURE ══ -->
+    <section class="ksection">
+      <h2 class="khead">A Simple Folder Structure for Your Knowledge Vault</h2>
+      <p class="kintro">A consistent structure keeps original files, generated transcripts, summaries, and agent-ready knowledge separated and reusable.</p>
+      <pre class="code-block">ScribeItLocal-Knowledge-Vault/
+  01-source-recordings/
+    team-meetings/
+    customer-calls/
+    training-videos/
+  02-markdown-transcripts/
+    team-meetings/
+    customer-calls/
+    training-videos/
+  03-summaries/
+    decisions/
+    action-items/
+    risks/
+  04-agent-ready/
+    by-project/
+    by-client/
+    by-topic/
+  05-local-search-index/</pre>
+      <p style="text-align:center;max-width:680px;margin:16px auto 0;">This keeps original files, generated transcripts, summaries, and agent-ready knowledge separated so the content can be reused across Claude Projects, local search, RAG systems, or future agent tools.</p>
+    </section>
+
+    <!-- ══ FINAL CTA ══ -->
+    <section class="ksection">
+      <h2 class="khead">Start With the Knowledge Layer</h2>
+      <p class="kintro">The best AI agent is only as good as the knowledge it can access. Start by converting existing recordings into private, structured, AI-ready text.</p>
+      <div class="cta">
+        <div class="cta-text">
+          <div class="cta-title">Turn Recordings Into AI-Ready Markdown</div>
+          <div class="cta-sub">Process recordings locally in your browser. No uploads. No account. Files stay on your device.</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <a class="cta-btn" href="index.html#tool" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'bottom'})">Start Transcribing →</a>
+          <a class="cta-secondary" href="markdown-for-ai-agents.html">Explore Markdown for AI Agents</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ RELATED GUIDES ══ -->
+    <section class="ksection">
+      <h2 class="khead">Related Guides</h2>
+      <div class="resource-grid">
+        <a class="resource-link" href="markdown-for-ai-agents.html">
+          <strong>Why Markdown Is the Best Format for AI Agents</strong>
+          <span>How structured text powers retrieval, citation, and reuse.</span>
+        </a>
+        <a class="resource-link" href="private-ai-knowledge-vault.html">
+          <strong>Build a Private AI Knowledge Vault</strong>
+          <span>Organize transcripts into a reusable, local knowledge base.</span>
+        </a>
+        <a class="resource-link" href="claude-project-knowledge-agent.html">
+          <strong>Claude Projects Knowledge Agent Guide</strong>
+          <span>Turn Markdown transcripts into a project knowledge assistant.</span>
+        </a>
+        <a class="resource-link" href="ai-local-transcription.html">
+          <strong>Local AI Transcription</strong>
+          <span>AI that runs in your browser, on your device.</span>
+        </a>
+        <a class="resource-link" href="offline-transcription-tool.html">
+          <strong>Offline Transcription Tool</strong>
+          <span>No uploads, no account, no cloud transcription server.</span>
+        </a>
+        <a class="resource-link" href="whisper-browser-transcription.html">
+          <strong>Whisper Browser Transcription</strong>
+          <span>Whisper-powered transcription directly in your browser.</span>
+        </a>
+      </div>
+      <p class="more-links">
+        Explore more local transcription tools:
+        <a href="transcribe-meeting-recordings.html">Meeting Recordings</a> ·
+        <a href="meeting-transcripts-for-ai-agents.html">Meeting Transcripts for AI Agents</a> ·
+        <a href="transcribe-mp4-to-text.html">MP4 to Text</a> ·
+        <a href="transcribe-audio-to-text-free.html">Audio to Text</a> ·
+        <a href="free-video-transcription.html">Free Video Transcription</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span> <span class="footer-tagline">— a product of <a href="https://janktechventures.com" target="_blank" rel="noopener">Janko Tech Ventures LLC</a></span></div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="about.html">About</a>
+      <a href="https://ko-fi.com/scribeitlocal" target="_blank" rel="noopener">Support this project</a>
+      <a href="https://janktechventures.com" target="_blank" rel="noopener">Janko Tech Ventures</a>
+    </div>
+  </footer>
+
+</div>
+<script>
+function toggleTheme(){var h=document.documentElement,l=h.dataset.theme==='light';h.dataset.theme=l?'':'light';localStorage.setItem('sl-theme',l?'dark':'light');document.getElementById('themeToggle').textContent=l?'☀️':'🌙';}
+(function(){var b=document.getElementById('themeToggle');if(b)b.textContent=document.documentElement.dataset.theme==='light'?'🌙':'☀️';})();
+</script>
+</body>
+</html>

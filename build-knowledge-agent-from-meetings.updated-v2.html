@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B952K9FMNZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B952K9FMNZ');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+
+  <title>Build a Knowledge Agent From Meeting Recordings | ScribeItLocal</title>
+  <meta name="description" content="Turn meeting recordings, training videos, and business conversations into clean AI-ready Markdown for Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.">
+  <link rel="canonical" href="https://www.scribeitlocal.com/build-knowledge-agent-from-meetings.html">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Build a Knowledge Agent From Meeting Recordings | ScribeItLocal">
+  <meta property="og:description" content="Turn meeting recordings, training videos, and business conversations into clean AI-ready Markdown for Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.">
+  <meta property="og:url" content="https://www.scribeitlocal.com/build-knowledge-agent-from-meetings.html">
+  <meta property="og:image" content="https://www.scribeitlocal.com/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Build a Knowledge Agent From Meeting Recordings | ScribeItLocal">
+  <meta name="twitter:description" content="Turn meeting recordings, training videos, and business conversations into clean AI-ready Markdown for Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.">
+  <meta name="twitter:image" content="https://www.scribeitlocal.com/og-image.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Build a Knowledge Agent From Meeting Recordings",
+    "description": "Turn meeting recordings, training videos, and business conversations into clean AI-ready Markdown for Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.",
+    "url": "https://www.scribeitlocal.com/build-knowledge-agent-from-meetings.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "ScribeItLocal",
+      "url": "https://www.scribeitlocal.com/"
+    },
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "ScribeItLocal",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Chrome, Edge, modern browsers"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can meeting recordings be used to build AI knowledge agents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Meeting recordings can be converted into transcripts and structured Markdown files, then organized into knowledge bases, Claude Projects, custom GPTs, RAG systems, or local search workflows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ScribeItLocal upload my recordings?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. ScribeItLocal processes recordings locally in the browser so audio and video files stay on the user's device."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why use Markdown for AI agents?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Markdown is plain text, portable, structured, and easy for AI systems to chunk, search, cite, and reuse across different tools."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>(function(){var t=localStorage.getItem('sl-theme');if(t==='light')document.documentElement.dataset.theme='light';})();</script>
+
+  <style>
+    .page-wrap.knowledge-page {
+      max-width: 1180px;
+    }
+
+    .knowledge-page .topbar,
+    .knowledge-page .site-footer {
+      max-width: 1120px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .knowledge-main {
+      padding-top: 18px;
+    }
+
+    .knowledge-hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 56px;
+      margin: 38px 0 28px;
+      background:
+        radial-gradient(circle at 15% 15%, var(--amber-glow), transparent 34%),
+        radial-gradient(circle at 85% 15%, rgba(34, 197, 94, 0.14), transparent 30%),
+        linear-gradient(135deg, var(--bg2), var(--bg));
+      box-shadow: 0 24px 80px rgba(0,0,0,0.20);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid var(--border2);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.035);
+      color: var(--text2);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.74em;
+      letter-spacing: 0.01em;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px var(--green);
+    }
+
+    .knowledge-hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4.85rem);
+      line-height: 0.95;
+      margin-bottom: 22px;
+      letter-spacing: -0.075em;
+    }
+
+    .knowledge-hero h1 span {
+      color: var(--amber);
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      color: var(--text2);
+      font-size: 1.11em;
+      line-height: 1.72;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions,
+    .section-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin: 24px 0 12px;
+    }
+
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 13px 22px;
+      color: var(--text);
+      background: var(--bg2);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .secondary-btn:hover {
+      border-color: var(--amber-dim);
+      background: var(--bg3);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .trust-line {
+      color: var(--text3);
+      font-size: 0.86em;
+      margin: 14px 0 0;
+    }
+
+    .mini-pipeline {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid var(--border2);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .mini-stage {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--bg3), var(--bg2));
+      margin-bottom: 12px;
+    }
+
+    .mini-stage:last-child {
+      margin-bottom: 0;
+    }
+
+    .mini-icon,
+    .workflow-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      border: 1px solid var(--border2);
+      background: var(--bg);
+      color: var(--amber2);
+      font-family: 'Syne', sans-serif;
+      font-size: 1.45em;
+      width: 54px;
+      height: 54px;
+      box-shadow: 0 0 22px var(--amber-glow);
+    }
+
+    .mini-stage strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .mini-stage span {
+      display: block;
+      color: var(--text2);
+      font-size: 0.86em;
+      line-height: 1.45;
+    }
+
+    .section-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 46px 0;
+    }
+
+    .section-shell.tight {
+      padding: 30px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .section-kicker {
+      color: var(--amber);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.76em;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    .section-shell h2 {
+      font-size: clamp(1.7rem, 3vw, 2.65rem);
+      line-height: 1.08;
+      letter-spacing: -0.055em;
+      margin: 0 0 14px;
+    }
+
+    .section-head p {
+      font-size: 1.05em;
+      max-width: 760px;
+    }
+
+    .stats-band {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .stat-card {
+      min-height: 145px;
+      padding: 22px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(245, 158, 11, 0.09), transparent 40%),
+        var(--bg2);
+    }
+
+    .stat-card .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.15em;
+      line-height: 1;
+      color: var(--text);
+      letter-spacing: -0.06em;
+      margin-bottom: 10px;
+    }
+
+    .stat-card p {
+      margin: 0;
+      font-size: 0.92em;
+      color: var(--text2);
+    }
+
+    .workflow-track {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .workflow-card {
+      position: relative;
+      min-height: 330px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 50% 0%, var(--amber-glow), transparent 36%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
+      box-shadow: 0 16px 48px rgba(0,0,0,0.14);
+    }
+
+    .workflow-number {
+      position: absolute;
+      top: -14px;
+      left: 22px;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--amber);
+      color: #0a0800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      box-shadow: 0 0 22px var(--amber-glow);
+    }
+
+    .workflow-icon {
+      margin: 24px 0 24px;
+      width: 68px;
+      height: 68px;
+      font-size: 1.7em;
+    }
+
+    .workflow-card h3 {
+      font-size: 1.05em;
+      margin-bottom: 10px;
+    }
+
+    .workflow-card p {
+      font-size: 0.93em;
+      line-height: 1.58;
+      margin-bottom: 18px;
+    }
+
+    .stage-pill {
+      display: inline-flex;
+      border: 1px solid var(--border2);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--amber2);
+      background: var(--bg2);
+      font-size: 0.76em;
+      font-weight: 700;
+    }
+
+    .benefit-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: var(--border);
+      margin-top: 18px;
+    }
+
+    .benefit {
+      background: var(--bg2);
+      padding: 18px;
+    }
+
+    .benefit strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.95em;
+      margin-bottom: 4px;
+    }
+
+    .benefit span {
+      color: var(--text2);
+      font-size: 0.84em;
+      line-height: 1.4;
+      display: block;
+    }
+
+    .comparison-panel {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .compare-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--bg2);
+      padding: 28px;
+    }
+
+    .compare-card.highlight {
+      border-color: var(--amber-dim);
+      background:
+        linear-gradient(135deg, var(--cta-start), var(--bg2));
+    }
+
+    .compare-card h3 {
+      font-size: 1.15em;
+      margin-bottom: 16px;
+    }
+
+    .clean-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .clean-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--text2);
+      margin-bottom: 11px;
+    }
+
+    .clean-list li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      margin-top: 9px;
+      border-radius: 99px;
+      background: var(--amber);
+      flex-shrink: 0;
+      box-shadow: 0 0 12px var(--amber-glow);
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border: 1px solid var(--amber-dim);
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--cta-start), var(--bg2));
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+    }
+
+    .feature-grid,
+    .destination-grid,
+    .related-guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .feature-card,
+    .destination-card,
+    .related-guide {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 24px;
+      background: var(--bg2);
+      min-height: 190px;
+      transition: transform 0.15s, border-color 0.15s, background 0.15s;
+    }
+
+    .feature-card:hover,
+    .destination-card:hover,
+    .related-guide:hover {
+      transform: translateY(-2px);
+      border-color: var(--amber-dim);
+      background: var(--bg3);
+      text-decoration: none;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      background: var(--amber-glow);
+      border: 1px solid var(--amber-dim);
+      color: var(--amber2);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+    }
+
+    .source-mosaic {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .source-tile {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      background: var(--bg2);
+      min-height: 118px;
+    }
+
+    .source-tile span {
+      display: block;
+      color: var(--amber2);
+      font-size: 1.35em;
+      margin-bottom: 10px;
+    }
+
+    .source-tile strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      margin-bottom: 4px;
+    }
+
+    .source-tile p {
+      margin: 0;
+      color: var(--text2);
+      font-size: 0.82em;
+      line-height: 1.35;
+    }
+
+    .markdown-bridge {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: stretch;
+      margin-top: 24px;
+    }
+
+    .bridge-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 26px;
+      background: var(--bg2);
+    }
+
+    .bridge-card.ai-ready {
+      border-color: var(--amber-dim);
+      background: linear-gradient(135deg, var(--cta-start), var(--bg2));
+    }
+
+    .bridge-label {
+      font-family: 'DM Mono', monospace;
+      color: var(--text3);
+      font-size: 0.72em;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+    }
+
+    .code-sample {
+      margin-top: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      color: var(--amber2);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78em;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+
+    .folder-structure-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 26px;
+      background:
+        radial-gradient(circle at 10% 10%, var(--amber-glow), transparent 30%),
+        var(--bg2);
+      margin-top: 24px;
+    }
+
+    .final-cta {
+      margin: 54px auto 24px;
+      max-width: 1120px;
+      border-radius: 30px;
+      padding: 44px;
+      border: 1px solid var(--amber-dim);
+      background:
+        radial-gradient(circle at 15% 20%, var(--amber-glow), transparent 34%),
+        linear-gradient(135deg, var(--cta-start), var(--bg2));
+      display: grid;
+      grid-template-columns: 1.2fr auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .final-cta h2 {
+      margin: 0 0 10px;
+    }
+
+    .final-cta p {
+      margin: 0;
+      max-width: 720px;
+    }
+
+    .related-guide {
+      display: block;
+      color: var(--text);
+    }
+
+    .related-guide small {
+      display: block;
+      color: var(--text3);
+      margin-bottom: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7em;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .related-guide p {
+      margin: 8px 0 0;
+      color: var(--text2);
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+
+    html[data-theme="light"] .knowledge-hero,
+    html[data-theme="light"] .workflow-card,
+    html[data-theme="light"] .mini-pipeline,
+    html[data-theme="light"] .feature-card,
+    html[data-theme="light"] .destination-card,
+    html[data-theme="light"] .source-tile,
+    html[data-theme="light"] .related-guide,
+    html[data-theme="light"] .folder-structure-card,
+    html[data-theme="light"] .bridge-card,
+    html[data-theme="light"] .compare-card,
+    html[data-theme="light"] .stat-card {
+      box-shadow: 0 18px 60px rgba(30, 41, 59, 0.08);
+    }
+
+    @media (max-width: 1020px) {
+      .knowledge-hero {
+        padding: 36px;
+      }
+
+      .hero-grid,
+      .markdown-bridge,
+      .comparison-panel,
+      .final-cta {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-track,
+      .benefit-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stats-band,
+      .source-mosaic {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .feature-grid,
+      .destination-grid,
+      .related-guide-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .page-wrap.knowledge-page {
+        padding: 0 16px 44px;
+      }
+
+      .knowledge-hero {
+        padding: 26px 20px;
+        border-radius: 22px;
+        margin-top: 22px;
+      }
+
+      .knowledge-hero h1 {
+        font-size: 2.35rem;
+      }
+
+      .hero-copy {
+        font-size: 1em;
+      }
+
+      .hero-actions,
+      .section-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .page-cta-btn,
+      .secondary-btn,
+      .cta-btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .workflow-track,
+      .benefit-strip,
+      .stats-band,
+      .source-mosaic,
+      .feature-grid,
+      .destination-grid,
+      .related-guide-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-card {
+        min-height: auto;
+      }
+
+      .section-shell {
+        padding: 34px 0;
+      }
+
+      .final-cta {
+        padding: 28px 22px;
+        border-radius: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page-wrap knowledge-page">
+  <div class="topbar">
+    <a class="logo-row" href="index.html">
+      <div class="logo-icon">✍️</div>
+      <div class="logo-text"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span></div>
+    </a>
+    <div class="topbar-right">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
+      <a class="back-link" href="index.html#tool" onclick="trackCta('header')">Start Transcribing →</a>
+    </div>
+  </div>
+
+  <main class="knowledge-main">
+    <section class="knowledge-hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Local AI ingestion layer</div>
+          <h1>Build a Knowledge Agent From <span>Meeting Recordings</span></h1>
+          <p class="hero-copy">Your organization already has years of valuable knowledge trapped inside Zoom calls, Teams meetings, Webex recordings, training videos, customer conversations, and project reviews. ScribeItLocal helps turn those recordings into clean, AI-ready Markdown files that can power Claude Projects, custom GPTs, private knowledge vaults, RAG systems, and local search.</p>
+
+          <div class="hero-actions">
+            <a class="page-cta-btn" href="index.html#tool" onclick="trackCta('hero_primary')">Start Creating AI-Ready Markdown →</a>
+            <a class="secondary-btn" href="#workflow" onclick="trackCta('hero_secondary')">See the Workflow</a>
+          </div>
+          <p class="trust-line">Runs locally in your browser. No uploads. No account. No cloud transcription server.</p>
+
+          <div class="badge-row">
+            <div class="badge"><span class="dot"></span> AI Agent Ready</div>
+            <div class="badge"><span class="dot"></span> Local AI Processing</div>
+            <div class="badge"><span class="dot"></span> No Uploads</div>
+            <div class="badge"><span class="dot"></span> Enterprise Knowledge</div>
+          </div>
+        </div>
+
+        <div class="mini-pipeline" aria-label="Recording to knowledge agent workflow">
+          <div class="mini-stage">
+            <div class="mini-icon">▶</div>
+            <div><strong>Recordings</strong><span>Meetings, training videos, calls, and reviews.</span></div>
+          </div>
+          <div class="mini-stage">
+            <div class="mini-icon">≋</div>
+            <div><strong>Local Transcript</strong><span>Speech becomes text directly in the browser.</span></div>
+          </div>
+          <div class="mini-stage">
+            <div class="mini-icon">#</div>
+            <div><strong>Markdown</strong><span>Clean, structured, portable AI-ready files.</span></div>
+          </div>
+          <div class="mini-stage">
+            <div class="mini-icon">▣</div>
+            <div><strong>Knowledge Vault</strong><span>Organized by team, client, project, and topic.</span></div>
+          </div>
+          <div class="mini-stage">
+            <div class="mini-icon">AI</div>
+            <div><strong>Knowledge Agent</strong><span>Ready for Claude Projects, GPTs, RAG, or local search.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell tight">
+      <div class="section-head">
+        <div class="section-kicker">The overlooked advantage</div>
+        <h2>Your Knowledge Is Already There</h2>
+        <p>Most companies do not need to start from scratch. Years of meetings, training sessions, customer calls, and project reviews already contain the decisions, context, and tribal knowledge their AI agents need.</p>
+      </div>
+
+      <div class="stats-band">
+        <div class="stat-card">
+          <div class="stat-value">Years</div>
+          <p>of recorded meetings, conversations, and decisions.</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">Calls</div>
+          <p>with customers, partners, teams, and stakeholders.</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">Context</div>
+          <p>hidden inside implementation reviews and training sessions.</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">1 Vault</div>
+          <p>where clean Markdown can become usable AI knowledge.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell" id="workflow">
+      <div class="section-head">
+        <div class="section-kicker">The complete workflow</div>
+        <h2>From Recording to Knowledge Agent</h2>
+        <p>Each step builds on the previous one. ScribeItLocal handles the local transcription step so sensitive recordings never leave the user’s device.</p>
+      </div>
+
+      <div class="workflow-track">
+        <article class="workflow-card">
+          <div class="workflow-number">1</div>
+          <div class="workflow-icon">▶</div>
+          <h3>Recordings</h3>
+          <p>Start with MP4, MOV, MKV, MP3, WAV, M4A, or other meeting and media files.</p>
+          <span class="stage-pill">Any format</span>
+        </article>
+
+        <article class="workflow-card">
+          <div class="workflow-number">2</div>
+          <div class="workflow-icon">≋</div>
+          <h3>Local Transcript</h3>
+          <p>Convert speech into text directly in the browser. The AI model runs on the user’s device.</p>
+          <span class="stage-pill">100% local</span>
+        </article>
+
+        <article class="workflow-card">
+          <div class="workflow-number">3</div>
+          <div class="workflow-icon">#</div>
+          <h3>Markdown</h3>
+          <p>Save clean, structured Markdown with headings, timestamps, summaries, decisions, and action items.</p>
+          <span class="stage-pill">AI-ready</span>
+        </article>
+
+        <article class="workflow-card">
+          <div class="workflow-number">4</div>
+          <div class="workflow-icon">▣</div>
+          <h3>Knowledge Vault</h3>
+          <p>Organize Markdown by team, project, client, product, date, or business function.</p>
+          <span class="stage-pill">Organized</span>
+        </article>
+
+        <article class="workflow-card">
+          <div class="workflow-number">5</div>
+          <div class="workflow-icon">AI</div>
+          <h3>AI Agent</h3>
+          <p>Use the prepared knowledge with Claude Projects, custom GPTs, local search, RAG pipelines, or internal agent frameworks.</p>
+          <span class="stage-pill">Private knowledge</span>
+        </article>
+      </div>
+
+      <div class="benefit-strip" aria-label="ScribeItLocal benefits">
+        <div class="benefit"><strong>100% Private</strong><span>Nothing leaves your device.</span></div>
+        <div class="benefit"><strong>No Uploads</strong><span>Your data stays where it is.</span></div>
+        <div class="benefit"><strong>No Accounts</strong><span>Zero sign-ups. Zero tracking walls.</span></div>
+        <div class="benefit"><strong>Runs in Browser</strong><span>No installation required.</span></div>
+        <div class="benefit"><strong>Future Proof</strong><span>Use your files anywhere.</span></div>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="section-head">
+        <div class="section-kicker">Why agents struggle</div>
+        <h2>Most AI Agents Fail Before the Model Ever Runs</h2>
+        <p>The hard part is not only choosing the model. The hard part is giving the model clean, organized, trusted knowledge to work from.</p>
+      </div>
+
+      <div class="comparison-panel">
+        <div class="compare-card">
+          <h3>What companies have today</h3>
+          <ul class="clean-list">
+            <li>Raw meeting recordings</li>
+            <li>Scattered files and folders</li>
+            <li>Unstructured conversations</li>
+            <li>Decisions buried in calls</li>
+            <li>Knowledge trapped with individuals</li>
+          </ul>
+        </div>
+        <div class="compare-card highlight">
+          <h3>What AI agents need</h3>
+          <ul class="clean-list">
+            <li>Clean text</li>
+            <li>Structured Markdown</li>
+            <li>Searchable context</li>
+            <li>Decision history</li>
+            <li>Reusable knowledge assets</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="callout">Before you build the agent, prepare the knowledge layer.</div>
+    </section>
+
+    <section class="section-shell">
+      <div class="section-head">
+        <div class="section-kicker">What ScribeItLocal does</div>
+        <h2>Turn Recorded Conversations Into AI-Ready Assets</h2>
+        <p>ScribeItLocal helps with the first and most important step: turning private recordings into structured text that can support future knowledge workflows.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon">01</div>
+          <h3>Unlock Tribal Knowledge</h3>
+          <p>Convert recorded meetings into searchable text that captures decisions, context, requirements, and operational experience.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">02</div>
+          <h3>Create AI-Ready Markdown</h3>
+          <p>Turn raw conversations into structured files that can support Claude Projects, custom GPTs, RAG pipelines, and local search.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">03</div>
+          <h3>Keep Recordings Local</h3>
+          <p>Process recordings in the browser without uploading private business conversations to a transcription server.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="section-head">
+        <div class="section-kicker">Knowledge sources</div>
+        <h2>What Can Become AI Knowledge?</h2>
+        <p>Recorded conversations are often the richest source of real operational knowledge in an organization.</p>
+      </div>
+
+      <div class="source-mosaic">
+        <div class="source-tile"><span>▣</span><strong>Team Meetings</strong><p>Priorities, decisions, and context.</p></div>
+        <div class="source-tile"><span>◍</span><strong>Training Sessions</strong><p>Process walkthroughs and expertise.</p></div>
+        <div class="source-tile"><span>◇</span><strong>Customer Calls</strong><p>Feedback, pain points, and requirements.</p></div>
+        <div class="source-tile"><span>↗</span><strong>Project Handoffs</strong><p>Context transferred between teams.</p></div>
+        <div class="source-tile"><span>◎</span><strong>Operational Reviews</strong><p>What worked, what failed, and why.</p></div>
+        <div class="source-tile"><span>◆</span><strong>Executive Discussions</strong><p>Strategy, direction, and tradeoffs.</p></div>
+        <div class="source-tile"><span>□</span><strong>Product Reviews</strong><p>Roadmap logic and feature rationale.</p></div>
+        <div class="source-tile"><span>!</span><strong>Support Escalations</strong><p>Issues, root causes, and resolutions.</p></div>
+        <div class="source-tile"><span>⌁</span><strong>Architecture Reviews</strong><p>Systems, constraints, and decisions.</p></div>
+        <div class="source-tile"><span>↔</span><strong>Sales Discovery</strong><p>Market needs and buying signals.</p></div>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="section-head">
+        <div class="section-kicker">Why Markdown</div>
+        <h2>Markdown Is the Bridge Between Recordings and AI</h2>
+        <p>Raw recordings are difficult for AI systems to search, chunk, cite, and reuse. Markdown turns conversations into structured, portable text that can move across tools and workflows.</p>
+      </div>
+
+      <div class="markdown-bridge">
+        <div class="bridge-card">
+          <div class="bridge-label">Before</div>
+          <h3>Raw Recording</h3>
+          <ul class="clean-list">
+            <li>Large audio or video file</li>
+            <li>Hard to search</li>
+            <li>Hard to cite</li>
+            <li>Hard to chunk</li>
+            <li>Not agent-ready</li>
+          </ul>
+        </div>
+
+        <div class="bridge-card ai-ready">
+          <div class="bridge-label">After</div>
+          <h3>Markdown Knowledge File</h3>
+          <ul class="clean-list">
+            <li>Readable text</li>
+            <li>Clear headings</li>
+            <li>Timestamps</li>
+            <li>Decisions and action items</li>
+            <li>AI-ready structure</li>
+          </ul>
+          <div class="code-sample"># Product Review Meeting
+
+Date:
+Source:
+Participants:
+
+## Summary
+
+## Key Decisions
+
+## Action Items
+
+## Risks
+
+## Open Questions</div>
+        </div>
+      </div>
+
+      <div class="section-actions">
+        <a href="markdown-for-ai-agents.html" class="secondary-btn">Learn why Markdown works for AI →</a>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="section-head">
+        <div class="section-kicker">Portable knowledge</div>
+        <h2>Use the Knowledge Wherever Your AI Strategy Goes</h2>
+        <p>ScribeItLocal does not lock your knowledge into one platform. Clean Markdown files can support the AI workflow you choose now and the ones you adopt later.</p>
+      </div>
+
+      <div class="destination-grid">
+        <article class="destination-card">
+          <h3>Claude Projects</h3>
+          <p>Upload Markdown files as project knowledge with custom instructions.</p>
+        </article>
+        <article class="destination-card">
+          <h3>Custom GPTs</h3>
+          <p>Use structured transcripts as source material for specialized assistants.</p>
+        </article>
+        <article class="destination-card">
+          <h3>Local Search</h3>
+          <p>Index Markdown files locally for private search and retrieval.</p>
+        </article>
+        <article class="destination-card">
+          <h3>RAG Pipelines</h3>
+          <p>Chunk and embed Markdown for semantic retrieval.</p>
+        </article>
+        <article class="destination-card">
+          <h3>Internal Knowledge Bases</h3>
+          <p>Store transcripts in documentation systems, wikis, or repositories.</p>
+        </article>
+        <article class="destination-card">
+          <h3>Future Agent Frameworks</h3>
+          <p>Keep files portable so your knowledge is not locked into one platform.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="section-head">
+        <div class="section-kicker">Organize the vault</div>
+        <h2>A Simple Folder Structure for Your Knowledge Vault</h2>
+        <p>This keeps original files, generated transcripts, summaries, and agent-ready knowledge separated so the content can be reused across Claude Projects, local search, RAG systems, or future agent tools.</p>
+      </div>
+
+      <div class="folder-structure-card">
+        <div class="code-block">ScribeItLocal-Knowledge-Vault/
+  01-source-recordings/
+    team-meetings/
+    customer-calls/
+    training-videos/
+  02-markdown-transcripts/
+    team-meetings/
+    customer-calls/
+    training-videos/
+  03-summaries/
+    decisions/
+    action-items/
+    risks/
+  04-agent-ready/
+    by-project/
+    by-client/
+    by-topic/
+  05-local-search-index/</div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div>
+        <h2>Start With the Knowledge Layer</h2>
+        <p>The best AI agent is only as good as the knowledge it can access. Start by converting existing recordings into private, structured, AI-ready text.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="page-cta-btn" href="index.html#tool" onclick="trackCta('final_primary')">Turn Recordings Into AI-Ready Markdown →</a>
+        <a class="secondary-btn" href="markdown-for-ai-agents.html" onclick="trackCta('final_secondary')">Explore Markdown</a>
+      </div>
+    </section>
+
+    <section class="section-shell">
+      <div class="section-head">
+        <div class="section-kicker">Related guides</div>
+        <h2>Continue Building the AI Knowledge Layer</h2>
+      </div>
+
+      <div class="related-guide-grid">
+        <a class="related-guide" href="markdown-for-ai-agents.html">
+          <small>Guide</small>
+          <strong>Why Markdown Is the Best Format for AI Agents</strong>
+          <p>Learn why structured plain text is ideal for AI knowledge workflows.</p>
+        </a>
+        <a class="related-guide" href="private-ai-knowledge-vault.html">
+          <small>Guide</small>
+          <strong>Build a Private AI Knowledge Vault</strong>
+          <p>Organize source files, transcripts, summaries, and agent-ready content.</p>
+        </a>
+        <a class="related-guide" href="claude-project-knowledge-agent.html">
+          <small>Guide</small>
+          <strong>Claude Projects Knowledge Agent Guide</strong>
+          <p>Use generated Markdown files as project knowledge with instructions.</p>
+        </a>
+        <a class="related-guide" href="ai-local-transcription.html">
+          <small>Tool</small>
+          <strong>Local AI Transcription</strong>
+          <p>Transcribe files locally in the browser with no upload step.</p>
+        </a>
+        <a class="related-guide" href="offline-transcription-tool.html">
+          <small>Tool</small>
+          <strong>Offline Transcription Tool</strong>
+          <p>Process private files using an offline-first transcription workflow.</p>
+        </a>
+        <a class="related-guide" href="whisper-browser-transcription.html">
+          <small>Technology</small>
+          <strong>Whisper Browser Transcription</strong>
+          <p>Understand browser-based speech-to-text processing.</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span> <span class="footer-tagline">— a product of <a href="https://janktechventures.com" target="_blank" rel="noopener">Janko Tech Ventures LLC</a></span></div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="about.html">About</a>
+      <a href="https://ko-fi.com/scribeitlocal" target="_blank" rel="noopener">Support this project</a>
+      <a href="https://janktechventures.com" target="_blank" rel="noopener">Janko Tech Ventures</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+function trackCta(locationName){
+  if(window.gtag){
+    gtag('event','seo_cta_clicked',{
+      page_path: location.pathname,
+      page_title: document.title,
+      cta_location: locationName
+    });
+  }
+}
+
+function toggleTheme(){
+  var h=document.documentElement,l=h.dataset.theme==='light';
+  h.dataset.theme=l?'':'light';
+  localStorage.setItem('sl-theme',l?'dark':'light');
+  document.getElementById('themeToggle').textContent=l?'☀️':'🌙';
+}
+(function(){
+  var b=document.getElementById('themeToggle');
+  if(b)b.textContent=document.documentElement.dataset.theme==='light'?'🌙':'☀️';
+})();
+</script>
+</body>
+</html>

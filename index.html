@@ -16,7 +16,6 @@
 
 <!-- ═══════════════════════════════════════════════════════════
      SEO META TAGS — ScribeItLocal
-     Update: description, og:url, og:image when you go live
      ═══════════════════════════════════════════════════════════ -->
 <title>ScribeItLocal — Free Local AI Video & Audio Transcription Tool</title>
 <meta name="description" content="ScribeItLocal is a 100% free, browser-based transcription tool powered by OpenAI Whisper. Transcribe MP4, MOV, MKV, MP3, WAV and more — entirely on your device. No uploads. No account required.">
@@ -36,7 +35,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ScribeItLocal — Free Local Video & Audio Transcription">
-<meta name="twitter:description" content="100% free transcription that runs entirely on your machine. No uploads. No account. No account required.">
+<meta name="twitter:description" content="100% free transcription that runs entirely on your machine. No uploads. No account required.">
 <meta name="twitter:image" content="https://www.scribeitlocal.com/og-image.png">
 
 <!-- Schema.org structured data for Google -->
@@ -70,13 +69,12 @@
 <!-- ═══════════════════════════════════════════════════════════
      GOOGLE ADSENSE
      Replace ca-pub-XXXXXXXXXXXXXXXX with your Publisher ID
-     Get it at: adsense.google.com after approval
      ═══════════════════════════════════════════════════════════ -->
 <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script>(function(){var t=localStorage.getItem('sl-theme');if(t==='light')document.documentElement.dataset.theme='light';})();</script>
 
@@ -98,803 +96,351 @@
     --red:       #ef4444;
     --blue:      #3b82f6;
     --purple:    #a78bfa;
+    --radius:    16px;
+    --shadow:    0 10px 34px rgba(0,0,0,0.28);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', 'DM Sans', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
+    line-height: 1.6;
   }
 
-  /* ── Noise texture overlay ── */
+  /* Soft ambient glow behind hero */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background:
+      radial-gradient(60% 50% at 75% 0%, rgba(245,158,11,0.08), transparent 60%),
+      radial-gradient(50% 40% at 10% 5%, rgba(34,197,94,0.05), transparent 60%);
     pointer-events: none;
     z-index: 0;
-    opacity: 0.4;
+  }
+  [data-theme="light"] body::before {
+    background:
+      radial-gradient(60% 50% at 75% 0%, rgba(245,158,11,0.10), transparent 60%),
+      radial-gradient(50% 40% at 10% 5%, rgba(34,197,94,0.06), transparent 60%);
   }
 
   .page-wrap {
     position: relative;
     z-index: 1;
-    max-width: 900px;
+    max-width: 1120px;
     margin: 0 auto;
-    padding: 0 20px 60px;
+    padding: 0 24px 64px;
   }
 
-  /* ══════════════════════════════════
-     AD SLOTS
-  ══════════════════════════════════ */
-  .ad-slot {
-    background: var(--bg2);
-    border: 1px dashed var(--border2);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text3);
-    font-family: 'DM Mono', monospace;
-    font-size: 0.7em;
-    letter-spacing: 0.05em;
-  }
-
-  /* Keep visible placeholder ad boxes hidden until AdSense is approved.
-     When you replace these blocks with real AdSense units, remove the ad-placeholder class. */
+  /* ════════ AD SLOTS ════════ */
+  .ad-slot { background: var(--bg2); border: 1px dashed var(--border2); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text3); font-family: 'DM Mono', monospace; font-size: 0.7em; letter-spacing: 0.05em; }
   .ad-placeholder { display: none; }
+  .ad-top { width: 100%; max-width: 970px; height: 90px; margin: 16px auto 0; }
+  .ad-inline { width: 300px; height: 250px; margin: 0 auto; }
+  .ad-bottom { width: 100%; max-width: 970px; height: 90px; margin: 32px auto 0; }
 
-  /* Top leaderboard — 728×90, collapses on mobile */
-  .ad-top {
-    width: 100%;
-    max-width: 728px;
-    height: 90px;
-    margin: 16px auto 0;
-  }
-
-  /* Inline rectangle — 300×250, centered */
-  .ad-inline {
-    width: 300px;
-    height: 250px;
-    margin: 0 auto;
-  }
-
-  /* Bottom leaderboard */
-  .ad-bottom {
-    width: 100%;
-    max-width: 728px;
-    height: 90px;
-    margin: 32px auto 0;
-  }
-
-  /* ══════════════════════════════════
-     HEADER
-  ══════════════════════════════════ */
-  .site-header {
-    padding: 32px 0 0;
-    position: relative;
-  }
-
-  .logo-row {
+  /* ════════ HEADER ════════ */
+  .app-header {
     display: flex;
     align-items: center;
-    gap: 14px;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px 0 0;
+    flex-wrap: wrap;
   }
-
+  .logo-row { display: flex; align-items: center; gap: 12px; text-decoration: none; }
   .logo-icon {
-    width: 44px;
-    height: 44px;
+    width: 40px; height: 40px;
     background: var(--amber-glow);
     border: 1.5px solid var(--amber-dim);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-    box-shadow: 0 0 20px var(--amber-glow);
+    border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    box-shadow: 0 0 18px var(--amber-glow);
   }
-
-  .logo-text {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.9em;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--text);
+  .logo-text { font-family: 'Syne', sans-serif; font-size: 1.5em; font-weight: 800; letter-spacing: -0.02em; color: var(--text); }
+  .logo-text .logo-it { color: var(--green); }
+  .logo-text > span:last-child { color: var(--amber); }
+  .header-actions { display: flex; align-items: center; gap: 10px; }
+  .theme-toggle {
+    background: var(--bg2); border: 1px solid var(--border2); border-radius: 9px;
+    padding: 8px 11px; cursor: pointer; font-size: 1em; line-height: 1; color: var(--text2);
+    transition: all 0.15s; flex-shrink: 0;
   }
-
-  .logo-text span {
-    color: var(--amber);
+  .theme-toggle:hover { border-color: var(--amber-dim); background: var(--bg3); }
+  .btn-support-sm {
+    font-size: 0.82em; font-weight: 600; color: var(--text2);
+    text-decoration: none; border: 1px solid var(--border2); border-radius: 9px;
+    padding: 8px 14px; background: var(--bg2); transition: all 0.15s; white-space: nowrap;
   }
+  .btn-support-sm:hover { border-color: var(--amber-dim); color: var(--amber); }
 
-  .tagline {
-    font-size: 1.05em;
-    color: var(--text);
-    font-weight: 400;
-    margin-bottom: 4px;
-    padding-left: 58px;
-  }
-  .tagline-sub {
-    font-size: 0.88em;
-    color: var(--green);
-    font-weight: 300;
-    margin-bottom: 4px;
-    padding-left: 58px;
-  }
-
-  .tagline-speed {
-    font-size: 0.8em;
-    color: var(--amber);
-    font-weight: 400;
-    margin-bottom: 20px;
-    padding-left: 58px;
-  }
-
-  /* ── Hero trust badges ── */
-  .trust-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 16px 0 24px;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 28px;
-  }
-
-  .trust-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: 999px;
-    padding: 5px 13px;
-    font-size: 0.8em;
-    font-weight: 500;
-    color: var(--text2);
-    white-space: nowrap;
-  }
-
-  .trust-badge .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--amber);
-    flex-shrink: 0;
-    box-shadow: 0 0 6px var(--amber);
-  }
-
-  .trust-badge.green .dot { background: var(--green); box-shadow: 0 0 6px var(--green); }
-  .trust-badge.blue .dot  { background: var(--blue);  box-shadow: 0 0 6px var(--blue); }
-
-  /* ── Feature callout ── */
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .feature-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    transition: border-color 0.2s;
-  }
-
-  .feature-card:hover { border-color: var(--border2); }
-
-  .feature-icon {
-    font-size: 1.4em;
-    margin-bottom: 8px;
-    display: block;
-  }
-
-  .feature-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.88em;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 3px;
-  }
-
-  .feature-desc {
-    font-size: 0.78em;
-    color: var(--text2);
-    line-height: 1.5;
-  }
-
-  /* ── Supported formats bar ── */
-  .formats-bar {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 18px;
-    margin-bottom: 28px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .formats-label {
-    font-size: 0.75em;
-    font-weight: 600;
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-  }
-
-  .format-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .fmt-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72em;
-    font-weight: 500;
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    border-radius: 4px;
-    padding: 3px 8px;
-    color: var(--amber2);
-  }
-
-  /* ══════════════════════════════════
-     TOOL CARDS
-  ══════════════════════════════════ */
-  .card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 22px;
-    margin-bottom: 16px;
-    transition: border-color 0.2s;
-  }
-
-  .card:hover { border-color: var(--border2); }
-
-  .card-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.72em;
-    font-weight: 700;
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .card-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* ── Model grid ── */
-  .model-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-
-  @media (max-width: 520px) {
-    .model-grid { grid-template-columns: 1fr; }
-  }
-
-  .model-card {
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    cursor: pointer;
+  /* ════════ ANNOUNCEMENT ════════ */
+  .announce-row { margin-top: 26px; }
+  .announce {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 0.82em; font-weight: 500; color: var(--text2);
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: 999px; padding: 7px 8px 7px 8px; text-decoration: none;
     transition: all 0.15s;
-    background: var(--bg3);
   }
-
-  .model-card:hover { border-color: var(--border2); }
-
-  .model-card.selected {
-    border-color: var(--amber);
-    background: #1a1400;
-    box-shadow: 0 0 0 1px var(--amber-dim), inset 0 0 20px var(--amber-glow);
+  .announce:hover { border-color: var(--amber-dim); color: var(--text); transform: translateY(-1px); }
+  .announce .tag {
+    font-size: 0.82em; font-weight: 700; letter-spacing: 0.04em;
+    color: #0a0800; background: var(--amber); border-radius: 999px; padding: 2px 9px;
+    text-transform: uppercase;
   }
+  .announce .arrow { color: var(--amber); font-weight: 700; }
 
-  .mc-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.88em;
-    font-weight: 700;
+  /* ════════ HERO ════════ */
+  .hero-new { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 46px; align-items: center; padding: 40px 0 30px; }
+  @media (max-width: 920px) { .hero-new { grid-template-columns: 1fr; gap: 32px; } }
+  .hero-h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2em, 4.2vw, 2.85em);
+    line-height: 1.07;
+    letter-spacing: -0.035em;
     color: var(--text);
-    margin-bottom: 3px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
+    margin-bottom: 18px;
   }
-
-  .mc-id {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68em;
-    color: var(--text3);
-    margin-bottom: 7px;
+  .hero-h1 .accent {
+    background: linear-gradient(120deg, var(--amber2), var(--amber));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
-
-  .mc-speed {
-    font-size: 0.8em;
-    color: var(--green);
-    font-weight: 600;
+  .hero-sub { font-size: 1.06em; color: var(--text2); max-width: 560px; line-height: 1.6; margin-bottom: 24px; font-weight: 400; }
+  .hero-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .btn-lg {
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.98em;
+    padding: 14px 26px; border-radius: 11px; text-decoration: none;
+    transition: all 0.15s; display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer; border: none; white-space: nowrap;
   }
+  .btn-lg.primary { background: linear-gradient(135deg, var(--amber2), var(--amber)); color: #0a0800; box-shadow: 0 8px 22px var(--amber-glow); }
+  .btn-lg.primary:hover { transform: translateY(-1px); box-shadow: 0 12px 30px var(--amber-glow); }
+  .btn-lg.ghost { background: var(--bg2); color: var(--text); border: 1px solid var(--border2); }
+  .btn-lg.ghost:hover { border-color: var(--amber-dim); color: var(--amber); }
+  .hero-trust { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-bottom: 14px; }
+  .hero-trust span { display: inline-flex; align-items: center; gap: 7px; font-size: 0.82em; color: var(--text2); }
+  .hero-trust .ck { color: var(--green); font-weight: 800; }
+  .hero-foot { font-size: 0.82em; color: var(--text3); max-width: 540px; line-height: 1.55; }
 
-  .mc-note {
-    font-size: 0.72em;
-    color: var(--text3);
-    margin-top: 3px;
-  }
+  /* Hero product preview — decorative mock UI (no functional IDs) */
+  .hero-preview { width: 100%; }
+  .hp-card { background: linear-gradient(180deg, var(--bg2), var(--bg)); border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; }
+  .hp-top { display: flex; align-items: center; gap: 6px; padding: 13px 16px; border-bottom: 1px solid var(--border); }
+  .hp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border2); }
+  .hp-dot.r { background: #ef4444aa; } .hp-dot.y { background: #f59e0baa; } .hp-dot.g { background: #22c55eaa; }
+  .hp-top-title { margin-left: 8px; font-family: 'DM Mono', monospace; font-size: 0.72em; color: var(--text3); }
+  .hp-body { padding: 18px 18px 20px; }
+  .hp-file { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .hp-fname { font-family: 'DM Mono', monospace; font-size: 0.83em; color: var(--text); display: flex; align-items: center; gap: 9px; min-width: 0; }
+  .hp-fi { width: 26px; height: 26px; border-radius: 7px; background: var(--amber-glow); border: 1px solid var(--amber-dim); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .hp-fi svg { width: 13px; height: 13px; stroke: var(--amber); fill: none; stroke-width: 2; }
+  .hp-proc { font-family: 'DM Mono', monospace; font-size: 0.72em; color: var(--amber2); white-space: nowrap; }
+  .hp-prog { height: 7px; border-radius: 999px; background: var(--bg3); border: 1px solid var(--border); overflow: hidden; margin: 13px 0 18px; }
+  .hp-prog i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--amber), var(--amber2)); width: 70%; animation: hpfill 2.8s ease-in-out infinite; }
+  @keyframes hpfill { 0% { width: 16%; } 50% { width: 86%; } 100% { width: 16%; } }
+  .hp-label { font-family: 'DM Mono', monospace; font-size: 0.64em; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); margin-bottom: 9px; }
+  .hp-out { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+  .hp-out div { display: flex; align-items: center; gap: 9px; font-family: 'DM Mono', monospace; font-size: 0.8em; color: var(--text2); }
+  .hp-out .ok { color: var(--green); font-weight: 800; }
+  .hp-ready { display: flex; flex-wrap: wrap; gap: 7px; }
+  .hp-chip { font-size: 0.72em; color: var(--text2); background: var(--bg3); border: 1px solid var(--border2); border-radius: 999px; padding: 5px 11px; }
 
-  .badge {
-    display: inline-block;
-    border-radius: 999px;
-    font-size: 0.68em;
-    padding: 2px 8px;
-    font-weight: 700;
-    font-family: 'DM Mono', monospace;
-    background: #1a0e35;
-    color: var(--purple);
-    border: 1px solid #3d2770;
-  }
-
-  .badge.gpu { background: #1a0e35; color: var(--purple); border-color: #3d2770; }
-  .badge.new { background: #052e16; color: #6ee7b7; border-color: #14532d; }
-  .badge.local { background: #1c1000; color: var(--amber); border-color: var(--amber-dim); }
-
-  #gpuStatus {
-    font-size: 0.75em;
-    margin-top: 10px;
-    color: var(--text3);
-    padding: 8px 12px;
-    background: var(--bg);
-    border-radius: 7px;
+  /* ════════ WORKSPACE (unified tool panel) ════════ */
+  .workspace {
+    background: linear-gradient(180deg, var(--bg2), var(--bg));
     border: 1px solid var(--border);
-    font-family: 'DM Mono', monospace;
+    border-radius: 20px;
+    padding: 24px 24px 22px;
+    box-shadow: var(--shadow);
+    margin-bottom: 18px;
+    scroll-margin-top: 24px;
   }
+  .ws-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .ws-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.12em; color: var(--text); display: flex; align-items: center; gap: 11px; }
+  .ws-live { width: 9px; height: 9px; border-radius: 50%; background: var(--green); box-shadow: 0 0 9px var(--green); flex-shrink: 0; }
+  .ws-sub { font-size: 0.74em; color: var(--text3); font-family: 'DM Mono', monospace; }
+  .field-label { font-size: 0.7em; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .ws-divider { height: 1px; background: var(--border); margin: 18px 0; }
+  .ws-two { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  @media (max-width: 720px) { .ws-two { grid-template-columns: 1fr; } }
+  .ws-note { font-size: 0.74em; color: var(--text3); margin-top: 10px; line-height: 1.5; }
+  .ws-note strong { color: var(--amber2); }
 
-  #modelNote {
-    font-size: 0.74em;
-    color: var(--text3);
-    margin-top: 7px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* ── Drop zone ── */
+  /* Demo + dropzone */
+  .demo-divider { font-size: 0.74em; color: var(--text3); text-align: center; margin: 12px 0; letter-spacing: 0.04em; }
+  .first-run-note { font-size: 0.74em; color: var(--amber); margin: 8px 0 0; font-family: 'DM Mono', monospace; }
   .drop-zone {
-    border: 2px dashed var(--border2);
-    border-radius: 10px;
-    padding: 36px 20px;
-    text-align: center;
-    color: var(--text3);
-    font-size: 0.9em;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: var(--bg3);
+    border: 1.5px dashed var(--border2); border-radius: 14px; padding: 32px 20px;
+    text-align: center; color: var(--text3); font-size: 0.9em; cursor: pointer;
+    transition: all 0.2s; background: var(--bg3);
   }
-
-  .drop-zone:hover, .drop-zone.drag-over {
-    border-color: var(--amber);
-    background: #130f00;
-    color: var(--text2);
-    box-shadow: 0 0 30px var(--amber-glow);
-  }
-
-  .drop-zone-icon { font-size: 2.2em; margin-bottom: 10px; display: block; }
-  .drop-zone-main { font-weight: 500; color: var(--text2); margin-bottom: 4px; }
-  .drop-zone-sub  { font-size: 0.8em; color: var(--text3); }
-
+  .drop-zone:hover, .drop-zone.drag-over { border-color: var(--amber); background: #130f00; color: var(--text2); box-shadow: inset 0 0 40px var(--amber-glow); }
+  .drop-zone-icon { margin-bottom: 10px; display: flex; justify-content: center; }
+  .drop-zone-icon svg { width: 30px; height: 30px; stroke: var(--text3); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .drop-zone:hover .drop-zone-icon svg, .drop-zone.drag-over .drop-zone-icon svg { stroke: var(--amber); }
+  .drop-zone-main { font-weight: 600; color: var(--text2); margin-bottom: 4px; }
+  .drop-zone-sub { font-size: 0.78em; color: var(--text3); }
   input[type=file] { display: none; }
+  .drop-reassure { font-size: 0.73em; color: var(--text3); margin-top: 12px; text-align: center; font-family: 'DM Mono', monospace; }
 
-  /* ── Queue ── */
-  .queue-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 12px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    margin-top: 8px;
-    transition: border-color 0.15s;
-  }
-
+  /* Queue */
+  .queue-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--bg3); border: 1px solid var(--border); border-radius: 9px; margin-top: 8px; transition: border-color 0.15s; }
   .queue-item:hover { border-color: var(--border2); }
   .queue-item.done { border-color: var(--border); opacity: 0.6; }
-  .queue-name { font-size: 0.83em; color: var(--text2); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .queue-name { font-size: 0.84em; color: var(--text2); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .queue-size { font-size: 0.72em; color: var(--text3); white-space: nowrap; font-family: 'DM Mono', monospace; }
-
-  .remove-btn {
-    background: #2d0a0a;
-    color: #fca5a5;
-    border: 1px solid #7f1d1d;
-    border-radius: 5px;
-    padding: 3px 10px;
-    font-size: 0.72em;
-    cursor: pointer;
-    font-family: 'DM Mono', monospace;
-    transition: background 0.15s;
-  }
-
+  .remove-btn { background: #2d0a0a; color: #fca5a5; border: 1px solid #7f1d1d; border-radius: 6px; padding: 4px 10px; font-size: 0.72em; cursor: pointer; font-family: 'DM Mono', monospace; transition: background 0.15s; }
   .remove-btn:hover { background: #7f1d1d; }
-  .empty-msg { font-size: 0.82em; color: var(--text3); padding: 12px 0; text-align: center; font-style: italic; }
+  .empty-msg { font-size: 0.82em; color: var(--text3); padding: 14px 0; text-align: center; font-style: italic; }
 
-  /* ── Folder picker ── */
-  .folder-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+  /* Model grid — compact */
+  .model-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media (max-width: 520px) { .model-grid { grid-template-columns: 1fr; } }
+  .model-card { border: 1px solid var(--border); border-radius: 11px; padding: 11px 13px; cursor: pointer; transition: all 0.15s; background: var(--bg3); }
+  .model-card:hover { border-color: var(--border2); }
+  .model-card.selected { border-color: var(--amber); background: #1a1400; box-shadow: 0 0 0 1px var(--amber-dim), inset 0 0 22px var(--amber-glow); }
+  .mc-title { font-family: 'Inter', sans-serif; font-size: 0.86em; font-weight: 700; color: var(--text); margin-bottom: 2px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .mc-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+  .mc-dot.rec { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+  .mc-dot.cpu { background: var(--text3); }
+  .mc-id { font-family: 'DM Mono', monospace; font-size: 0.66em; color: var(--text3); margin-bottom: 5px; }
+  .mc-speed { font-size: 0.78em; color: var(--green); font-weight: 600; }
+  .mc-note { font-size: 0.7em; color: var(--text3); margin-top: 2px; }
+  .badge { display: inline-block; border-radius: 999px; font-size: 0.66em; padding: 2px 8px; font-weight: 700; font-family: 'DM Mono', monospace; background: #1a0e35; color: var(--purple); border: 1px solid #3d2770; }
+  .badge.gpu { background: #1a0e35; color: var(--purple); border-color: #3d2770; }
+  .badge.new { background: #052e16; color: #6ee7b7; border-color: #14532d; }
+  #gpuStatus { font-size: 0.74em; margin-top: 12px; color: var(--text3); padding: 9px 12px; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); font-family: 'DM Mono', monospace; }
+  #modelNote { font-size: 0.73em; color: var(--text3); margin-top: 8px; font-family: 'DM Mono', monospace; }
 
-  .folder-disp {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 7px 13px;
-    font-size: 0.8em;
-    color: var(--text3);
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* ── How It Works strip ── */
-  .how-steps {
-    display: flex; align-items: center; justify-content: center;
-    gap: 8px; padding: 20px 0 28px; flex-wrap: wrap;
-  }
-  .how-step {
-    text-align: center; padding: 14px 18px;
-    background: var(--bg2); border: 1px solid var(--border);
-    border-radius: 10px; flex: 1; min-width: 130px; max-width: 200px;
-  }
-  .how-num {
-    font-family: 'Syne', sans-serif; font-size: 1.3em; font-weight: 800;
-    color: var(--amber); margin-bottom: 6px;
-  }
-  .how-title {
-    font-family: 'Syne', sans-serif; font-size: 0.88em; font-weight: 700;
-    color: var(--text); margin-bottom: 4px;
-  }
-  .how-desc { font-size: 0.78em; color: var(--text2); line-height: 1.4; }
-  .how-arrow { font-size: 1.2em; color: var(--text3); flex-shrink: 0; }
-
-  /* ── First-run setup note ── */
-  .first-run-note {
-    font-size: 0.75em;
-    color: var(--amber);
-    margin: 8px 0 2px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* ── Demo divider ── */
-  .demo-divider {
-    font-size: 0.75em;
-    color: var(--text3);
-    text-align: center;
-    margin: 10px 0;
-    letter-spacing: 0.05em;
-  }
-
-  /* ── Step labels ── */
-  .step-label {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.78em;
-    font-weight: 700;
-    color: var(--amber);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin: 4px 0 6px 2px;
-  }
-
-  /* ── Drop zone reassurance micro-copy ── */
-  .drop-reassure {
-    font-size: 0.73em;
-    color: var(--text3);
-    margin-top: 10px;
-    text-align: center;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* ── Output format picker ── */
-  .fmt-grid { display: flex; flex-direction: column; gap: 6px; }
-  .fmt-opt {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 10px 12px; border: 1px solid var(--border);
-    border-radius: 8px; cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    background: var(--bg3);
-  }
+  /* Output format */
+  .fmt-grid { display: flex; flex-direction: column; gap: 8px; }
+  .fmt-opt { display: flex; align-items: flex-start; gap: 12px; padding: 11px 13px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: border-color 0.15s, background 0.15s; background: var(--bg3); }
   .fmt-opt input[type="radio"] { display: none; }
   .fmt-opt:hover { border-color: var(--border2); }
   .fmt-opt:has(input:checked) { border-color: var(--amber-dim); background: var(--amber-glow); }
-  .fmt-ext {
-    font-family: 'DM Mono', monospace; font-size: 0.85em; font-weight: 500;
-    color: var(--amber); white-space: nowrap; min-width: 38px; padding-top: 2px;
-  }
-  .fmt-desc { font-size: 0.82em; color: var(--text2); line-height: 1.45; }
+  .fmt-ext { font-family: 'DM Mono', monospace; font-size: 0.85em; font-weight: 500; color: var(--amber); white-space: nowrap; min-width: 38px; padding-top: 2px; }
+  .fmt-desc { font-size: 0.8em; color: var(--text2); line-height: 1.45; }
 
-  /* ── Buttons ── */
-  .btn {
-    background: var(--amber);
-    color: #0a0800;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 0.88em;
-    font-weight: 700;
-    font-family: 'Syne', sans-serif;
-    margin-right: 8px;
-    margin-top: 6px;
-    transition: all 0.15s;
-    letter-spacing: 0.01em;
-  }
+  /* Folder picker */
+  .folder-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .folder-disp { background: var(--bg); border: 1px solid var(--border); border-radius: 9px; padding: 9px 13px; font-size: 0.8em; color: var(--text3); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'DM Mono', monospace; }
 
-  .btn:hover:not(:disabled) {
-    background: var(--amber2);
-    box-shadow: 0 0 20px var(--amber-glow);
-  }
-
+  /* Buttons (tool) */
+  .btn { background: var(--amber); color: #0a0800; border: none; padding: 11px 22px; border-radius: 10px; cursor: pointer; font-size: 0.9em; font-weight: 700; font-family: 'Inter', sans-serif; margin-right: 8px; margin-top: 6px; transition: all 0.15s; }
+  .btn:hover:not(:disabled) { background: var(--amber2); box-shadow: 0 6px 18px var(--amber-glow); }
   .btn:disabled { background: var(--bg3); color: var(--text3); cursor: not-allowed; border: 1px solid var(--border); }
   .btn.sec { background: var(--bg3); color: var(--text2); border: 1px solid var(--border2); }
   .btn.sec:hover:not(:disabled) { background: var(--border2); color: var(--text); }
   .btn.grn { background: #15803d; color: white; }
-  .btn.grn:hover:not(:disabled) { background: #16a34a; box-shadow: 0 0 20px #22c55e22; }
+  .btn.grn:hover:not(:disabled) { background: #16a34a; box-shadow: 0 6px 18px #22c55e22; }
 
-  /* ── Progress ── */
-  .progress-bar {
-    background: var(--bg);
-    border-radius: 999px;
-    height: 6px;
-    overflow: hidden;
-    margin: 12px 0 5px;
-    border: 1px solid var(--border);
-  }
+  /* Progress */
+  .progress-bar { background: var(--bg); border-radius: 999px; height: 7px; overflow: hidden; margin: 14px 0 6px; border: 1px solid var(--border); }
+  .progress-fill { background: linear-gradient(90deg, var(--amber), var(--amber2)); height: 100%; border-radius: 999px; transition: width 0.4s; width: 0%; box-shadow: 0 0 10px var(--amber-glow); }
+  .status-line { color: var(--text3); font-size: 0.8em; min-height: 18px; margin-top: 3px; font-family: 'DM Mono', monospace; }
 
-  .progress-fill {
-    background: linear-gradient(90deg, var(--amber), var(--amber2));
-    height: 100%;
-    border-radius: 999px;
-    transition: width 0.4s;
-    width: 0%;
-    box-shadow: 0 0 10px var(--amber-glow);
-  }
-
-  .status-line {
-    color: var(--text3);
-    font-size: 0.8em;
-    min-height: 18px;
-    margin-top: 3px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* ── Video progress cards ── */
-  .video-item {
-    border: 1px solid var(--border);
-    border-radius: 9px;
-    padding: 14px;
-    margin: 8px 0;
-    background: var(--bg3);
-    transition: all 0.2s;
-  }
-
+  /* Per-video progress */
+  .progress-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 18px; }
+  .progress-card .field-label { margin-bottom: 14px; }
+  .video-item { border: 1px solid var(--border); border-radius: 11px; padding: 14px; margin: 8px 0; background: var(--bg3); transition: all 0.2s; }
   .video-item.complete { border-color: #166534; background: #020f06; }
-  .video-item.errored  { border-color: #7f1d1d; background: #0d0202; }
-
-  .video-name   { font-size: 0.88em; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+  .video-item.errored { border-color: #7f1d1d; background: #0d0202; }
+  .video-name { font-size: 0.88em; font-weight: 600; margin-bottom: 4px; color: var(--text); }
   .video-status { font-size: 0.77em; color: var(--text3); margin-top: 6px; font-family: 'DM Mono', monospace; }
-
   .seg-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 9px; }
   .seg-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border2); transition: background 0.3s; flex-shrink: 0; }
   .seg-dot.active { background: var(--amber); animation: pulse 0.8s infinite; }
-  .seg-dot.done   { background: var(--green); }
-  .seg-dot.err    { background: var(--red); }
+  .seg-dot.done { background: var(--green); }
+  .seg-dot.err { background: var(--red); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-  /* ── Log ── */
-  .log {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px;
-    font-size: 0.76em;
-    color: var(--text3);
-    font-family: 'DM Mono', monospace;
-    max-height: 240px;
-    overflow-y: auto;
-    line-height: 1.7;
-  }
-
-  .log .ok    { color: var(--green); }
-  .log .err   { color: var(--red); }
-  .log .info  { color: var(--blue); }
-  .log .warn  { color: var(--amber); }
+  /* Log — collapsed advanced section */
+  .log-details { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 6px 22px; margin-bottom: 18px; }
+  .log-details summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 0; font-family: 'Inter', sans-serif; font-size: 0.84em; font-weight: 600; color: var(--text2); }
+  .log-details summary::-webkit-details-marker { display: none; }
+  .log-details summary .log-toggle { font-family: 'DM Mono', monospace; font-size: 0.82em; font-weight: 500; color: var(--text3); }
+  .log-details summary .log-toggle::before { content: '▸ Show details'; }
+  .log-details[open] summary .log-toggle::before { content: '▾ Hide details'; }
+  .log-details[open] summary { border-bottom: 1px solid var(--border); }
+  .log { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; font-size: 0.76em; color: var(--text3); font-family: 'DM Mono', monospace; max-height: 220px; overflow-y: auto; line-height: 1.7; margin: 14px 0 16px; }
+  .log .ok { color: var(--green); }
+  .log .err { color: var(--red); }
+  .log .info { color: var(--blue); }
+  .log .warn { color: var(--amber); }
   .log .debug { color: var(--purple); }
 
-  /* ── Footer ── */
-  .site-footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 0 0;
-    margin-top: 40px;
-    display: flex;
+  /* ════════ FEATURE CARDS ════════ */
+  .section-head { text-align: center; max-width: 640px; margin: 0 auto 26px; }
+  .section-head h2 { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.5em; letter-spacing: -0.02em; color: var(--text); margin-bottom: 8px; }
+  .section-head p { color: var(--text2); font-size: 0.95em; }
+  .feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 60px 0; }
+  @media (max-width: 860px) { .feature-grid { grid-template-columns: 1fr 1fr; } }
+  .feature-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 22px; transition: border-color 0.2s, transform 0.15s; }
+  .feature-card:hover { border-color: var(--amber-dim); transform: translateY(-3px); }
+  .feature-ic { width: 42px; height: 42px; border-radius: 11px; background: var(--amber-glow); border: 1px solid var(--amber-dim); display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+  .feature-ic svg { width: 20px; height: 20px; stroke: var(--amber); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .feature-title { font-family: 'Inter', sans-serif; font-size: 0.96em; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .feature-desc { font-size: 0.82em; color: var(--text2); line-height: 1.55; margin-bottom: 12px; }
+  .feature-metric { font-family: 'DM Mono', monospace; font-size: 0.7em; color: var(--amber2); border-top: 1px solid var(--border); padding-top: 10px; letter-spacing: 0.02em; }
+
+  /* ════════ KNOWLEDGE AGENT BANNER ════════ */
+  .ka-section {
+    background: linear-gradient(135deg, rgba(245,158,11,0.10), var(--bg2));
+    border: 1px solid var(--amber-dim);
+    border-radius: 20px;
+    padding: 34px;
+    margin: 64px 0;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 28px;
     align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
   }
+  @media (max-width: 760px) { .ka-section { grid-template-columns: 1fr; padding: 26px; } }
+  .ka-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72em; text-transform: uppercase; letter-spacing: 0.12em; color: var(--amber); margin-bottom: 10px; }
+  .ka-h2 { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.55em; letter-spacing: -0.025em; color: var(--text); margin-bottom: 12px; line-height: 1.15; }
+  .ka-p { font-size: 0.95em; color: var(--text2); line-height: 1.6; }
+  .ka-cta { display: flex; flex-direction: column; gap: 12px; }
+  .ka-pill { display: flex; align-items: center; gap: 10px; font-size: 0.85em; color: var(--text2); background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; }
+  .ka-pill .pi { color: var(--amber); font-weight: 700; }
 
-  .footer-brand {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.85em;
-    font-weight: 700;
-    color: var(--text3);
-  }
+  /* ════════ RESOURCE / SEO GRID ════════ */
+  .resource-wrap { margin: 64px 0 0; }
+  .resource-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .resource-link { display: block; background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; color: var(--text2); text-decoration: none; transition: all 0.15s; }
+  .resource-link:hover { border-color: var(--amber-dim); transform: translateY(-2px); }
+  .resource-link strong { display: block; color: var(--text); font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.9em; margin-bottom: 3px; }
+  .resource-link span { font-size: 0.76em; color: var(--text3); }
 
-  .footer-brand span { color: var(--amber); }
+  /* ════════ SUPPORT ════════ */
+  .support-card { background: linear-gradient(135deg, #1a1200, var(--bg2)); border: 1px solid var(--amber-dim); border-radius: 18px; padding: 24px; margin: 64px 0 0; }
+  .support-inner { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .support-icon { font-size: 2em; flex-shrink: 0; filter: drop-shadow(0 0 12px var(--amber-glow)); }
+  .support-text { flex: 1; min-width: 220px; }
+  .support-title { font-family: 'Inter', sans-serif; font-size: 1.05em; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+  .support-desc { font-size: 0.83em; color: var(--text2); line-height: 1.55; }
+  .support-btn { background: var(--amber); color: #0a0800; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.9em; padding: 12px 24px; border-radius: 10px; text-decoration: none; white-space: nowrap; transition: all 0.15s; box-shadow: 0 6px 18px var(--amber-glow); }
+  .support-btn:hover { background: var(--amber2); transform: translateY(-1px); }
+  @media (max-width: 600px) { .support-inner { flex-direction: column; text-align: center; } }
 
-  .footer-links {
-    display: flex;
-    gap: 16px;
-    font-size: 0.78em;
-    color: var(--text3);
-  }
-
-  .footer-links a {
-    color: var(--text3);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-
+  /* ════════ FOOTER ════════ */
+  .site-footer { border-top: 1px solid var(--border); padding: 28px 0 0; margin-top: 44px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .footer-brand { font-family: 'Syne', sans-serif; font-size: 0.85em; font-weight: 700; color: var(--text3); }
+  .footer-brand .logo-it { color: var(--green); }
+  .footer-tagline { font-size: 0.78em; font-weight: 400; color: var(--text3); }
+  .footer-links { display: flex; gap: 16px; font-size: 0.78em; flex-wrap: wrap; }
+  .footer-links a { color: var(--text3); text-decoration: none; transition: color 0.15s; }
   .footer-links a:hover { color: var(--amber); }
-
-  .footer-support-line {
-    width: 100%;
-    font-size: 0.75em;
-    color: var(--text3);
-    margin-top: 4px;
-  }
+  .footer-support-line { width: 100%; font-size: 0.75em; color: var(--text3); margin-top: 4px; }
   .footer-support-line a { color: var(--text3); text-decoration: none; }
   .footer-support-line a:hover { color: var(--amber); }
-
-  .footer-note {
-    width: 100%;
-    font-size: 0.73em;
-    color: var(--text3);
-    margin-top: 8px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-    line-height: 1.6;
-  }
-
-  /* ── Browser compat note ── */
-  .compat-note {
-    background: #1a1200;
-    border: 1px solid var(--amber-dim);
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 0.78em;
-    color: var(--amber2);
-    margin-bottom: 16px;
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
-  }
-
-
-  /* ── SEO / resource links ── */
-  .resource-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 10px;
-  }
-  .resource-link {
-    display: block;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px 14px;
-    color: var(--text2);
-    text-decoration: none;
-    transition: all 0.15s;
-  }
-  .resource-link:hover {
-    border-color: var(--amber-dim);
-    color: var(--amber);
-    text-decoration: none;
-    transform: translateY(-1px);
-  }
-  .resource-link strong {
-    display: block;
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    font-size: 0.9em;
-    margin-bottom: 3px;
-  }
-  .resource-link span {
-    font-size: 0.76em;
-    color: var(--text3);
-  }
-
-  /* ── Support / donations ── */
-  .support-card {
-    background: linear-gradient(135deg, #1a1200, var(--bg2));
-    border-color: var(--amber-dim);
-  }
-
-  .support-inner {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-
-  .support-icon {
-    font-size: 2.1em;
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 12px var(--amber-glow));
-  }
-
-  .support-text { flex: 1; min-width: 220px; }
-
-  .support-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.05em;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 5px;
-  }
-
-  .support-desc {
-    font-size: 0.83em;
-    color: var(--text2);
-    line-height: 1.55;
-  }
-
-  .support-btn {
-    background: var(--amber);
-    color: #0a0800;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    font-size: 0.9em;
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: all 0.15s;
-    box-shadow: 0 0 20px var(--amber-glow);
-  }
-
-  .support-btn:hover {
-    background: var(--amber2);
-    box-shadow: 0 0 30px var(--amber-glow);
-    transform: translateY(-1px);
-  }
-
-  @media (max-width: 600px) {
-    .support-inner { flex-direction: column; text-align: center; }
-  }
+  .footer-note { width: 100%; font-size: 0.73em; color: var(--text3); margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--border); line-height: 1.6; }
 
   /* Scrollbar */
   ::-webkit-scrollbar { width: 6px; }
@@ -902,64 +448,23 @@
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
 
-  /* ── Header top row (logo + actions) ── */
-  .header-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    margin-bottom: 6px;
-  }
-
-  .header-actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
-  }
-
-  .btn-support-sm {
-    font-size: 0.72em;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    color: var(--amber);
-    text-decoration: none;
-    border: 1px solid var(--amber-dim);
-    border-radius: 7px;
-    padding: 5px 12px;
-    background: var(--amber-glow);
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-
-  .btn-support-sm:hover {
-    background: var(--amber-dim);
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  /* ── Light mode overrides for hardcoded dark colours ── */
-  [data-theme="light"] body::before { opacity: 0.12; }
-  [data-theme="light"] body { transition: background 0.25s, color 0.25s; }
-  [data-theme="light"] .model-card.selected { background: #fefce8; box-shadow: 0 0 0 1px #fde68a, inset 0 0 20px #d9770622; }
-  [data-theme="light"] .drop-zone:hover,
-  [data-theme="light"] .drop-zone.drag-over { background: #fffbeb; box-shadow: 0 0 30px #d9770622; }
+  /* ════════ LIGHT MODE OVERRIDES ════════ */
+  [data-theme="light"] .model-card.selected { background: #fefce8; box-shadow: 0 0 0 1px #fde68a, inset 0 0 24px #d9770622; }
+  [data-theme="light"] .drop-zone:hover, [data-theme="light"] .drop-zone.drag-over { background: #fffbeb; box-shadow: inset 0 0 40px #d9770622; }
   [data-theme="light"] .video-item.complete { border-color: #166534; background: #f0fdf4; }
-  [data-theme="light"] .video-item.errored  { border-color: #b91c1c; background: #fef2f2; }
+  [data-theme="light"] .video-item.errored { border-color: #b91c1c; background: #fef2f2; }
   [data-theme="light"] .remove-btn { background: #fee2e2; color: #b91c1c; border-color: #fca5a5; }
   [data-theme="light"] .remove-btn:hover { background: #fca5a5; }
-  [data-theme="light"] .compat-note { background: #fffbeb; color: #92400e; border-color: #fde68a; }
-  [data-theme="light"] .support-card { background: linear-gradient(135deg, #fef9ec, var(--bg2)); }
   [data-theme="light"] .badge.gpu { background: #ede9fe; color: #6d28d9; border-color: #c4b5fd; }
   [data-theme="light"] .badge.new { background: #dcfce7; color: #15803d; border-color: #86efac; }
-  [data-theme="light"] .badge.local { background: #fef9ec; color: #92400e; border-color: #fde68a; }
-  [data-theme="light"] .resource-link { background: var(--bg2); }
+  [data-theme="light"] .support-card { background: linear-gradient(135deg, #fef9ec, var(--bg2)); }
   [data-theme="light"] .btn.grn { background: #16a34a; }
   [data-theme="light"] .btn.grn:hover:not(:disabled) { background: #15803d; }
+  [data-theme="light"] .announce .tag { color: #fff; }
+  [data-theme="light"] .support-icon { filter: none; }
 
   @media (max-width: 600px) {
-    .logo-text { font-size: 1.5em; }
-    .tagline { padding-left: 0; }
-    .feature-grid { grid-template-columns: 1fr 1fr; }
+    .logo-text { font-size: 1.3em; }
     .ad-top, .ad-bottom { height: 60px; }
   }
 </style>
@@ -968,162 +473,188 @@
 
 <div class="page-wrap">
 
-  <!-- ══ TOP AD SLOT ════════════════════════════════════════ -->
-  <!-- Replace this div's contents with your AdSense ad unit code -->
+  <!-- ══ TOP AD SLOT ══ -->
   <div class="ad-slot ad-top ad-placeholder">
-    <!-- AdSense Leaderboard 728×90 — replace with your ad unit -->
     <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
-    AD SLOT · 728×90 · Top Leaderboard
+    AD SLOT · 970×90 · Top Leaderboard
   </div>
 
-  <!-- ══ HEADER ═════════════════════════════════════════════ -->
-  <header class="site-header">
-    <div class="header-top">
-      <div class="logo-row">
-        <div class="logo-icon">✍️</div>
-        <div class="logo-text"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span></div>
-      </div>
-      <div class="header-actions">
-        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
-        <a class="btn-support-sm" href="https://ko-fi.com/scribeitlocal" target="_blank" rel="noopener">☕ Support this tool</a>
-      </div>
+  <!-- ══ HEADER ══ -->
+  <header class="app-header">
+    <a class="logo-row" href="index.html">
+      <div class="logo-icon">✍️</div>
+      <div class="logo-text"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span></div>
+    </a>
+    <div class="header-actions">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light/dark mode">☀️</button>
+      <a class="btn-support-sm" href="https://ko-fi.com/scribeitlocal" target="_blank" rel="noopener">☕ Support</a>
     </div>
-    <p class="tagline">Transcribe Audio &amp; Video to Text — Instantly in Your Browser</p>
-    <p class="tagline-sub">No uploads. No account. 100% free — your files never leave your device.</p>
-    <p class="tagline-speed">⚡ Up to 50× faster than real-time with WebGPU</p>
   </header>
 
-  <!-- ══ TOOL ══════════════════════════════════════════════ -->
-
-  <!-- How it works -->
-  <div class="how-steps">
-    <div class="how-step">
-      <div class="how-num">1</div>
-      <div class="how-title">Drop Your File</div>
-      <div class="how-desc">MP3, MP4, WAV, MKV and more</div>
-    </div>
-    <div class="how-arrow">→</div>
-    <div class="how-step">
-      <div class="how-num">2</div>
-      <div class="how-title">Runs Locally</div>
-      <div class="how-desc">AI processes on your device — nothing uploaded</div>
-    </div>
-    <div class="how-arrow">→</div>
-    <div class="how-step">
-      <div class="how-num">3</div>
-      <div class="how-title">Get Your Text</div>
-      <div class="how-desc">Copy or download in your chosen format</div>
-    </div>
+  <!-- ══ ANNOUNCEMENT ══ -->
+  <div class="announce-row">
+    <a class="announce" href="build-knowledge-agent-from-meetings.html" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'announcement'})">
+      <span class="tag">New</span>
+      <span>Build AI knowledge agents from existing meeting recordings</span>
+      <span class="arrow">→</span>
+    </a>
   </div>
 
-  <div class="step-label">Step 1 — Add Files</div>
-  <!-- File drop -->
-  <div class="card" id="tool">
-    <div class="card-title">Upload or Try Demo</div>
-    <button class="btn" id="demoBtn" onclick="runDemo()">⚡ Try Demo (10 sec — no upload)</button>
-    <p class="first-run-note">⚡ First run sets things up (10–30 seconds). After that, transcription is instant and runs entirely on your device.</p>
+  <!-- ══ HERO ══ -->
+  <section class="hero-new">
+    <div class="hero-copy">
+      <h1 class="hero-h1">Turn Meetings, Videos &amp; Audio Into <span class="accent">AI-Ready Knowledge</span></h1>
+      <p class="hero-sub">Transcribe recordings into clean Markdown, text, subtitles, and AI-ready files directly in your browser. No uploads. No accounts. No cloud processing.</p>
+      <div class="hero-cta-row">
+        <a class="btn-lg primary" href="#tool">Start Transcribing</a>
+        <a class="btn-lg ghost" href="build-knowledge-agent-from-meetings.html" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'hero'})">Build Knowledge Agents →</a>
+      </div>
+      <div class="hero-trust">
+        <span><span class="ck">✓</span> No uploads</span>
+        <span><span class="ck">✓</span> No account</span>
+        <span><span class="ck">✓</span> Runs locally</span>
+        <span><span class="ck">✓</span> WebGPU accelerated</span>
+        <span><span class="ck">✓</span> Free core transcription</span>
+      </div>
+      <p class="hero-foot">Prepare recordings for Claude Projects, ChatGPT Projects, internal knowledge bases, and RAG systems.</p>
+    </div>
+
+    <div class="hero-preview" aria-hidden="true">
+      <div class="hp-card">
+        <div class="hp-top">
+          <span class="hp-dot r"></span><span class="hp-dot y"></span><span class="hp-dot g"></span>
+          <span class="hp-top-title">ScribeItLocal · Workspace</span>
+        </div>
+        <div class="hp-body">
+          <div class="hp-file">
+            <span class="hp-fname">
+              <span class="hp-fi"><svg viewBox="0 0 24 24"><path d="M14 3v5h5"/><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2z"/></svg></span>
+              Meeting-Review.mp4
+            </span>
+            <span class="hp-proc">Processing…</span>
+          </div>
+          <div class="hp-prog"><i></i></div>
+
+          <div class="hp-label">Output</div>
+          <div class="hp-out">
+            <div><span class="ok">✓</span> Meeting-Review.md</div>
+            <div><span class="ok">✓</span> Meeting-Review.txt</div>
+          </div>
+
+          <div class="hp-label">Ready for</div>
+          <div class="hp-ready">
+            <span class="hp-chip">Claude Projects</span>
+            <span class="hp-chip">ChatGPT Projects</span>
+            <span class="hp-chip">Knowledge Bases</span>
+            <span class="hp-chip">RAG Systems</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ UNIFIED WORKSPACE (tool) ══ -->
+  <div class="workspace" id="tool">
+    <div class="ws-head">
+      <div class="ws-title"><span class="ws-live"></span> Local AI Transcription Workspace</div>
+      <div class="ws-sub">Private · On-device · WebGPU accelerated</div>
+    </div>
+
+    <!-- Add files -->
+    <div class="field-label">1 · Add files</div>
+    <button class="btn" id="demoBtn" onclick="runDemo()">Run a 10-second demo (no upload)</button>
+    <p class="first-run-note">First run sets up the AI model (one-time, ~10–30 sec). After that, transcription is instant and fully on-device.</p>
     <div class="demo-divider">— or drop your own files —</div>
     <div class="drop-zone" id="dropZone"
       onclick="document.getElementById('fileInput').click()"
       ondragover="event.preventDefault();this.classList.add('drag-over')"
       ondragleave="this.classList.remove('drag-over')"
       ondrop="handleDrop(event)">
-      <span class="drop-zone-icon">📁</span>
+      <span class="drop-zone-icon"><svg viewBox="0 0 24 24"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 17v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1"/></svg></span>
       <div class="drop-zone-main">Click to browse, or drag &amp; drop files here</div>
-      <div class="drop-zone-sub">Add multiple files at once · MP4 · MOV · MKV · AVI · WEBM · MP3 · WAV · M4A</div>
+      <div class="drop-zone-sub">Batch multiple at once · MP4 · MOV · MKV · AVI · WEBM · MP3 · WAV · M4A</div>
     </div>
     <input type="file" id="fileInput" accept="video/*,audio/*,.mkv,.avi,.mov,.webm,.mp4,.mp3,.wav,.m4a" multiple onchange="handleFiles(this.files)">
     <div id="queueList"></div>
-    <p class="drop-reassure">⚡ Runs entirely in your browser — no upload, no account, no server.</p>
-  </div>
 
-  <div class="trust-strip">
-    <div class="trust-badge green"><span class="dot"></span> Free Core Transcription</div>
-    <div class="trust-badge green"><span class="dot"></span> Nothing Uploaded</div>
-    <div class="trust-badge green"><span class="dot"></span> No Account Required</div>
-    <div class="trust-badge"><span class="dot"></span> Batch Transcription</div>
-    <div class="trust-badge blue"><span class="dot"></span> Works in Chrome &amp; Edge</div>
-    <div class="trust-badge blue"><span class="dot"></span> WebGPU Accelerated</div>
-    <div class="trust-badge"><span class="dot"></span> Powered by OpenAI Whisper</div>
-  </div>
+    <div class="ws-divider"></div>
 
-  <div class="step-label">Step 2 — Choose Model / Speed</div>
-  <!-- Model selector -->
-  <div class="card">
-    <div class="card-title">Model &amp; Speed</div>
+    <!-- Model & speed -->
+    <div class="field-label">2 · Model &amp; speed</div>
     <div class="model-grid">
       <div class="model-card selected" id="mc-tiny-gpu" onclick="selectModel('tiny-gpu')">
-        <div class="mc-title">🚀 Tiny — WebGPU <span class="badge gpu">GPU</span></div>
+        <div class="mc-title"><span class="mc-dot rec"></span> Tiny — WebGPU <span class="badge gpu">GPU</span></div>
         <div class="mc-id">Xenova/whisper-tiny.en</div>
-        <div class="mc-speed">~40–50× real-time ⭐ Recommended</div>
+        <div class="mc-speed">~40–50× real-time · Recommended</div>
         <div class="mc-note">~40 MB · Fastest · English only</div>
       </div>
       <div class="model-card" id="mc-base-gpu" onclick="selectModel('base-gpu')">
-        <div class="mc-title">⭐ Base — WebGPU <span class="badge gpu">GPU</span></div>
+        <div class="mc-title"><span class="mc-dot"></span> Base — WebGPU <span class="badge gpu">GPU</span></div>
         <div class="mc-id">Xenova/whisper-base.en</div>
         <div class="mc-speed">~20–30× real-time on GPU</div>
         <div class="mc-note">~75 MB · Better accuracy · English only</div>
       </div>
       <div class="model-card" id="mc-turbo-gpu" onclick="selectModel('turbo-gpu')">
-        <div class="mc-title">🎯 Turbo — WebGPU <span class="badge gpu">GPU</span> <span class="badge new">NEW</span></div>
+        <div class="mc-title"><span class="mc-dot"></span> Turbo — WebGPU <span class="badge gpu">GPU</span> <span class="badge new">NEW</span></div>
         <div class="mc-id">onnx-community/whisper-large-v3-turbo</div>
         <div class="mc-speed">~10–15× real-time on GPU</div>
         <div class="mc-note">~200 MB · Best accuracy on GPU</div>
       </div>
       <div class="model-card" id="mc-base-cpu" onclick="selectModel('base-cpu')">
-        <div class="mc-title">🖥 Base — CPU Fallback</div>
+        <div class="mc-title"><span class="mc-dot cpu"></span> Base — CPU Fallback</div>
         <div class="mc-id">Xenova/whisper-base.en (q8)</div>
         <div class="mc-speed">~4–6× real-time on CPU</div>
         <div class="mc-note">~75 MB · Use if GPU fails or on Firefox</div>
       </div>
     </div>
     <div id="gpuStatus">Checking WebGPU support...</div>
-    <div id="modelNote">⚡ First run sets up the AI model (one-time, ~10–30 sec). After that, instant — cached in your browser.</div>
-  </div>
+    <div id="modelNote">First run sets up the AI model (one-time, ~10–30 sec). After that, instant — cached in your browser.</div>
+    <p class="ws-note"><strong>Best in Chrome or Edge</strong> for WebGPU speed. Firefox: pick the CPU fallback model. Safari is not supported.</p>
 
-  <div class="step-label">Step 3 — Choose Where to Save Your Files</div>
-  <!-- Save location -->
-  <div class="card">
-    <div class="card-title">Save Location <span style="font-size:0.85em;color:var(--text3);font-weight:400;text-transform:none;letter-spacing:0">(Chrome/Edge only)</span></div>
-    <div class="folder-row">
-      <div class="folder-disp" id="folderDisp">No folder selected — transcripts auto-download when complete</div>
-      <button class="btn sec" onclick="pickFolder()">📁 Choose Folder</button>
-      <button class="btn sec" onclick="clearFolder()">✕</button>
+    <div class="ws-divider"></div>
+
+    <!-- Output + save (two columns) -->
+    <div class="ws-two">
+      <div>
+        <div class="field-label">3 · Output format</div>
+        <div class="fmt-grid">
+          <label class="fmt-opt">
+            <input type="radio" name="outFmt" value="md" checked onchange="updateFmtBtn(this.value)">
+            <span class="fmt-ext">.md</span>
+            <span class="fmt-desc"><strong>Markdown</strong> — Best for AI agents, Claude Projects, and note apps like Obsidian. Structured headings + timestamps.</span>
+          </label>
+          <label class="fmt-opt">
+            <input type="radio" name="outFmt" value="txt" onchange="updateFmtBtn(this.value)">
+            <span class="fmt-ext">.txt</span>
+            <span class="fmt-desc"><strong>Plain Text</strong> — Universal compatibility. Opens in any app on any device.</span>
+          </label>
+          <label class="fmt-opt">
+            <input type="radio" name="outFmt" value="srt" onchange="updateFmtBtn(this.value)">
+            <span class="fmt-ext">.srt</span>
+            <span class="fmt-desc"><strong>SubRip Subtitles</strong> — For video editors (Premiere, DaVinci, CapCut) and YouTube captions.</span>
+          </label>
+          <label class="fmt-opt">
+            <input type="radio" name="outFmt" value="vtt" onchange="updateFmtBtn(this.value)">
+            <span class="fmt-ext">.vtt</span>
+            <span class="fmt-desc"><strong>WebVTT</strong> — Web standard for HTML5 video captions and streaming.</span>
+          </label>
+        </div>
+      </div>
+      <div>
+        <div class="field-label">4 · Save location <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--text3);">(Chrome/Edge)</span></div>
+        <div class="folder-row">
+          <div class="folder-disp" id="folderDisp">No folder selected — transcripts auto-download when complete</div>
+          <button class="btn sec" onclick="pickFolder()">Choose Folder</button>
+          <button class="btn sec" onclick="clearFolder()">Clear</button>
+        </div>
+        <p class="ws-note">Without a folder, finished transcripts download automatically to your default Downloads folder.</p>
+      </div>
     </div>
-  </div>
 
-  <div class="step-label">Step 4 — Choose Your Output Format</div>
-  <!-- Output Format -->
-  <div class="card">
-    <div class="card-title">Output Format</div>
-    <div class="fmt-grid">
-      <label class="fmt-opt">
-        <input type="radio" name="outFmt" value="md" checked onchange="updateFmtBtn(this.value)">
-        <span class="fmt-ext">.md</span>
-        <span class="fmt-desc"><strong>Markdown</strong> — Best for AI agents, note-taking apps like Obsidian, and developers. Structured with headings and 5-minute timestamp sections.</span>
-      </label>
-      <label class="fmt-opt">
-        <input type="radio" name="outFmt" value="txt" onchange="updateFmtBtn(this.value)">
-        <span class="fmt-ext">.txt</span>
-        <span class="fmt-desc"><strong>Plain Text</strong> — Universal compatibility. Clean, simple text that opens in any app on any device.</span>
-      </label>
-      <label class="fmt-opt">
-        <input type="radio" name="outFmt" value="srt" onchange="updateFmtBtn(this.value)">
-        <span class="fmt-ext">.srt</span>
-        <span class="fmt-desc"><strong>SubRip Subtitles</strong> — Standard subtitle format for video editors (Premiere, DaVinci Resolve, CapCut) and YouTube caption uploads.</span>
-      </label>
-      <label class="fmt-opt">
-        <input type="radio" name="outFmt" value="vtt" onchange="updateFmtBtn(this.value)">
-        <span class="fmt-ext">.vtt</span>
-        <span class="fmt-desc"><strong>WebVTT</strong> — Web standard for HTML5 video captions. Use with your own video player or streaming setup.</span>
-      </label>
-    </div>
-  </div>
+    <div class="ws-divider"></div>
 
-  <div class="step-label">Step 5 — Run Your Transcription Locally</div>
-  <!-- Start -->
-  <div class="card">
-    <div class="card-title">Transcribe</div>
+    <!-- Run -->
+    <div class="field-label">5 · Run transcription</div>
     <button class="btn" id="startBtn" onclick="startAll()" disabled>▶ Start Transcription</button>
     <button class="btn grn" id="dlAllBtn" style="display:none" onclick="downloadAll()">⬇ Download All .md Files</button>
     <div class="progress-bar"><div class="progress-fill" id="globalProg"></div></div>
@@ -1131,137 +662,144 @@
   </div>
 
   <!-- Per-video progress -->
-  <div class="card" id="progressCard" style="display:none">
-    <div class="card-title">Progress</div>
+  <div class="progress-card" id="progressCard" style="display:none">
+    <div class="field-label">Progress</div>
     <div id="videoList"></div>
   </div>
 
-  <!-- ══ INLINE AD SLOT ═════════════════════════════════════ -->
+  <!-- ══ INLINE AD SLOT ══ -->
   <div style="margin: 8px 0 16px; text-align:center;">
     <div class="ad-slot ad-inline ad-placeholder">
-      <!-- AdSense Rectangle 300×250 — replace with your ad unit -->
       <!-- <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
       AD SLOT · 300×250 · Rectangle
     </div>
   </div>
 
-  <!-- Log -->
-  <div class="card">
-    <div class="card-title">Activity Log</div>
+  <!-- Activity log (advanced, collapsed) -->
+  <details class="log-details">
+    <summary>Advanced Activity Log <span class="log-toggle"></span></summary>
     <div class="log" id="logEl"><span class="info">ScribeItLocal ready — open in Chrome or Edge for WebGPU acceleration (40–50× faster).</span>&#10;</div>
-  </div>
+  </details>
 
-
-  <!-- ══ SUPPORTED FORMATS ══════════════════════════════════ -->
-  <div class="formats-bar">
-    <span class="formats-label">Supported Formats</span>
-    <div class="format-tags">
-      <span class="fmt-tag">MP4</span>
-      <span class="fmt-tag">MOV</span>
-      <span class="fmt-tag">MKV</span>
-      <span class="fmt-tag">AVI</span>
-      <span class="fmt-tag">WEBM</span>
-      <span class="fmt-tag">MP3</span>
-      <span class="fmt-tag">WAV</span>
-      <span class="fmt-tag">M4A</span>
-    </div>
-  </div>
-
-  <!-- ══ BROWSER COMPAT NOTE ═══════════════════════════════ -->
-  <div class="compat-note">
-    ⚡ <span><strong>Best experience in Chrome or Edge</strong> — WebGPU gives you 40–50× real-time speed. Firefox users: select the CPU fallback model below. Safari is not supported.</span>
-  </div>
-
-  <!-- ══ FEATURE GRID ═══════════════════════════════════════ -->
+  <!-- ══ FEATURE CARDS ══ -->
   <div class="feature-grid">
     <div class="feature-card">
-      <span class="feature-icon">🔒</span>
-      <div class="feature-title">100% Private</div>
-      <div class="feature-desc">Your files never leave your computer. The AI model runs entirely in your browser — no server, no cloud, no surveillance.</div>
+      <div class="feature-ic"><svg viewBox="0 0 24 24"><path d="M14 3v5h5"/><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9l5 5v11a2 2 0 0 1-2 2z"/><path d="M8 13h6"/><path d="M8 17h8"/></svg></div>
+      <div class="feature-title">AI-Ready Markdown</div>
+      <div class="feature-desc">Export clean, structured Markdown with timestamps — ready for Claude Projects, RAG, and knowledge bases.</div>
+      <div class="feature-metric">Optimized for LLM ingestion</div>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">⚡</span>
-      <div class="feature-title">Blazing Fast</div>
-      <div class="feature-desc">WebGPU acceleration delivers up to 50× real-time transcription speed. A 10-minute video in under 20 seconds.</div>
+      <div class="feature-ic"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+      <div class="feature-title">Private Local Processing</div>
+      <div class="feature-desc">The AI model runs entirely in your browser. Files never leave your device — no server, no cloud.</div>
+      <div class="feature-metric">0 files uploaded</div>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">📂</span>
-      <div class="feature-title">Batch Multiple Files</div>
-      <div class="feature-desc">Queue up as many files as you need and transcribe them all in one shot. Walk away and come back to finished transcripts.</div>
+      <div class="feature-ic"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></div>
+      <div class="feature-title">Batch Meeting Conversion</div>
+      <div class="feature-desc">Queue many recordings at once and convert a full archive of meetings in a single run.</div>
+      <div class="feature-metric">Process entire archives</div>
     </div>
     <div class="feature-card">
-      <span class="feature-icon">💰</span>
-      <div class="feature-title">Actually Free</div>
-      <div class="feature-desc">No forced account, no upload fees, and no cloud transcription credits. Core transcription is free to use — supported by optional tips and unobtrusive ads.</div>
+      <div class="feature-ic"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></svg></div>
+      <div class="feature-title">WebGPU Speed</div>
+      <div class="feature-desc">Up to 50× real-time transcription on a GPU. A 10-minute clip in well under a minute.</div>
+      <div class="feature-metric">Up to 50× real-time</div>
     </div>
   </div>
 
-<!-- ══ POPULAR USE CASES / SEO LINKS ═════════════════════ -->
-<div class="card">
-  <div class="card-title">Popular Local AI Transcription Uses</div>
-  <div class="resource-grid">
+  <!-- ══ KNOWLEDGE AGENT BANNER ══ -->
+  <section class="ka-section">
+    <div>
+      <div class="ka-eyebrow">For teams &amp; businesses</div>
+      <h2 class="ka-h2">Build AI Knowledge Agents From Existing Meetings</h2>
+      <p class="ka-p">Most companies have years of recorded meetings, demos, trainings, and calls that never became usable knowledge. ScribeItLocal helps convert those recordings into structured Markdown files that can be used in Claude Projects, ChatGPT Projects, RAG systems, documentation, and internal knowledge bases.</p>
+      <div style="margin-top:18px;">
+        <a class="btn-lg primary" href="build-knowledge-agent-from-meetings.html" onclick="if(window.gtag)gtag('event','seo_cta_clicked',{page_path:location.pathname,page_title:document.title,cta_location:'ka_section'})">Learn how to build a knowledge agent →</a>
+      </div>
+    </div>
+    <div class="ka-cta">
+      <div class="ka-pill"><span class="pi">→</span> Recordings into clean Markdown</div>
+      <div class="ka-pill"><span class="pi">→</span> Organize a private knowledge vault</div>
+      <div class="ka-pill"><span class="pi">→</span> Feed Claude Projects, GPTs &amp; RAG</div>
+      <div class="ka-pill"><span class="pi">→</span> Nothing uploaded — prepared locally</div>
+    </div>
+  </section>
 
-    <a class="resource-link" href="transcribe-mp4-to-text.html">
-      <strong>Transcribe MP4 to Text</strong>
-      <span>Turn video files into private local transcripts.</span>
-    </a>
+  <!-- ══ POPULAR USE CASES / SEO LINKS ══ -->
+  <div class="resource-wrap">
+    <div class="section-head">
+      <h2>Popular Local AI Transcription Uses</h2>
+      <p>Explore guides and tools for every format and workflow — all private, all on-device.</p>
+    </div>
+    <div class="resource-grid">
 
-    <a class="resource-link" href="transcribe-audio-to-text-free.html">
-      <strong>Transcribe Audio to Text</strong>
-      <span>Convert MP3, WAV, and M4A files locally.</span>
-    </a>
+      <a class="resource-link" href="transcribe-mp4-to-text.html">
+        <strong>Transcribe MP4 to Text</strong>
+        <span>Turn video files into private local transcripts.</span>
+      </a>
 
-    <a class="resource-link" href="transcribe-mp3-to-text.html">
-      <strong>Transcribe MP3 to Text</strong>
-      <span>Convert MP3 audio into text with local AI.</span>
-    </a>
+      <a class="resource-link" href="transcribe-audio-to-text-free.html">
+        <strong>Transcribe Audio to Text</strong>
+        <span>Convert MP3, WAV, and M4A files locally.</span>
+      </a>
 
-    <a class="resource-link" href="transcribe-wav-to-text.html">
-      <strong>Transcribe WAV to Text</strong>
-      <span>Turn WAV files into private, local transcripts.</span>
-    </a>
+      <a class="resource-link" href="transcribe-mp3-to-text.html">
+        <strong>Transcribe MP3 to Text</strong>
+        <span>Convert MP3 audio into text with local AI.</span>
+      </a>
 
-    <a class="resource-link" href="free-video-transcription.html">
-      <strong>Free Video Transcription</strong>
-      <span>Transcribe video files privately in your browser.</span>
-    </a>
+      <a class="resource-link" href="transcribe-wav-to-text.html">
+        <strong>Transcribe WAV to Text</strong>
+        <span>Turn WAV files into private, local transcripts.</span>
+      </a>
 
-    <a class="resource-link" href="whisper-browser-transcription.html">
-      <strong>Whisper Browser Transcription</strong>
-      <span>Use Whisper-powered transcription directly in your browser.</span>
-    </a>
+      <a class="resource-link" href="free-video-transcription.html">
+        <strong>Free Video Transcription</strong>
+        <span>Transcribe video files privately in your browser.</span>
+      </a>
 
-    <a class="resource-link" href="offline-transcription-tool.html">
-      <strong>Offline Transcription Tool</strong>
-      <span>No uploads, no account, no cloud transcription server.</span>
-    </a>
+      <a class="resource-link" href="whisper-browser-transcription.html">
+        <strong>Whisper Browser Transcription</strong>
+        <span>Use Whisper-powered transcription directly in your browser.</span>
+      </a>
 
-    <a class="resource-link" href="ai-local-transcription.html">
-      <strong>Local AI Transcription</strong>
-      <span>AI that runs in your browser, on your device.</span>
-    </a>
+      <a class="resource-link" href="offline-transcription-tool.html">
+        <strong>Offline Transcription Tool</strong>
+        <span>No uploads, no account, no cloud transcription server.</span>
+      </a>
 
-    <a class="resource-link" href="transcribe-m4a-to-text.html">
-      <strong>Transcribe M4A to Text</strong>
-      <span>Convert iPhone voice memos and M4A recordings locally.</span>
-    </a>
+      <a class="resource-link" href="ai-local-transcription.html">
+        <strong>Local AI Transcription</strong>
+        <span>AI that runs in your browser, on your device.</span>
+      </a>
 
-    <a class="resource-link" href="transcribe-meeting-recordings.html">
-      <strong>Transcribe Meeting Recordings</strong>
-      <span>Private local transcription for recorded business meetings.</span>
-    </a>
+      <a class="resource-link" href="transcribe-m4a-to-text.html">
+        <strong>Transcribe M4A to Text</strong>
+        <span>Convert iPhone voice memos and M4A recordings locally.</span>
+      </a>
 
-    <a class="resource-link" href="meeting-transcripts-for-ai-agents.html">
-      <strong>Transcripts for AI Agents</strong>
-      <span>Prepare enterprise knowledge for RAG, AI agents, and knowledge bases.</span>
-    </a>
+      <a class="resource-link" href="transcribe-meeting-recordings.html">
+        <strong>Transcribe Meeting Recordings</strong>
+        <span>Private local transcription for recorded business meetings.</span>
+      </a>
 
+      <a class="resource-link" href="meeting-transcripts-for-ai-agents.html">
+        <strong>Transcripts for AI Agents</strong>
+        <span>Prepare enterprise knowledge for RAG, AI agents, and knowledge bases.</span>
+      </a>
+
+      <a class="resource-link" href="build-knowledge-agent-from-meetings.html">
+        <strong>Build a Knowledge Agent</strong>
+        <span>Turn meeting recordings into AI-ready Markdown for Claude Projects and RAG.</span>
+      </a>
+
+    </div>
   </div>
-</div>
 
-  <!-- ══ SUPPORT / DONATIONS ════════════════════════════════ -->
-  <!-- Replace the ko-fi.com/janktechventures URL (2 places: button + footer) with your real Ko-fi handle once the page is created -->
-  <div class="card support-card">
+  <!-- ══ SUPPORT / DONATIONS ══ -->
+  <div class="support-card">
     <div class="support-inner">
       <span class="support-icon">☕</span>
       <div class="support-text">
@@ -1272,7 +810,7 @@
     </div>
   </div>
 
-  <!-- ══ FOOTER ══════════════════════════════════════════════ -->
+  <!-- ══ FOOTER ══ -->
   <footer class="site-footer">
     <div class="footer-brand"><span class="logo-scribe">Scribe</span><span class="logo-it">It</span><span>Local</span> <span class="footer-tagline">— a product of <a href="https://janktechventures.com" target="_blank" rel="noopener">Janko Tech Ventures LLC</a></span></div>
     <div class="footer-links">
@@ -1290,11 +828,10 @@
     </div>
   </footer>
 
-  <!-- ══ BOTTOM AD SLOT ════════════════════════════════════ -->
+  <!-- ══ BOTTOM AD SLOT ══ -->
   <div class="ad-slot ad-bottom ad-placeholder" style="margin-top:24px;">
-    <!-- AdSense Leaderboard 728×90 — replace with your ad unit -->
     <!-- <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="XXXXXXXXXX"></ins> -->
-    AD SLOT · 728×90 · Bottom Leaderboard
+    AD SLOT · 970×90 · Bottom Leaderboard
   </div>
 
 </div><!-- /page-wrap -->
@@ -1405,7 +942,7 @@ window.downloadAll = () => { const fmt = getSelectedFormat(); queue.filter(v=>v.
 
 window.runDemo = async () => {
   const btn = document.getElementById('demoBtn');
-  btn.disabled = true; btn.textContent = '⏳ Loading demo audio...';
+  btn.disabled = true; btn.textContent = 'Loading demo audio…';
   trackEvent('demo_clicked');
   try {
     const res = await fetch('https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav');
@@ -1413,7 +950,7 @@ window.runDemo = async () => {
     const blob = await res.blob();
     const file = new File([blob], 'demo-jfk.wav', { type: 'audio/wav' });
     handleFiles([file]);
-    btn.textContent = '⚡ Try Demo (10 sec — no upload)';
+    btn.textContent = 'Run a 10-second demo (no upload)';
     btn.disabled = false;
     await startAll();
     trackEvent('demo_completed');
@@ -1421,7 +958,7 @@ window.runDemo = async () => {
     document.getElementById('progressCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
   } catch(e) {
     log('Demo failed: ' + e.message, 'err');
-    btn.textContent = '⚡ Try Demo (10 sec — no upload)';
+    btn.textContent = 'Run a 10-second demo (no upload)';
     btn.disabled = false;
   }
 };

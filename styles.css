@@ -54,7 +54,7 @@ html[data-theme="light"] {
 
 /* ── Body ── */
 body {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', 'DM Sans', sans-serif;
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
@@ -77,9 +77,9 @@ body::before {
 .page-wrap {
   position: relative;
   z-index: 1;
-  max-width: 860px;
+  max-width: 1120px;
   margin: 0 auto;
-  padding: 0 20px 60px;
+  padding: 0 24px 60px;
 }
 
 /* ── Topbar ── */
@@ -155,7 +155,7 @@ body::before {
 
 /* ── "Open the tool" / back-link — styled as amber CTA button ── */
 .back-link {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 0.88em;
   font-weight: 700;
   color: #0a0800;
@@ -185,35 +185,35 @@ body::before {
 
 /* ── Typography ── */
 h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: 2.05em;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.15em;
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.035em;
   margin-bottom: 12px;
-  line-height: 1.15;
+  line-height: 1.12;
 }
 
 h1 span { color: var(--amber); }
 
 h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.25em;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.35em;
+  font-weight: 800;
   color: var(--text);
-  margin: 28px 0 10px;
-  letter-spacing: -0.02em;
+  margin: 30px 0 10px;
+  letter-spacing: -0.025em;
 }
 
 h3 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1em;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.02em;
   font-weight: 700;
   color: var(--text);
   margin-bottom: 6px;
 }
 
-p  { color: var(--text2); margin-bottom: 14px; font-size: 1em; }
-ul, ol { color: var(--text2); margin: 0 0 16px 22px; font-size: 1em; }
+p  { color: var(--text2); margin-bottom: 14px; font-size: 1em; max-width: 75ch; }
+ul, ol { color: var(--text2); margin: 0 0 16px 22px; font-size: 1em; max-width: 75ch; }
 li { margin-bottom: 8px; }
 a  { color: var(--amber); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -293,6 +293,21 @@ strong { color: var(--text); }
   padding: 20px;
 }
 
+/* ── Code / folder-structure blocks ── */
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.76em;
+  color: var(--amber2);
+  line-height: 1.8;
+  white-space: pre;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
 /* ── Page CTA (SEO content pages + index hero) ── */
 .page-cta { margin: 20px 0 24px; }
 
@@ -339,13 +354,13 @@ strong { color: var(--text); }
 }
 
 .cta-text  { flex: 1; min-width: 200px; }
-.cta-title { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); font-size: 1.05em; margin-bottom: 4px; }
+.cta-title { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--text); font-size: 1.05em; margin-bottom: 4px; }
 .cta-sub   { font-size: 0.88em; color: var(--text2); }
 
 .cta-btn {
   background: var(--amber);
   color: #0a0800;
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: 0.92em;
   padding: 12px 24px;
