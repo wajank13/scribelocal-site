@@ -1195,7 +1195,7 @@ window.startAll = async () => {
   document.getElementById('startBtn').disabled = true;
   document.getElementById('dlAllBtn').style.display = 'none';
   renderVideoCards(batch); renderQueue();
-  document.getElementById('logEl').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  document.getElementById('progressCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   try { await loadModel(); }
   catch(e) { log('Model load failed: '+e.message,'err'); running=false; renderQueue(); return; }
